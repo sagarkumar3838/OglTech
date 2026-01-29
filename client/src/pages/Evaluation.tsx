@@ -966,31 +966,83 @@ const Evaluation = () => {
 
         {/* MCQ Options */}
         {currentQuestion.type === 'mcq' && (
-          <div className="space-y-3">
-            {currentQuestion.options.map((option: string, idx: number) => (
-              <button
-                key={idx}
-                onClick={() => handleAnswerSelect(option)}
-                className={`w-full text-left p-4 rounded-lg border-2 transition ${
-                  answers[currentQuestionIndex] === option
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-300'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+          <div className="space-y-4">
+            <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+              <p className="text-sm text-blue-800">
+                💡 Click an option or use the microphone to speak your choice (e.g., "A", "Option A", "First option")
+              </p>
+            </div>
+            
+            {/* Voice Input for MCQ */}
+            <div className="flex justify-center mb-4">
+              <VoiceInputButton
+                onTranscript={(text) => {
+                  // Parse voice input to select option
+                  const lowerText = text.toLowerCase().trim();
+                  
+                  // Match patterns like "a", "option a", "first", "first option", etc.
+                  let selectedOption = null;
+                  
+                  currentQuestion.options.forEach((option: string, idx: number) => {
+                    // Match by letter (a, b, c, d)
+                    const letter = String.fromCharCode(97 + idx); // 'a', 'b', 'c', 'd'
+                    if (lowerText === letter || lowerText === `option ${letter}`) {
+                      selectedOption = option;
+                    }
+                    
+                    // Match by number (1, 2, 3, 4 or first, second, third, fourth)
+                    const numbers = ['first', 'second', 'third', 'fourth', 'fifth'];
+                    if (lowerText === String(idx + 1) || 
+                        lowerText === `option ${idx + 1}` ||
+                        lowerText === numbers[idx] ||
+                        lowerText === `${numbers[idx]} option`) {
+                      selectedOption = option;
+                    }
+                    
+                    // Match by partial text of the option itself
+                    if (option.toLowerCase().includes(lowerText) && lowerText.length > 3) {
+                      selectedOption = option;
+                    }
+                  });
+                  
+                  if (selectedOption) {
+                    handleAnswerSelect(selectedOption);
+                  } else {
+                    alert(`Could not understand "${text}". Try saying "A", "B", "C", "D" or "First", "Second", etc.`);
+                  }
+                }}
+              />
+            </div>
+            
+            <div className="space-y-3">
+              {currentQuestion.options.map((option: string, idx: number) => (
+                <button
+                  key={idx}
+                  onClick={() => handleAnswerSelect(option)}
+                  className={`w-full text-left p-4 rounded-lg border-2 transition ${
                     answers[currentQuestionIndex] === option
-                      ? 'border-blue-500 bg-blue-500'
-                      : 'border-gray-300'
-                  }`}>
-                    {answers[currentQuestionIndex] === option && (
-                      <CheckCircle className="w-4 h-4 text-white" />
-                    )}
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-blue-300'
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                      answers[currentQuestionIndex] === option
+                        ? 'border-blue-500 bg-blue-500'
+                        : 'border-gray-300'
+                    }`}>
+                      {answers[currentQuestionIndex] === option && (
+                        <CheckCircle className="w-4 h-4 text-white" />
+                      )}
+                    </div>
+                    <span className="text-sm text-gray-500 font-semibold min-w-[20px]">
+                      {String.fromCharCode(65 + idx)}.
+                    </span>
+                    <span className="text-gray-900">{option}</span>
                   </div>
-                  <span className="text-gray-900">{option}</span>
-                </div>
-              </button>
-            ))}
+                </button>
+              ))}
+            </div>
           </div>
         )}
 
