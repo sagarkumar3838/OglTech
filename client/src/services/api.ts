@@ -5,6 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const api: AxiosInstance = axios.create({
   baseURL: API_URL,
+  timeout: 120000, // 120 seconds (2 minutes) - allows time for Render free tier to wake up
   headers: {
     'Content-Type': 'application/json'
   }

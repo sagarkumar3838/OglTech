@@ -256,7 +256,15 @@ const CareerDetail = () => {
       });
     } catch (error) {
       console.error('Error generating questions:', error);
-      alert('AI question generation requires the backend server.\n\nYou can still use existing questions from the database by clicking "Start Test".');
+      
+      // Check if it's a timeout error
+      if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+        alert('⏱️ Server is waking up (this takes 30-60 seconds on first request).\n\nPlease wait a moment and try again, or click "Start Test" to use existing questions from the database.');
+      } else if (error.response?.status === 503 || error.message?.includes('Network Error')) {
+        alert('🔄 Server is starting up...\n\nThe free tier server sleeps after inactivity. Please wait 30-60 seconds and try again.\n\nOr click "Start Test" to use existing questions from the database.');
+      } else {
+        alert('AI question generation requires the backend server.\n\nYou can still use existing questions from the database by clicking "Start Test".');
+      }
     } finally {
       setGenerating(false);
     }
