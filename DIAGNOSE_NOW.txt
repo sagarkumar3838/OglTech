@@ -1,0 +1,213 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║         🔍 DIAGNOSE "NO QUESTIONS" ERROR - DO THIS NOW      ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│ STEP 1: Open Browser Console (30 seconds)                   │
+└──────────────────────────────────────────────────────────────┘
+
+1. Open your app: http://localhost:3000
+
+2. Press F12 to open Developer Tools
+
+3. Click "Console" tab
+
+4. Navigate to: OGL Content Developer career
+
+5. Click "From Database" button for HTML at easy level
+
+6. Look at console output - what do you see?
+
+   📋 Copy the console messages and check below:
+
+┌──────────────────────────────────────────────────────────────┐
+│ WHAT THE CONSOLE TELLS YOU                                  │
+└──────────────────────────────────────────────────────────────┘
+
+MESSAGE: "Evaluation state: {skillName: 'html', level: 'easy'}"
+✅ Good! Skill name is correctly normalized
+
+MESSAGE: "Loading questions from Supabase: skill="html", level="easy""
+✅ Good! Query is being made with correct parameters
+
+MESSAGE: "Loaded 0 questions for html-easy"
+❌ PROBLEM: No questions found in database
+→ Go to STEP 2
+
+MESSAGE: "Loaded 10 questions for html-easy"
+✅ SUCCESS! Questions loaded, should work now
+
+ERROR: "Failed to load questions..."
+❌ PROBLEM: Database connection or query error
+→ Check error details in console
+
+┌──────────────────────────────────────────────────────────────┐
+│ STEP 2: Check Database (1 minute)                           │
+└──────────────────────────────────────────────────────────────┘
+
+1. Open: https://supabase.com/dashboard/project/ksjgsgebjnpwyycnptom/editor
+
+2. Click "SQL Editor" → "New Query"
+
+3. Paste this and click "Run":
+
+   SELECT COUNT(*) as total FROM questions;
+
+4. What's the result?
+
+   ┌─────────────┐
+   │ total       │
+   ├─────────────┤
+   │ 0           │  ❌ No questions! Go to STEP 4
+   └─────────────┘
+
+   ┌─────────────┐
+   │ total       │
+   ├─────────────┤
+   │ 6000        │  ✅ Questions exist! Go to STEP 3
+   └─────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│ STEP 3: Check Format (1 minute)                             │
+└──────────────────────────────────────────────────────────────┘
+
+Run this query:
+
+SELECT skill, level, COUNT(*) 
+FROM questions 
+GROUP BY skill, level 
+ORDER BY skill, level 
+LIMIT 10;
+
+What do you see?
+
+OPTION A: Uppercase (NEEDS FIX)
+┌──────────────┬──────────────┬───────┐
+│ skill        │ level        │ count │
+├──────────────┼──────────────┼───────┤
+│ HTML         │ BASIC        │ 500   │
+│ HTML         │ INTERMEDIATE │ 500   │
+│ CSS          │ BASIC        │ 500   │
+└──────────────┴──────────────┴───────┘
+
+❌ Problem: Uppercase format
+→ Run quick-fix.sql (see below)
+
+OPTION B: Lowercase (CORRECT)
+┌──────────────┬──────────────┬───────┐
+│ skill        │ level        │ count │
+├──────────────┼──────────────┼───────┤
+│ html         │ easy         │ 500   │
+│ html         │ medium       │ 500   │
+│ css          │ easy         │ 500   │
+└──────────────┴──────────────┴───────┘
+
+✅ Correct format!
+→ Should work now, try again
+
+┌──────────────────────────────────────────────────────────────┐
+│ STEP 4: Upload Questions (IF DATABASE IS EMPTY)             │
+└──────────────────────────────────────────────────────────────┘
+
+If Step 2 showed 0 questions, you need to upload:
+
+1. Open terminal in project root
+
+2. Check if CSV file exists:
+   dir client\dist\assets\ogl_developer_questions_combined_3000_cleaned.csv
+
+3. If file exists, upload it:
+   cd scripts
+   npx tsx upload-csv-to-supabase.ts ../client/dist/assets/ogl_developer_questions_combined_3000_cleaned.csv
+
+4. Wait for "Upload complete" message
+
+5. Go back to STEP 2 to verify
+
+┌──────────────────────────────────────────────────────────────┐
+│ QUICK FIX: Run This SQL (2 minutes)                         │
+└──────────────────────────────────────────────────────────────┘
+
+If questions exist but in wrong format, run this:
+
+1. Open Supabase SQL Editor
+
+2. Copy content from: quick-fix.sql
+
+3. Paste and click "Run"
+
+4. Should see:
+   - BEFORE FIX: Shows current format
+   - AFTER FIX: Shows corrected format
+   - html_easy_count: Should be > 0
+
+5. Try the app again
+
+┌──────────────────────────────────────────────────────────────┐
+│ ALTERNATIVE: Run Full Cleanup (5 minutes)                   │
+└──────────────────────────────────────────────────────────────┘
+
+For complete cleanup (removes duplicates, unwanted skills):
+
+1. Open Supabase SQL Editor
+
+2. Copy ALL content from: complete-cleanup.sql
+
+3. Paste and click "Run"
+
+4. Wait 30-60 seconds
+
+5. Check output shows "FINAL STATE" with correct format
+
+┌──────────────────────────────────────────────────────────────┐
+│ VERIFICATION QUERY                                           │
+└──────────────────────────────────────────────────────────────┘
+
+After running fix, verify with this query:
+
+SELECT 
+  skill, 
+  level, 
+  COUNT(*) as count,
+  LEFT(question, 30) as sample_question
+FROM questions 
+WHERE skill = 'html' AND level = 'easy'
+GROUP BY skill, level, question
+LIMIT 5;
+
+Should show:
+- skill: html (lowercase)
+- level: easy (lowercase)
+- count: 1 (each question)
+- sample_question: "What is HTML?..." etc.
+
+┌──────────────────────────────────────────────────────────────┐
+│ FINAL TEST                                                   │
+└──────────────────────────────────────────────────────────────┘
+
+1. Clear browser cache (Ctrl+Shift+Delete)
+
+2. Reload page (Ctrl+F5)
+
+3. Open console (F12)
+
+4. Click "From Database" for HTML easy
+
+5. Console should show:
+   ✅ "Loaded 10 questions for html-easy"
+
+6. Page should navigate to evaluation
+
+7. 10 questions should display
+
+8. Timer should start at 10:00
+
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║  🎯 START WITH STEP 1 - Check Browser Console First!       ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+The console will tell you exactly what's wrong!

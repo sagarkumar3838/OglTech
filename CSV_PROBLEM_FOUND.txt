@@ -1,0 +1,94 @@
+============================================
+🚨 PROBLEM FOUND: CSV HAS MASSIVE DUPLICATES
+============================================
+
+ISSUE:
+------
+Your CSV file "ogl_developer_questions_combined_3000_cleaned.csv" has:
+- 6000 total rows
+- Only 38 UNIQUE questions
+- Each question repeated ~200 times!
+
+Example:
+"In OGL, to clear the canvas..." appears 200 times
+"What is the purpose of the OGL function..." appears 200 times
+
+This is why after removing duplicates, you only have 30-38 questions.
+
+SOLUTION OPTIONS:
+-----------------
+
+OPTION 1: Find the correct CSV file
+------------------------------------
+You need a CSV with actual unique questions, not duplicates.
+
+Check if you have other CSV files:
+- Look for files with names like:
+  * questions.csv
+  * ogl_questions.csv
+  * developer_questions.csv
+  * questions_unique.csv
+
+OPTION 2: Generate questions with AI
+-------------------------------------
+Use the AI generation feature in your app:
+1. Go to career page
+2. Click "AI Generated" button
+3. System generates 10 unique questions
+4. Questions are saved to database automatically
+
+Do this for each skill/level you need.
+
+OPTION 3: Create questions manually
+------------------------------------
+Use ChatGPT or another AI to generate questions:
+
+Prompt:
+"Generate 100 unique HTML questions at easy level in CSV format with columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation"
+
+Then save as CSV and upload.
+
+OPTION 4: Use sample questions
+-------------------------------
+Check if you have sample-questions.json or similar files in your project.
+
+CURRENT DATABASE STATE:
+-----------------------
+You now have ~30 unique questions:
+- html: 10 questions (4 easy, 4 medium, 2 hard)
+- javascript: 10 questions (4 easy, 4 medium, 2 hard)
+- jquery: 4 questions (4 easy)
+- oglknowledge: 4 questions (4 easy)
+
+This is enough to TEST the system, but not enough for production.
+
+TESTING NOW:
+------------
+You can test the app right now with these 30 questions:
+1. Go to career page
+2. Click "From Database" for HTML easy
+3. Should load 4 questions (all you have)
+4. System will work, just with fewer questions
+
+RECOMMENDED ACTION:
+-------------------
+1. Test the app now with 30 questions (verify it works)
+2. Then generate more questions using one of the options above
+3. Or find the correct CSV file with actual unique questions
+
+The CSV file you have is corrupted/malformed with duplicates.
+You need a different source for questions.
+
+WHERE TO GET QUESTIONS:
+-----------------------
+1. Use AI generation in the app (easiest)
+2. Generate with ChatGPT/Claude (see CHATGPT_PROMPTS_FOR_QUESTIONS.md)
+3. Find a proper question bank CSV online
+4. Create your own questions
+
+NEXT STEPS:
+-----------
+1. Test app now (works with 30 questions)
+2. Decide on question source
+3. Generate/upload more questions
+4. Aim for 30+ questions per skill/level minimum

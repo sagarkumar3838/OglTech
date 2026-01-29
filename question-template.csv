@@ -1,0 +1,7 @@
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+HTML,BASIC,Multiple Choice,What does HTML stand for?,HyperText Markup Language,High Tech Modern Language,Home Tool Markup Language,Hyperlinks and Text Markup Language,HyperText Markup Language,HTML stands for HyperText Markup Language which is used to create web pages
+HTML,BASIC,Multiple Choice,Which tag is used to create a paragraph?,<p>,<para>,<paragraph>,<text>,<p>,The <p> tag is used to define a paragraph in HTML
+HTML,BASIC,Multiple Choice,What is the correct HTML tag for the largest heading?,<h1>,<heading>,<head>,<h6>,<h1>,The <h1> tag defines the most important heading with the largest default size
+CSS,BASIC,Multiple Choice,What does CSS stand for?,Cascading Style Sheets,Computer Style Sheets,Creative Style Sheets,Colorful Style Sheets,Cascading Style Sheets,CSS stands for Cascading Style Sheets used for styling HTML elements
+CSS,BASIC,Multiple Choice,Which property is used to change the text color?,color,text-color,font-color,text-style,color,The color property is used to set the color of text
+JavaScript,BASIC,Multiple Choice,Which keyword is used to declare a variable in JavaScript?,var,variable,v,declare,var,The var keyword is used to declare variables in JavaScript (let and const are also valid in modern JS)

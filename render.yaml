@@ -1,0 +1,30 @@
+# Render Blueprint for SkillEval Backend
+# Deploy backend to Render.com (free tier)
+
+services:
+  # Backend API Service
+  - type: web
+    name: skilleval-api
+    env: node
+    region: oregon  # Choose closest region
+    plan: free
+    buildCommand: cd server && npm install && npm run build
+    startCommand: cd server && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: SUPABASE_URL
+        sync: false  # Set in Render dashboard
+      - key: SUPABASE_SERVICE_KEY
+        sync: false  # Set in Render dashboard
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false  # Optional - for AI features
+      - key: ANTHROPIC_API_KEY
+        sync: false  # Optional - for AI features
+      - key: CORS_ORIGIN
+        value: "*"  # Update with your frontend URL after deployment

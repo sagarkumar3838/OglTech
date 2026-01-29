@@ -1,0 +1,146 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║          🧪 TEST BEFORE DEPLOYMENT - START HERE 🧪            ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+QUICK START:
+───────────────────────────────────────────────────────────────
+
+  Double-click: TEST_BEFORE_DEPLOYMENT.bat
+
+  This will automatically:
+  ✅ Install all dependencies
+  ✅ Build your application
+  ✅ Start backend server (port 5001)
+  ✅ Start frontend server (port 3001)
+  ✅ Open browser for testing
+  ✅ Provide testing checklist
+
+WHAT TO TEST:
+───────────────────────────────────────────────────────────────
+
+  ✅ CRITICAL (Must Work):
+     • Homepage loads
+     • Sign up / Login
+     • Start evaluation
+     • Answer questions
+     • Submit evaluation
+     • View scorecard
+     • Dashboard displays
+
+  ✅ IMPORTANT (Should Work):
+     • Navigation
+     • Profile page
+     • Progress tracking
+     • Responsive design
+     • No console errors
+
+  ✅ OPTIONAL (Nice to Have):
+     • AI chat
+     • Animations
+     • Advanced features
+
+TESTING URLS:
+───────────────────────────────────────────────────────────────
+
+  Frontend: http://localhost:3001
+  Backend:  http://localhost:5001
+  Health:   http://localhost:5001/api/health
+
+BROWSER CONSOLE:
+───────────────────────────────────────────────────────────────
+
+  Press F12 to open Developer Tools
+
+  Check for:
+  ❌ No red errors
+  ❌ No 404 errors
+  ❌ No CORS errors
+  ✅ API calls succeed (200 status)
+
+TESTING CHECKLIST:
+───────────────────────────────────────────────────────────────
+
+  [ ] 1. Homepage loads
+  [ ] 2. Sign up works
+  [ ] 3. Login works
+  [ ] 4. Navigate to Careers
+  [ ] 5. Select career
+  [ ] 6. Start evaluation
+  [ ] 7. Answer questions
+  [ ] 8. Submit evaluation
+  [ ] 9. View scorecard
+  [ ] 10. Check dashboard
+  [ ] 11. Test profile
+  [ ] 12. Logout works
+
+  Full checklist: TESTING_CHECKLIST.txt
+
+COMMON ISSUES:
+───────────────────────────────────────────────────────────────
+
+  ❌ Port already in use:
+     netstat -ano | findstr :3001
+     taskkill /PID <PID> /F
+
+  ❌ Dependencies fail:
+     npm cache clean --force
+     npm install
+
+  ❌ 406 errors:
+     Run fix-406-simple.sql in Supabase
+
+SETUP ON NEW SYSTEM:
+───────────────────────────────────────────────────────────────
+
+  If running on a different computer:
+
+  1. Install Node.js 18+ from nodejs.org
+  2. Run: SETUP_NEW_SYSTEM.bat
+  3. Copy .env files
+  4. Run: TEST_BEFORE_DEPLOYMENT.bat
+
+  Full guide: NEW_SYSTEM_SETUP_GUIDE.md
+
+AFTER TESTING:
+───────────────────────────────────────────────────────────────
+
+  ✅ All tests pass?
+     → Run: DEPLOY_FULLSTACK_FIREBASE.bat
+
+  ❌ Tests fail?
+     → Fix issues
+     → Re-test
+     → Check TESTING_GUIDE.md
+
+DOCUMENTATION:
+───────────────────────────────────────────────────────────────
+
+  📖 TESTING_GUIDE.md
+     Complete testing guide with all details
+
+  📖 TESTING_CHECKLIST.txt
+     Quick checklist for testing
+
+  📖 NEW_SYSTEM_SETUP_GUIDE.md
+     Setup on different computer
+
+  📖 TESTING_AND_DEPLOYMENT_SUMMARY.md
+     Complete summary
+
+NEED HELP?
+───────────────────────────────────────────────────────────────
+
+  • Check console for errors (F12)
+  • Review server logs
+  • Read TESTING_GUIDE.md
+  • Check environment variables
+
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║  Ready to test? Run: TEST_BEFORE_DEPLOYMENT.bat              ║
+║                                                                ║
+║  This will test everything before deployment! 🚀              ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝

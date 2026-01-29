@@ -1,0 +1,177 @@
+═══════════════════════════════════════════════════════════════
+  QUICK CHATGPT COMMANDS - Copy & Paste to Generate Questions
+═══════════════════════════════════════════════════════════════
+
+📋 CSS - ALL 3 LEVELS (150 questions)
+───────────────────────────────────────────────────────────────
+Generate 150 CSS questions in CSV format (50 BASIC, 50 MEDIUM, 50 ADVANCED).
+
+Format: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+BASIC: CSS fundamentals, selectors, colors, text, box model
+MEDIUM: Flexbox, Grid, positioning, transitions, responsive design
+ADVANCED: Advanced features, animations, performance, architecture
+
+Generate all 150 questions now, separated by level.
+───────────────────────────────────────────────────────────────
+
+📋 HTML - ALL 3 LEVELS (150 questions)
+───────────────────────────────────────────────────────────────
+Generate 150 HTML questions in CSV format (50 BASIC, 50 MEDIUM, 50 ADVANCED).
+
+Format: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+BASIC: HTML fundamentals, basic tags, attributes, forms, links
+MEDIUM: Semantic HTML, forms validation, accessibility, HTML5 APIs
+ADVANCED: Web components, custom elements, shadow DOM, advanced HTML5
+
+Generate all 150 questions now, separated by level.
+───────────────────────────────────────────────────────────────
+
+📋 JavaScript - ALL 3 LEVELS (150 questions)
+───────────────────────────────────────────────────────────────
+Generate 150 JavaScript questions in CSV format (50 BASIC, 50 MEDIUM, 50 ADVANCED).
+
+Format: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+BASIC: Variables, data types, operators, conditionals, loops, functions
+MEDIUM: Objects, closures, async/await, promises, ES6, DOM manipulation
+ADVANCED: Design patterns, performance, memory management, functional programming
+
+Generate all 150 questions now, separated by level.
+───────────────────────────────────────────────────────────────
+
+📋 React - ALL 3 LEVELS (150 questions)
+───────────────────────────────────────────────────────────────
+Generate 150 React questions in CSV format (50 BASIC, 50 MEDIUM, 50 ADVANCED).
+
+Format: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+BASIC: Components, JSX, props, state, events, conditional rendering
+MEDIUM: Hooks, useEffect, context API, forms, lifecycle, routing
+ADVANCED: Performance optimization, custom hooks, patterns, testing, SSR
+
+Generate all 150 questions now, separated by level.
+───────────────────────────────────────────────────────────────
+
+📋 TypeScript - ALL 3 LEVELS (150 questions)
+───────────────────────────────────────────────────────────────
+Generate 150 TypeScript questions in CSV format (50 BASIC, 50 MEDIUM, 50 ADVANCED).
+
+Format: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+BASIC: Types, interfaces, basic annotations, type inference, functions
+MEDIUM: Generics, utility types, enums, type guards, advanced types
+ADVANCED: Conditional types, mapped types, decorators, advanced patterns
+
+Generate all 150 questions now, separated by level.
+───────────────────────────────────────────────────────────────
+
+📋 Node.js - ALL 3 LEVELS (150 questions)
+───────────────────────────────────────────────────────────────
+Generate 150 Node.js questions in CSV format (50 BASIC, 50 MEDIUM, 50 ADVANCED).
+
+Format: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+BASIC: Node basics, modules, npm, file system, events, streams
+MEDIUM: Express, middleware, REST APIs, authentication, databases
+ADVANCED: Performance, clustering, microservices, security, testing
+
+Generate all 150 questions now, separated by level.
+───────────────────────────────────────────────────────────────
+
+📋 Python - ALL 3 LEVELS (150 questions)
+───────────────────────────────────────────────────────────────
+Generate 150 Python questions in CSV format (50 BASIC, 50 MEDIUM, 50 ADVANCED).
+
+Format: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+BASIC: Variables, data types, operators, conditionals, loops, functions
+MEDIUM: OOP, decorators, generators, file handling, modules, exceptions
+ADVANCED: Metaclasses, async/await, performance, design patterns, testing
+
+Generate all 150 questions now, separated by level.
+───────────────────────────────────────────────────────────────
+
+📋 SQL - ALL 3 LEVELS (150 questions)
+───────────────────────────────────────────────────────────────
+Generate 150 SQL questions in CSV format (50 BASIC, 50 MEDIUM, 50 ADVANCED).
+
+Format: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+BASIC: SELECT, WHERE, ORDER BY, basic joins, INSERT, UPDATE, DELETE
+MEDIUM: Complex joins, subqueries, GROUP BY, HAVING, indexes, views
+ADVANCED: Window functions, CTEs, query optimization, transactions, stored procedures
+
+Generate all 150 questions now, separated by level.
+───────────────────────────────────────────────────────────────
+
+═══════════════════════════════════════════════════════════════
+  AFTER CHATGPT GENERATES QUESTIONS
+═══════════════════════════════════════════════════════════════
+
+1. Create 3 CSV files in: client/dist/assets/
+
+   For CSS:
+   - css_basic_questions.csv
+   - css_medium_questions.csv
+   - css_advanced_questions.csv
+
+   For HTML:
+   - html_basic_questions.csv
+   - html_medium_questions.csv
+   - html_advanced_questions.csv
+
+   (Same pattern for other skills)
+
+2. Add CSV header at top of each file:
+   skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+3. Paste ChatGPT's questions below the header
+
+4. Run the upload script:
+   - UPLOAD_ALL_CSS_LEVELS.bat
+   - UPLOAD_ALL_HTML_LEVELS.bat
+   - UPLOAD_ALL_JS_LEVELS.bat
+
+═══════════════════════════════════════════════════════════════
+  GENERATE SPECIFIC TOPICS
+═══════════════════════════════════════════════════════════════
+
+📋 CSS Flexbox Only (30 questions)
+───────────────────────────────────────────────────────────────
+Generate 30 CSS Flexbox questions at MEDIUM level in CSV format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Topics: display flex, flex-direction, justify-content, align-items, flex-wrap, flex-grow, flex-shrink, flex-basis, align-self, order
+───────────────────────────────────────────────────────────────
+
+📋 JavaScript Promises & Async (30 questions)
+───────────────────────────────────────────────────────────────
+Generate 30 JavaScript async programming questions at MEDIUM level in CSV format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Topics: Promises, async/await, Promise.all, Promise.race, error handling, fetch API, callbacks vs promises
+───────────────────────────────────────────────────────────────
+
+📋 React Hooks (30 questions)
+───────────────────────────────────────────────────────────────
+Generate 30 React Hooks questions at MEDIUM level in CSV format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Topics: useState, useEffect, useContext, useReducer, useMemo, useCallback, useRef, custom hooks
+───────────────────────────────────────────────────────────────
+
+═══════════════════════════════════════════════════════════════
+  TIPS
+═══════════════════════════════════════════════════════════════
+
+✅ If ChatGPT stops mid-generation, say: "Continue"
+
+✅ To avoid duplicates, say: "Generate questions different from these topics: [list]"
+
+✅ For more variety, say: "Mix 40% conceptual, 40% practical, 20% code-based questions"
+
+✅ To regenerate better questions, say: "Make questions more challenging and realistic"
+
+═══════════════════════════════════════════════════════════════

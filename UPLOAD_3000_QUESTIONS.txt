@@ -1,0 +1,167 @@
+============================================
+📤 UPLOAD 3000 QUESTIONS TO SUPABASE
+============================================
+
+WHAT I UPDATED:
+---------------
+
+✅ Updated upload script to use service_role key (bypasses RLS)
+✅ Added automatic normalization:
+   - Skills: "HTML" → "html", "OGL Knowledge" → "oglknowledge"
+   - Levels: "BASIC" → "easy", "INTERMEDIATE" → "medium", "ADVANCED" → "hard"
+   - Types: "Multiple Choice" → "mcq", "Fill in the Blank" → "fill_blank"
+✅ Added --clear option to delete existing questions first
+
+OPTION 1: UPLOAD WITHOUT CLEARING (RECOMMENDED)
+------------------------------------------------
+
+This will ADD the 3000 questions to your existing 8 questions:
+
+1. Open terminal in project root
+
+2. Run:
+   npx tsx scripts/upload-csv-to-supabase.ts client/dist/assets/ogl_developer_questions_combined_3000_cleaned.csv
+
+3. Wait for upload (takes 3-5 minutes)
+
+4. Should see:
+   📊 Found 3000 questions in CSV
+   📦 Processing batch 1/30 (100 questions)
+   ✅ Uploaded 100 questions
+   📊 Progress: 3% (100/3000)
+   ...
+   ✅ Upload Complete!
+   Total uploaded: 3000
+
+OPTION 2: CLEAR AND UPLOAD (FRESH START)
+-----------------------------------------
+
+This will DELETE all existing questions and upload fresh:
+
+1. Open terminal in project root
+
+2. Run:
+   npx tsx scripts/upload-csv-to-supabase.ts client/dist/assets/ogl_developer_questions_combined_3000_cleaned.csv --clear
+
+3. Wait for upload
+
+4. Should see:
+   🗑️  Clearing existing questions...
+   ✅ Existing questions cleared
+   📊 Found 3000 questions in CSV
+   ...
+
+WHAT HAPPENS DURING UPLOAD:
+----------------------------
+
+1. Script reads CSV file (3000 questions)
+2. Processes in batches of 100 (to avoid timeouts)
+3. For each question:
+   - Normalizes skill name (lowercase, no spaces)
+   - Converts level (BASIC→easy, etc.)
+   - Converts type (Multiple Choice→mcq)
+   - Generates unique question_id
+   - Inserts into Supabase
+4. Shows progress every batch
+5. Final summary at end
+
+EXPECTED RESULT:
+----------------
+
+After upload, you should have:
+
+HTML:
+- easy: ~500 questions
+- medium: ~500 questions
+- hard: ~500 questions
+
+CSS:
+- easy: ~300 questions
+- medium: ~300 questions
+- hard: ~300 questions
+
+JavaScript:
+- easy: ~400 questions
+- medium: ~400 questions
+- hard: ~400 questions
+
+jQuery:
+- easy: ~100 questions
+- medium: ~100 questions
+- hard: ~100 questions
+
+OGL Knowledge:
+- easy: ~50 questions
+- medium: ~50 questions
+- hard: ~50 questions
+
+(Numbers are approximate based on CSV content)
+
+VERIFY UPLOAD:
+--------------
+
+After upload completes, run this in Supabase SQL Editor:
+
+SELECT skill, level, COUNT(*) as count 
+FROM questions 
+GROUP BY skill, level 
+ORDER BY skill, level;
+
+Should show all skills with their question counts.
+
+TROUBLESHOOTING:
+----------------
+
+❌ "Cannot find module 'papaparse'"
+   → Run: npm install papaparse
+   → Run: npm install @types/papaparse --save-dev
+
+❌ "Cannot find module '@supabase/supabase-js'"
+   → Run: npm install @supabase/supabase-js
+
+❌ "Error: RLS policy violation"
+   → Script now uses service_role key, should work
+
+❌ Upload stops or hangs
+   → Check internet connection
+   → Try again, script will skip duplicates
+   → Use smaller batch size (edit BATCH_SIZE in script)
+
+❌ "Duplicate key value violates unique constraint"
+   → Some questions already exist
+   → Use --clear flag to start fresh
+   → Or script will skip duplicates and continue
+
+AFTER UPLOAD:
+-------------
+
+1. Verify questions in database (see above)
+
+2. Test the app:
+   - Go to career page
+   - Click "From Database" for any skill
+   - Should load 10 questions now
+
+3. All skills should work:
+   - HTML: ✅
+   - CSS: ✅
+   - JavaScript: ✅
+   - jQuery: ✅
+   - OGL Knowledge: ✅
+
+NO CLEANUP NEEDED:
+------------------
+
+The upload script now normalizes everything automatically!
+- No need to run cleanup SQL after
+- Questions are inserted in correct format
+- Ready to use immediately
+
+COMMAND TO RUN NOW:
+-------------------
+
+cd to project root, then:
+
+npx tsx scripts/upload-csv-to-supabase.ts client/dist/assets/ogl_developer_questions_combined_3000_cleaned.csv
+
+That's it! Wait 3-5 minutes and you're done! 🚀

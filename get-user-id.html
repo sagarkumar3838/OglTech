@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your User ID</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .user-id-box {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .copy-btn {
+            background: #2196F3;
+        }
+        .copy-btn:hover {
+            background: #0b7dda;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 Get Your User ID</h1>
+        <p class="subtitle">This tool helps you find your Firebase User ID for the dashboard setup</p>
+
+        <div class="step">
+            <h3>Method 1: Automatic Detection</h3>
+            <p>Click the button below to automatically detect your user ID from localStorage:</p>
+            <button onclick="getUserId()">Get My User ID</button>
+            <div id="result"></div>
+        </div>
+
+        <div class="step">
+            <h3>Method 2: Manual Check</h3>
+            <p>If automatic detection doesn't work:</p>
+            <ol>
+                <li>Make sure you're logged in to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+                <li>Open browser console (Press F12)</li>
+                <li>Type: <code>localStorage.getItem('user')</code></li>
+                <li>Look for the <code>"id"</code> field in the output</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>Method 3: From Supabase</h3>
+            <p>Run this query in your Supabase SQL Editor:</p>
+            <code style="display: block; padding: 10px; background: #f5f5f5; margin: 10px 0;">
+                SELECT DISTINCT user_id FROM user_progress LIMIT 1;
+            </code>
+        </div>
+
+        <div class="step">
+            <h3>Next Steps</h3>
+            <p>Once you have your User ID:</p>
+            <ol>
+                <li>Open <code>seed-sample-dashboard-data.sql</code></li>
+                <li>Replace <code>'YOUR_USER_ID'</code> with your actual user ID</li>
+                <li>Run the SQL in Supabase SQL Editor</li>
+                <li>Go to <a href="http://localhost:3000/dashboard" target="_blank">Dashboard</a> to see the results</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function getUserId() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                // Try to get from localStorage
+                const userStr = localStorage.getItem('user');
+                
+                if (!userStr) {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>❌ No user data found</strong>
+                            <p>Please make sure you're logged in to the application first.</p>
+                            <p>Go to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> and log in.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Parse the user data
+                const user = JSON.parse(userStr);
+                const userId = user.id || user.uid || user.user_id;
+
+                if (!userId) {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>❌ User ID not found in stored data</strong>
+                            <p>The user object doesn't contain an ID field.</p>
+                            <p>Try Method 2 or 3 instead.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Success!
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <strong>✅ User ID Found!</strong>
+                        <div class="user-id-box" id="userId">${userId}</div>
+                        <button class="copy-btn" onclick="copyUserId('${userId}')">📋 Copy User ID</button>
+                        <p style="margin-top: 15px; font-size: 14px;">
+                            Now replace <code>'YOUR_USER_ID'</code> in <code>seed-sample-dashboard-data.sql</code> with this ID.
+                        </p>
+                    </div>
+                `;
+
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>❌ Error reading user data</strong>
+                        <p>${error.message}</p>
+                        <p>Try Method 2 or 3 instead.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function copyUserId(userId) {
+            navigator.clipboard.writeText(userId).then(() => {
+                alert('✅ User ID copied to clipboard!');
+            }).catch(err => {
+                alert('❌ Failed to copy. Please copy manually: ' + userId);
+            });
+        }
+
+        // Auto-run on page load
+        window.addEventListener('load', () => {
+            // Check if we're on localhost
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                getUserId();
+            }
+        });
+    </script>
+</body>
+</html>

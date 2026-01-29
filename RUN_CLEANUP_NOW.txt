@@ -1,0 +1,65 @@
+============================================
+STEP-BY-STEP: RUN DATABASE CLEANUP
+============================================
+
+Your 6000 questions have been uploaded to Supabase, but they need cleanup:
+- Level names are "BASIC/INTERMEDIATE/ADVANCED" (need to be "easy/medium/hard")
+- May contain duplicate questions
+- May contain unwanted skills
+
+STEPS TO FIX:
+============================================
+
+1. Open Supabase Dashboard:
+   https://supabase.com/dashboard/project/ksjgsgebjnpwyycnptom/editor
+
+2. Click "SQL Editor" in the left sidebar
+
+3. Click "New Query" button
+
+4. Copy ALL content from "complete-cleanup.sql" file
+
+5. Paste into the SQL Editor
+
+6. Click "Run" button (or press Ctrl+Enter)
+
+7. Wait for execution (may take 30-60 seconds)
+
+8. Check the output - you should see:
+   - BEFORE CLEANUP: Shows current state
+   - After removing unwanted skills: Shows remaining count
+   - After standardizing levels: Shows easy/medium/hard counts
+   - After removing duplicates: Shows final count
+   - FINAL STATE: Shows breakdown by skill and level
+
+EXPECTED RESULTS:
+============================================
+- Levels converted: BASIC→easy, INTERMEDIATE→medium, ADVANCED→hard
+- Duplicate questions removed
+- Only skills needed for 8 OGL courses kept:
+  * html, css, javascript, jquery (Content Developer)
+  * typescript, react, nodejs (Frontend/Backend/Full-stack)
+  * python, java (Backend)
+  * testing tools (Tester/QA)
+  * cloud platforms, docker, kubernetes, ci/cd, serverless, microservices (DevOps/Cloud)
+  * oglknowledge (OGL specific knowledge)
+
+AFTER CLEANUP:
+============================================
+1. Test the evaluation page at: http://localhost:3000/evaluation
+2. Select a skill and level
+3. Verify 10 unique questions load correctly
+4. Check that timer works (10 minutes)
+5. Submit test and verify scorecard
+
+TROUBLESHOOTING:
+============================================
+If you get an error:
+- Check that you're using the correct Supabase project
+- Make sure you have admin access
+- Try running the script in smaller sections
+
+If questions still don't load:
+- Check browser console for errors
+- Verify Supabase connection in client/.env
+- Check that VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are correct

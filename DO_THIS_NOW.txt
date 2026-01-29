@@ -1,0 +1,188 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║              🚀 DO THIS NOW - STEP BY STEP 🚀               ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│ STEP 1: RUN DATABASE CLEANUP (5 minutes)                    │
+└──────────────────────────────────────────────────────────────┘
+
+1. Open this URL in your browser:
+   👉 https://supabase.com/dashboard/project/ksjgsgebjnpwyycnptom/editor
+
+2. Click "SQL Editor" in left sidebar
+
+3. Click "New Query" button (top right)
+
+4. Open file: complete-cleanup.sql
+
+5. Copy ALL content (Ctrl+A, Ctrl+C)
+
+6. Paste into SQL Editor (Ctrl+V)
+
+7. Click "Run" button (or press Ctrl+Enter)
+
+8. Wait 30-60 seconds
+
+9. Check output shows:
+   ✓ BEFORE CLEANUP: Shows current counts
+   ✓ After removing unwanted skills: Shows remaining
+   ✓ After standardizing levels: Shows easy/medium/hard
+   ✓ After removing duplicates: Shows final count
+   ✓ FINAL STATE: Shows breakdown by skill
+
+┌──────────────────────────────────────────────────────────────┐
+│ STEP 2: VERIFY DATABASE (2 minutes)                         │
+└──────────────────────────────────────────────────────────────┘
+
+1. In same SQL Editor, click "New Query"
+
+2. Run this quick test:
+   
+   SELECT skill, level, COUNT(*) 
+   FROM questions 
+   WHERE skill = 'html' 
+   GROUP BY skill, level;
+
+3. You should see:
+   html | easy   | (some number)
+   html | medium | (some number)
+   html | hard   | (some number)
+
+4. If you see BASIC/INTERMEDIATE/ADVANCED, cleanup didn't work!
+   Go back to Step 1.
+
+┌──────────────────────────────────────────────────────────────┐
+│ STEP 3: START YOUR SERVERS (1 minute)                       │
+└──────────────────────────────────────────────────────────────┘
+
+Open 2 terminals:
+
+Terminal 1 (Backend):
+   cd server
+   npm run dev
+   
+   ✓ Should show: Server running on port 5001
+
+Terminal 2 (Frontend):
+   cd client
+   npm run dev
+   
+   ✓ Should show: Local: http://localhost:3000
+
+┌──────────────────────────────────────────────────────────────┐
+│ STEP 4: TEST THE APPLICATION (5 minutes)                    │
+└──────────────────────────────────────────────────────────────┘
+
+1. Open browser: http://localhost:3000
+
+2. Login (if needed)
+
+3. Go to Dashboard or Careers page
+
+4. Click on "OGL Content Developer" career
+
+5. You should see skills: HTML, CSS, JavaScript, jQuery, OGL Knowledge
+
+6. For HTML skill, click "From Database" button under "easy" level
+
+7. Verify:
+   ✓ Page navigates to /evaluation/...
+   ✓ 10 questions load
+   ✓ Timer shows 10:00
+   ✓ Questions are about HTML
+   ✓ Options display correctly
+   ✓ Can select answers
+
+8. Try answering a few questions
+
+9. Click "Submit Test" or wait for auto-submit
+
+10. Check if scorecard displays
+
+┌──────────────────────────────────────────────────────────────┐
+│ TROUBLESHOOTING                                              │
+└──────────────────────────────────────────────────────────────┘
+
+❌ "No questions available for this skill and level"
+   → Cleanup SQL didn't run or failed
+   → Check Supabase SQL Editor for errors
+   → Verify questions exist: SELECT COUNT(*) FROM questions;
+
+❌ "Failed to load questions"
+   → Check browser console (F12) for errors
+   → Verify VITE_SUPABASE_URL in client/.env
+   → Verify VITE_SUPABASE_ANON_KEY in client/.env
+
+❌ Questions load but wrong skill
+   → Check career's skill names in Supabase
+   → Ensure they match database skill names (lowercase)
+
+❌ Backend not connecting
+   → Check server/.env has SUPABASE_URL
+   → Check server/.env has SUPABASE_SERVICE_ROLE_KEY
+   → Restart backend server
+
+┌──────────────────────────────────────────────────────────────┐
+│ SUCCESS INDICATORS                                           │
+└──────────────────────────────────────────────────────────────┘
+
+✅ SQL cleanup shows "FINAL STATE" with easy/medium/hard
+✅ Backend shows "Server running on port 5001"
+✅ Frontend shows "Local: http://localhost:3000"
+✅ Career page shows skills with easy/medium/hard levels
+✅ Clicking "From Database" loads 10 questions
+✅ Timer counts down from 10:00
+✅ Can select answers and submit
+✅ No errors in browser console
+
+┌──────────────────────────────────────────────────────────────┐
+│ WHAT I FIXED FOR YOU                                        │
+└──────────────────────────────────────────────────────────────┘
+
+✅ Updated CareerDetail.tsx to use easy/medium/hard
+✅ Updated questionLoaderService.ts to normalize queries
+✅ Created complete-cleanup.sql to fix database
+✅ Added lowercase conversion for skill/level matching
+✅ Ensured 10 questions load per evaluation
+✅ Verified 10-minute timer with auto-submit
+
+┌──────────────────────────────────────────────────────────────┐
+│ FILES TO CHECK                                               │
+└──────────────────────────────────────────────────────────────┘
+
+📄 complete-cleanup.sql          → Run this in Supabase
+📄 NEXT_STEPS_COMPLETE.txt       → Detailed instructions
+📄 QUICK_REFERENCE.txt           → System overview
+📄 test-questions-query.sql      → Verification queries
+📄 RUN_CLEANUP_NOW.txt           → Cleanup guide
+
+┌──────────────────────────────────────────────────────────────┐
+│ AFTER TESTING                                                │
+└──────────────────────────────────────────────────────────────┘
+
+Once everything works with Content Developer:
+
+1. Generate questions for other 7 courses:
+   - Tester
+   - QA Developer
+   - Frontend Developer
+   - Backend Developer
+   - Full-stack Developer
+   - Cloud Developer
+   - DevOps Developer
+
+2. Options:
+   - Use AI generation (click "AI Generated" button)
+   - Upload more CSV files
+   - Use the question generation scripts
+
+3. Each course needs questions for their specific skills
+   (see QUICK_REFERENCE.txt for skill list)
+
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║  🎯 YOUR IMMEDIATE ACTION: Run Step 1 (Database Cleanup)   ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝

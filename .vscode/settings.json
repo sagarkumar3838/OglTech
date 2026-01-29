@@ -1,0 +1,5 @@
+{
+    "typescript.autoClosingTags": false,
+    "css.lint.vendorPrefix": "ignore",
+    "css.lint.propertyIgnoredDueToDisplay": "ignore"
+}

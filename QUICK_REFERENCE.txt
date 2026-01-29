@@ -1,0 +1,162 @@
+============================================
+QUICK REFERENCE - OGL TECH EVALUATION SYSTEM
+============================================
+
+📁 KEY FILES MODIFIED:
+----------------------
+✅ client/src/pages/CareerDetail.tsx
+   - Changed levels to: easy, medium, hard
+   
+✅ client/src/services/questionLoaderService.ts
+   - Added lowercase normalization for queries
+   
+✅ complete-cleanup.sql
+   - Converts BASIC→easy, INTERMEDIATE→medium, ADVANCED→hard
+   - Removes duplicates
+   - Keeps only needed skills
+
+📊 DATABASE STRUCTURE:
+----------------------
+Table: questions
+- id (UUID)
+- question_id (TEXT)
+- skill (TEXT) - lowercase: html, css, javascript, etc.
+- level (TEXT) - lowercase: easy, medium, hard
+- type (TEXT) - mcq, multi_select, coding, etc.
+- question (TEXT)
+- options (JSONB)
+- correct_answer (JSONB)
+- explanation (TEXT)
+
+🎯 8 OGL COURSES & THEIR SKILLS:
+--------------------------------
+1. Content Developer (Fresher)
+   → html, css, javascript, jquery, oglknowledge
+
+2. Tester (Entry-Level)
+   → testing tools, javascript, html, css
+
+3. QA Developer (Entry-Level)
+   → testing tools, typescript, javascript, java, html, css
+
+4. Frontend Developer (Mid-Level)
+   → html, css, javascript, typescript, react, jquery
+
+5. Backend Developer (Mid-Level)
+   → javascript, typescript, python, java, nodejs
+
+6. Full-stack Developer (Mid-Level)
+   → html, css, javascript, typescript, react, nodejs
+
+7. DevOps Developer (Senior)
+   → cloud platforms, docker, kubernetes, ci/cd, python
+
+8. Cloud Developer (Senior)
+   → cloud platforms, javascript, python, serverless, microservices
+
+📝 LEVEL DEFINITIONS:
+---------------------
+easy (was BASIC)
+→ Understands the script and basic concepts
+→ Can read and comprehend code
+→ Entry-level knowledge
+
+medium (was INTERMEDIATE)
+→ Can alter, debug, and modify code
+→ Understands how to fix issues
+→ Mid-level proficiency
+
+hard (was ADVANCED)
+→ Can create complete applications from scratch
+→ Expert-level understanding
+→ Can architect solutions
+
+⚙️ EVALUATION FLOW:
+-------------------
+1. User selects career (e.g., Content Developer)
+2. User clicks skill (e.g., HTML)
+3. User chooses level (easy/medium/hard)
+4. User clicks "From Database" or "AI Generated"
+5. System loads 10 unique questions
+6. Timer starts: 10 minutes
+7. User answers questions
+8. Auto-submit after 10 minutes OR manual submit
+9. Scorecard generated and displayed
+
+🔧 COMMON COMMANDS:
+-------------------
+# Start backend server
+cd server
+npm run dev
+
+# Start frontend
+cd client
+npm run dev
+
+# Check Supabase connection
+# In browser console:
+console.log(import.meta.env.VITE_SUPABASE_URL)
+
+🐛 DEBUGGING CHECKLIST:
+-----------------------
+□ Backend server running on port 5001?
+□ Frontend running on port 3000?
+□ Supabase credentials in client/.env?
+□ Cleanup SQL executed successfully?
+□ Questions exist in database?
+□ Browser console shows no errors?
+□ Network tab shows successful API calls?
+
+📍 IMPORTANT URLS:
+------------------
+Frontend: http://localhost:3000
+Backend: http://localhost:5001
+Supabase Dashboard: https://supabase.com/dashboard/project/ksjgsgebjnpwyycnptom
+SQL Editor: https://supabase.com/dashboard/project/ksjgsgebjnpwyycnptom/editor
+
+🎨 UI COMPONENTS AVAILABLE:
+---------------------------
+- Button, Input, Textarea
+- Card, Badge, Progress
+- Tabs, Dialog, Sheet
+- Alert, Toast, Tooltip
+- And 80+ more shadcn/ui components
+
+💾 ENVIRONMENT VARIABLES:
+-------------------------
+client/.env:
+- VITE_SUPABASE_URL
+- VITE_SUPABASE_ANON_KEY
+- VITE_FIREBASE_API_KEY (optional)
+
+server/.env:
+- SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY
+- OPENAI_API_KEY (for AI generation)
+- GROQ_API_KEY (free alternative)
+
+🚨 CURRENT LIMITATION:
+----------------------
+- CSV only has questions for Content Developer skills
+- Need to generate questions for other 7 courses
+- Can use AI generation or upload more CSVs
+- For now, test with Content Developer career
+
+✅ WHAT'S WORKING:
+------------------
+✓ 6000 questions uploaded to Supabase
+✓ Code updated to use correct level names
+✓ Cleanup SQL ready to standardize data
+✓ Question loading service with normalization
+✓ 10-minute timer with auto-submit
+✓ Tab switch detection (3 warnings)
+✓ Unique question selection
+✓ AdminLayout wrapper for all pages
+
+⏳ WHAT'S PENDING:
+------------------
+⏳ Run cleanup SQL in Supabase
+⏳ Test evaluation with real questions
+⏳ Generate questions for other 7 courses
+⏳ Implement scorecard display
+⏳ Add learning resources for wrong answers

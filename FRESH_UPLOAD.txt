@@ -1,0 +1,112 @@
+============================================
+🔄 FRESH UPLOAD - START OVER
+============================================
+
+CURRENT SITUATION:
+------------------
+You only have ~66 questions instead of 3000.
+Most questions were skipped during upload (likely due to duplicate question_id errors).
+
+SOLUTION: DELETE AND RE-UPLOAD
+-------------------------------
+
+STEP 1: Delete all current questions
+-------------------------------------
+
+Run this in Supabase SQL Editor:
+
+DELETE FROM questions;
+
+Then verify it's empty:
+
+SELECT COUNT(*) FROM questions;
+
+(Should show 0)
+
+STEP 2: Re-upload with fixed script
+------------------------------------
+
+I've updated the upload script to:
+✅ Generate truly unique question_ids (added random string)
+✅ Better error logging
+✅ Show which batches fail
+
+Run this command:
+
+npx tsx scripts/upload-csv-to-supabase.ts client/dist/assets/ogl_developer_questions_combined_3000_cleaned.csv
+
+STEP 3: Verify upload
+----------------------
+
+After upload completes, run in Supabase:
+
+SELECT skill, level, COUNT(*) as count 
+FROM questions 
+GROUP BY skill, level 
+ORDER BY skill, level;
+
+Should show ~3000 questions total across all skills.
+
+EXPECTED RESULTS:
+-----------------
+
+After successful upload:
+
+html         | easy   | ~500
+html         | medium | ~500
+html         | hard   | ~500
+css          | easy   | ~300
+css          | medium | ~300
+css          | hard   | ~300
+javascript   | easy   | ~400
+javascript   | medium | ~400
+javascript   | hard   | ~400
+jquery       | easy   | ~100
+jquery       | medium | ~100
+jquery       | hard   | ~100
+oglknowledge | easy   | ~50
+oglknowledge | medium | ~50
+oglknowledge | hard   | ~50
+
+Total: ~3000 questions
+
+WHY IT FAILED BEFORE:
+---------------------
+
+The question_id field has a UNIQUE constraint.
+The script was generating IDs like:
+- html-easy-1234567890-0
+- html-easy-1234567890-1
+- html-easy-1234567890-2
+
+But if the timestamp was the same, it created duplicates.
+
+NOW FIXED:
+----------
+
+New IDs include random string:
+- html-easy-1234567890-abc123xyz-0
+- html-easy-1234567890-def456uvw-1
+- html-easy-1234567890-ghi789rst-2
+
+Each ID is guaranteed unique!
+
+COMMANDS TO RUN NOW:
+--------------------
+
+1. Delete existing questions:
+   
+   In Supabase SQL Editor:
+   DELETE FROM questions;
+
+2. Re-upload:
+   
+   In terminal:
+   npx tsx scripts/upload-csv-to-supabase.ts client/dist/assets/ogl_developer_questions_combined_3000_cleaned.csv
+
+3. Verify:
+   
+   In Supabase SQL Editor:
+   SELECT COUNT(*) FROM questions;
+
+This time it should work and upload all 3000 questions! 🚀

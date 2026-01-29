@@ -1,0 +1,130 @@
+============================================
+🔧 FIX: YOU RAN THE UPLOAD COMMAND TWICE
+============================================
+
+WHAT HAPPENED:
+--------------
+You ran the upload command twice, so now you have:
+- ~6000 questions instead of ~3000
+- Each question appears twice (duplicates)
+
+DON'T WORRY - EASY TO FIX!
+---------------------------
+
+OPTION 1: REMOVE DUPLICATES (RECOMMENDED)
+------------------------------------------
+
+This keeps one copy of each question and deletes duplicates:
+
+1. Open Supabase SQL Editor:
+   https://supabase.com/dashboard/project/ksjgsgebjnpwyycnptom/editor
+
+2. Click "New Query"
+
+3. Copy ALL content from: remove-duplicates.sql
+
+4. Paste and click "Run"
+
+5. Wait 10-20 seconds
+
+6. Check output:
+   - BEFORE CLEANUP: Shows ~6000 questions
+   - Shows duplicate count
+   - AFTER CLEANUP: Shows ~3000 questions
+   - Verifies no duplicates remain
+
+OPTION 2: DELETE ALL AND RE-UPLOAD
+-----------------------------------
+
+This starts completely fresh:
+
+1. Open Supabase SQL Editor
+
+2. Run this command:
+   DELETE FROM questions;
+
+3. Verify it's empty:
+   SELECT COUNT(*) FROM questions;
+   (Should show 0)
+
+4. Re-run upload command ONCE:
+   npx tsx scripts/upload-csv-to-supabase.ts client/dist/assets/ogl_developer_questions_combined_3000_cleaned.csv
+
+5. Wait 3-5 minutes
+
+6. Verify:
+   SELECT COUNT(*) FROM questions;
+   (Should show ~3000)
+
+OPTION 3: KEEP AS IS (NOT RECOMMENDED)
+---------------------------------------
+
+You can keep the duplicates, but:
+- Takes more database space
+- Slower queries
+- Same questions might appear in tests
+- Not ideal for production
+
+RECOMMENDED: USE OPTION 1
+--------------------------
+
+The remove-duplicates.sql script:
+✅ Keeps the oldest copy of each question
+✅ Removes all duplicates
+✅ Fast (10-20 seconds)
+✅ Safe (doesn't delete unique questions)
+✅ Shows before/after counts
+
+VERIFY AFTER FIX:
+-----------------
+
+Run this query to check:
+
+SELECT skill, level, COUNT(*) as count 
+FROM questions 
+GROUP BY skill, level 
+ORDER BY skill, level;
+
+Expected result (approximately):
+html      | easy   | 500
+html      | medium | 500
+html      | hard   | 500
+css       | easy   | 300
+css       | medium | 300
+css       | hard   | 300
+javascript| easy   | 400
+javascript| medium | 400
+javascript| hard   | 400
+jquery    | easy   | 100
+jquery    | medium | 100
+jquery    | hard   | 100
+oglknowledge| easy | 50
+oglknowledge| medium | 50
+oglknowledge| hard | 50
+
+Total: ~3000 questions
+
+PREVENT THIS IN FUTURE:
+------------------------
+
+Before uploading:
+1. Check current count: SELECT COUNT(*) FROM questions;
+2. If already have questions, use --clear flag:
+   npx tsx scripts/upload-csv-to-supabase.ts file.csv --clear
+3. Or manually delete first: DELETE FROM questions;
+
+FILES TO HELP:
+--------------
+- remove-duplicates.sql - Remove duplicate questions
+- delete-all-questions.sql - Delete everything (use with caution)
+- verify-upload.sql - Check what's in database
+
+QUICK FIX NOW:
+--------------
+
+1. Open Supabase SQL Editor
+2. Copy content from remove-duplicates.sql
+3. Paste and Run
+4. Done in 20 seconds!
+
+The script is safe and only removes exact duplicates.

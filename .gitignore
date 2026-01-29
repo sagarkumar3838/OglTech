@@ -1,0 +1,18 @@
+node_modules/
+.env
+.env.local
+.env.free
+.env.localhost
+dist/
+build/
+.firebase/
+firebase-debug.log
+firestore-debug.log
+*.log
+.DS_Store
+
+# Exclude files that might contain API keys
+**/config/env.ts
+**/config/firebase.ts
+FREE_AI_MODELS.md
+SETUP_AI_CHAT.md

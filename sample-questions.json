@@ -1,0 +1,87 @@
+{
+  "HTML": {
+    "BASIC": [
+      {
+        "type": "mcq",
+        "question": "What does HTML stand for?",
+        "options": [
+          "Hyper Text Markup Language",
+          "High Tech Modern Language",
+          "Home Tool Markup Language",
+          "Hyperlinks and Text Markup Language"
+        ],
+        "correct_answer": "Hyper Text Markup Language",
+        "explanation": "HTML stands for Hyper Text Markup Language, which is the standard markup language for creating web pages."
+      },
+      {
+        "type": "mcq",
+        "question": "Which HTML tag is used to define an internal style sheet?",
+        "options": ["<style>", "<css>", "<script>", "<link>"],
+        "correct_answer": "<style>",
+        "explanation": "The <style> tag is used to define internal CSS styles within an HTML document."
+      }
+    ],
+    "INTERMEDIATE": [
+      {
+        "type": "mcq",
+        "question": "Which HTML5 element is used to specify a footer for a document or section?",
+        "options": ["<footer>", "<bottom>", "<section>", "<div>"],
+        "correct_answer": "<footer>",
+        "explanation": "The <footer> element represents a footer for its nearest sectioning content or sectioning root element."
+      }
+    ],
+    "ADVANCED": [
+      {
+        "type": "mcq",
+        "question": "What is the purpose of the data-* attributes in HTML5?",
+        "options": [
+          "To store custom data private to the page or application",
+          "To define database connections",
+          "To create data tables",
+          "To validate form data"
+        ],
+        "correct_answer": "To store custom data private to the page or application",
+        "explanation": "Data attributes allow you to store extra information on standard HTML elements without using non-standard attributes."
+      }
+    ]
+  },
+  "JavaScript": {
+    "BASIC": [
+      {
+        "type": "mcq",
+        "question": "Which company developed JavaScript?",
+        "options": ["Netscape", "Microsoft", "Google", "Apple"],
+        "correct_answer": "Netscape",
+        "explanation": "JavaScript was developed by Brendan Eich at Netscape in 1995."
+      }
+    ],
+    "INTERMEDIATE": [
+      {
+        "type": "mcq",
+        "question": "What is the difference between let and var?",
+        "options": [
+          "let has block scope, var has function scope",
+          "let is faster",
+          "var is newer",
+          "No difference"
+        ],
+        "correct_answer": "let has block scope, var has function scope",
+        "explanation": "let is block-scoped while var is function-scoped, making let more predictable in modern JavaScript."
+      }
+    ],
+    "ADVANCED": [
+      {
+        "type": "mcq",
+        "question": "What is a closure in JavaScript?",
+        "options": [
+          "A function that has access to variables in its outer scope",
+          "A way to close browser windows",
+          "A type of loop",
+          "A CSS property"
+        ],
+        "correct_answer": "A function that has access to variables in its outer scope",
+        "explanation": "A closure gives you access to an outer function's scope from an inner function."
+      }
+    ]
+  }
+}

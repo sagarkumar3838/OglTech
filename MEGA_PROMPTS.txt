@@ -1,0 +1,162 @@
+=== MEGA PROMPT 1: OGL Developer - ALL LEVELS (3000 questions) ===
+
+Generate 1000 questions for OGL Developer covering ALL THREE levels (BASIC, INTERMEDIATE, ADVANCED).
+
+Skills: HTML, CSS, JavaScript, jquery, oglKnowledge
+
+CSV Format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Distribution:
+- 333 BASIC questions (fundamentals, syntax, basic concepts)
+- 333 INTERMEDIATE questions (debugging, modifying, applying)
+- 334 ADVANCED questions (architecture, optimization, best practices)
+
+Cover all skills evenly. Output ONLY CSV data, no other text.
+
+=== RUN THIS 3 TIMES for 3000 questions ===
+
+---
+
+=== MEGA PROMPT 2: OGL Tester - ALL LEVELS (3000 questions) ===
+
+Generate 1000 questions for OGL Tester covering ALL THREE levels.
+
+Skills: Testing Tools, JavaScript, TypeScript, HTML, CSS
+
+CSV Format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Distribution:
+- 333 BASIC (testing fundamentals, test types, basic automation)
+- 333 INTERMEDIATE (frameworks, E2E, mocking, coverage)
+- 334 ADVANCED (strategy, performance, security, CI/CD)
+
+Output ONLY CSV data.
+
+=== RUN THIS 3 TIMES ===
+
+---
+
+=== MEGA PROMPT 3: OGL Frontend Developer - ALL LEVELS (3000 questions) ===
+
+Generate 1000 questions for OGL Frontend Developer covering ALL THREE levels.
+
+Skills: HTML, CSS, JavaScript, TypeScript, React, jQuery
+
+CSV Format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Distribution:
+- 333 BASIC (HTML semantics, CSS basics, JS DOM, React JSX)
+- 333 INTERMEDIATE (Responsive, CSS Grid, ES6+, React hooks)
+- 334 ADVANCED (CSS architecture, JS patterns, React optimization, PWA)
+
+Output ONLY CSV data.
+
+=== RUN THIS 3 TIMES ===
+
+---
+
+=== MEGA PROMPT 4: OGL Backend Developer - ALL LEVELS (3000 questions) ===
+
+Generate 1000 questions for OGL Backend Developer covering ALL THREE levels.
+
+Skills: JavaScript, TypeScript, Python, Java, Node.js
+
+CSV Format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Distribution:
+- 333 BASIC (Server basics, HTTP, SQL, API concepts)
+- 333 INTERMEDIATE (REST API, Auth, Database optimization)
+- 334 ADVANCED (Microservices, API security, Scaling, Caching)
+
+Output ONLY CSV data.
+
+=== RUN THIS 3 TIMES ===
+
+---
+
+=== MEGA PROMPT 5: OGL DevOps Developer - ALL LEVELS (3000 questions) ===
+
+Generate 1000 questions for OGL DevOps Developer covering ALL THREE levels.
+
+Skills: Cloud Platforms, Docker, Kubernetes, CI/CD, Python
+
+CSV Format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Distribution:
+- 333 BASIC (DevOps fundamentals, Docker basics, Cloud basics)
+- 333 INTERMEDIATE (Docker Compose, K8s basics, CI/CD pipelines)
+- 334 ADVANCED (K8s orchestration, Multi-cloud, Security)
+
+Output ONLY CSV data.
+
+=== RUN THIS 3 TIMES ===
+
+---
+
+=== MEGA PROMPT 6: OGL Cloud Developer - ALL LEVELS (3000 questions) ===
+
+Generate 1000 questions for OGL Cloud Developer covering ALL THREE levels.
+
+Skills: Cloud Platforms, JavaScript, Python, Serverless, Microservices
+
+CSV Format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Distribution:
+- 333 BASIC (Cloud concepts, AWS/Azure/GCP basics, Serverless)
+- 333 INTERMEDIATE (Lambda, API Gateway, Cloud databases)
+- 334 ADVANCED (Multi-region, Cost optimization, High availability)
+
+Output ONLY CSV data.
+
+=== RUN THIS 3 TIMES ===
+
+---
+
+=== MEGA PROMPT 7: OGL QA Developer - ALL LEVELS (3000 questions) ===
+
+Generate 1000 questions for OGL QA Developer covering ALL THREE levels.
+
+Skills: Testing Tools, TypeScript, JavaScript, Java, HTML, CSS
+
+CSV Format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Distribution:
+- 333 BASIC (QA fundamentals, Test case design, Bug reporting)
+- 333 INTERMEDIATE (Automation frameworks, API testing, Performance)
+- 334 ADVANCED (Test architecture, Performance engineering, Strategy)
+
+Output ONLY CSV data.
+
+=== RUN THIS 3 TIMES ===
+
+---
+
+=== MEGA PROMPT 8: OGL Content Developer - ALL LEVELS (3000 questions) ===
+
+Generate 1000 questions for OGL Content Developer covering ALL THREE levels.
+
+Skills: HTML, CSS, JavaScript, jQuery, OGL Knowledge
+
+CSV Format:
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Distribution:
+- 333 BASIC (HTML structure, CSS styling, JavaScript basics)
+- 333 INTERMEDIATE (Responsive design, CSS frameworks, jQuery)
+- 334 ADVANCED (Accessibility, Performance, Content strategy)
+
+Output ONLY CSV data.
+
+=== RUN THIS 3 TIMES ===
+
+---
+
+TOTAL: 8 careers × 3 runs × 1000 questions = 24,000 questions
+TIME: 24 prompts × 15 minutes = 6 HOURS!

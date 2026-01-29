@@ -1,0 +1,268 @@
+============================================
+FIX: "No questions available" ERROR
+============================================
+
+STEP 1: CHECK WHAT'S IN YOUR DATABASE
+--------------------------------------
+
+1. Open Supabase SQL Editor:
+   https://supabase.com/dashboard/project/ksjgsgebjnpwyycnptom/editor
+
+2. Click "New Query"
+
+3. Copy and paste this query:
+
+   SELECT COUNT(*) as total_questions FROM questions;
+
+4. Click "Run"
+
+5. What do you see?
+
+   ✅ If you see a number > 0: Questions exist, go to STEP 2
+   ❌ If you see 0: No questions uploaded, go to STEP 4
+
+============================================
+STEP 2: CHECK SKILL AND LEVEL NAMES
+--------------------------------------
+
+Run this query in Supabase SQL Editor:
+
+SELECT skill, level, COUNT(*) as count 
+FROM questions 
+GROUP BY skill, level 
+ORDER BY skill, level;
+
+What do you see?
+
+SCENARIO A: You see "HTML", "BASIC", "INTERMEDIATE"
+   → Cleanup SQL NOT run yet
+   → Go to STEP 3
+
+SCENARIO B: You see "html", "easy", "medium", "hard"
+   → Cleanup SQL already run
+   → Go to STEP 5
+
+SCENARIO C: You see nothing (empty result)
+   → No questions in database
+   → Go to STEP 4
+
+============================================
+STEP 3: RUN CLEANUP SQL
+--------------------------------------
+
+1. In Supabase SQL Editor, click "New Query"
+
+2. Open the file: complete-cleanup.sql
+
+3. Copy ALL content (Ctrl+A, Ctrl+C)
+
+4. Paste into SQL Editor (Ctrl+V)
+
+5. Click "Run" (or Ctrl+Enter)
+
+6. Wait 30-60 seconds
+
+7. You should see output showing:
+   - BEFORE CLEANUP
+   - After removing unwanted skills
+   - After standardizing levels
+   - After removing duplicates
+   - FINAL STATE
+
+8. Verify the FINAL STATE shows:
+   - Skills: html, css, javascript, jquery, oglknowledge
+   - Levels: easy, medium, hard
+
+9. Go to STEP 5
+
+============================================
+STEP 4: UPLOAD QUESTIONS (IF DATABASE IS EMPTY)
+--------------------------------------
+
+Your database is empty. You need to upload questions first.
+
+Option A: Upload from CSV (you already have the file)
+------------------------------------------------------
+
+1. Open terminal in your project root
+
+2. Run:
+   cd scripts
+   npx tsx upload-csv-to-supabase.ts ../client/dist/assets/ogl_developer_questions_combined_3000_cleaned.csv
+
+3. Wait for upload to complete
+
+4. Go back to STEP 1 to verify
+
+Option B: Use the upload script you already ran
+------------------------------------------------
+
+If you already ran the upload script before, the questions should be there.
+Check if you used the correct Supabase credentials:
+
+1. Check server/.env or scripts directory for .env
+2. Verify SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are correct
+3. Re-run the upload script
+
+============================================
+STEP 5: VERIFY QUESTIONS ARE ACCESSIBLE
+--------------------------------------
+
+Run this query to check HTML questions:
+
+SELECT skill, level, COUNT(*) as count 
+FROM questions 
+WHERE skill = 'html'
+GROUP BY skill, level;
+
+Expected result:
+html | easy   | (some number > 0)
+html | medium | (some number > 0)
+html | hard   | (some number > 0)
+
+If you see this, questions are ready!
+
+If you see nothing:
+- Skill name might be different (HTML vs html)
+- Run: SELECT DISTINCT skill FROM questions;
+- See what skill names actually exist
+
+============================================
+STEP 6: CHECK BROWSER CONSOLE
+--------------------------------------
+
+1. Open your app: http://localhost:3000
+
+2. Open browser console (F12)
+
+3. Navigate to career and click "From Database"
+
+4. Look for these console messages:
+
+   "Evaluation state: {careerId: '...', skillName: 'html', level: 'easy'}"
+   "Attempting to load questions for: skill="html", level="easy""
+   "Loading questions from Supabase: skill="html", level="easy""
+   "Loaded X questions for html-easy"
+
+5. What do you see?
+
+   ✅ "Loaded 10 questions" → Success! Should work now
+   ❌ "Loaded 0 questions" → Skill/level mismatch, see STEP 7
+   ❌ Error message → Check error details
+
+============================================
+STEP 7: FIX SKILL/LEVEL MISMATCH
+--------------------------------------
+
+If console shows:
+"Loading questions from Supabase: skill="html", level="easy""
+"Loaded 0 questions for html-easy"
+
+But database has questions, there's a mismatch.
+
+Run this query to see what's actually in database:
+
+SELECT DISTINCT skill, level 
+FROM questions 
+WHERE skill LIKE '%html%' OR skill LIKE '%HTML%'
+ORDER BY skill, level;
+
+Compare with what the console is searching for.
+
+Common mismatches:
+- Database has "HTML" but code searches "html"
+- Database has "BASIC" but code searches "easy"
+- Database has "OGL Knowledge" but code searches "oglknowledge"
+
+Solution: Run the cleanup SQL (STEP 3)
+
+============================================
+STEP 8: MANUAL FIX (IF CLEANUP SQL FAILS)
+--------------------------------------
+
+If cleanup SQL doesn't work, manually update:
+
+-- Convert levels
+UPDATE questions SET level = 'easy' WHERE level = 'BASIC';
+UPDATE questions SET level = 'medium' WHERE level = 'INTERMEDIATE';
+UPDATE questions SET level = 'hard' WHERE level = 'ADVANCED';
+
+-- Convert skills to lowercase
+UPDATE questions SET skill = LOWER(skill);
+
+-- Remove spaces from skill names
+UPDATE questions SET skill = REPLACE(skill, ' ', '');
+
+-- Verify
+SELECT DISTINCT skill, level FROM questions ORDER BY skill, level;
+
+============================================
+STEP 9: TEST AGAIN
+--------------------------------------
+
+1. Clear browser cache (Ctrl+Shift+Delete)
+
+2. Reload page (Ctrl+F5)
+
+3. Open console (F12)
+
+4. Navigate to OGL Content Developer career
+
+5. Click "From Database" for HTML at easy level
+
+6. Check console for logs
+
+7. Should navigate to evaluation page with 10 questions
+
+============================================
+QUICK DIAGNOSTIC CHECKLIST
+--------------------------------------
+
+Run these queries in order:
+
+1. SELECT COUNT(*) FROM questions;
+   → Should be > 0
+
+2. SELECT DISTINCT skill FROM questions ORDER BY skill;
+   → Should show: css, html, javascript, jquery, oglknowledge
+
+3. SELECT DISTINCT level FROM questions ORDER BY level;
+   → Should show: easy, hard, medium
+
+4. SELECT COUNT(*) FROM questions WHERE skill='html' AND level='easy';
+   → Should be > 0
+
+If ANY of these fail, you know where the problem is!
+
+============================================
+MOST COMMON ISSUES
+--------------------------------------
+
+1. ❌ Cleanup SQL not run
+   → Skills are "HTML" not "html"
+   → Levels are "BASIC" not "easy"
+   → Solution: Run complete-cleanup.sql
+
+2. ❌ No questions in database
+   → Upload script not run
+   → Solution: Run upload script
+
+3. ❌ Wrong Supabase credentials
+   → Questions uploaded to wrong project
+   → Solution: Check .env files
+
+4. ❌ RLS (Row Level Security) blocking access
+   → Questions exist but can't be read
+   → Solution: Check RLS policies or use service_role key
+
+============================================
+NEED MORE HELP?
+--------------------------------------
+
+Share the output of these queries:
+
+1. SELECT COUNT(*) FROM questions;
+2. SELECT DISTINCT skill, level FROM questions LIMIT 10;
+3. Browser console logs when clicking "From Database"
+
+This will help diagnose the exact issue!

@@ -1,0 +1,106 @@
+═══════════════════════════════════════════════════════════
+  QUICK REFERENCE: Add Questions to Master File
+═══════════════════════════════════════════════════════════
+
+GOAL: Build 5000 unique questions in master file
+
+MASTER FILE: client\dist\assets\html_easy_questions_unique.csv
+
+═══════════════════════════════════════════════════════════
+  WORKFLOW (Repeat until 5000 questions)
+═══════════════════════════════════════════════════════════
+
+1. GENERATE (DeepSeek)
+   → Generate 500 questions
+   → Copy CSV data
+
+2. PASTE
+   → Create new file: new_batch_X.csv
+   → Paste questions
+   → Save
+
+3. MERGE
+   → Run: ADD_NEW_BATCH.bat
+   → Or: npx tsx scripts/merge-and-deduplicate.ts master.csv new_batch.csv
+
+4. CHECK
+   → See how many added
+   → See how many duplicates rejected
+   → Total questions now
+
+5. REPEAT
+   → Go back to step 1
+   → Continue until 5000
+
+═══════════════════════════════════════════════════════════
+  COMMANDS
+═══════════════════════════════════════════════════════════
+
+Add new batch:
+  ADD_NEW_BATCH.bat
+
+Or manually:
+  npx tsx scripts/merge-and-deduplicate.ts ^
+    client\dist\assets\html_easy_questions_unique.csv ^
+    new_batch_1.csv
+
+═══════════════════════════════════════════════════════════
+  WHAT HAPPENS
+═══════════════════════════════════════════════════════════
+
+✓ Reads master file (current questions)
+✓ Reads new batch file (500 new questions)
+✓ Compares all questions
+✓ Removes duplicates automatically
+✓ Adds only unique questions
+✓ Creates backup before updating
+✓ Shows statistics
+
+═══════════════════════════════════════════════════════════
+  EXAMPLE OUTPUT
+═══════════════════════════════════════════════════════════
+
+Master file questions: 325
+New questions provided: 500
+New questions added: 450
+Duplicates rejected: 50
+Total unique questions: 775
+
+═══════════════════════════════════════════════════════════
+  PROGRESS TRACKING
+═══════════════════════════════════════════════════════════
+
+Batch 1: 325 → 775 (+450)
+Batch 2: 775 → 1195 (+420)
+Batch 3: 1195 → 1575 (+380)
+...continue until 5000
+
+═══════════════════════════════════════════════════════════
+  SAFETY
+═══════════════════════════════════════════════════════════
+
+✓ Automatic backup created every time
+✓ No data loss
+✓ Can restore from backup if needed
+✓ Duplicates rejected, not deleted
+
+═══════════════════════════════════════════════════════════
+  FILES CREATED
+═══════════════════════════════════════════════════════════
+
+scripts/merge-and-deduplicate.ts  - Main script
+ADD_NEW_BATCH.bat                 - Easy batch file
+WORKFLOW_5000_QUESTIONS.md        - Complete guide
+QUICK_ADD_QUESTIONS.txt           - This file
+
+═══════════════════════════════════════════════════════════
+  TIPS
+═══════════════════════════════════════════════════════════
+
+• Use different prompts for each batch
+• Review questions before merging
+• Keep backup files until done
+• Track your progress in a log file
+• Expect more duplicates as you add more batches
+
+═══════════════════════════════════════════════════════════

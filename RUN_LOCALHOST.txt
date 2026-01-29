@@ -1,0 +1,89 @@
+========================================
+QUICK START - Run on Localhost
+========================================
+
+STEP 1: Install Dependencies (First time only)
+-----------------------------------------------
+npm run setup
+
+OR on Windows, double-click:
+SETUP.bat
+
+
+STEP 2: Seed Careers to Supabase (First time only)
+---------------------------------------------------
+1. Go to: https://supabase.com/dashboard
+2. Select your project
+3. Click "SQL Editor"
+4. Copy contents from: seed-careers.sql
+5. Paste and click "Run"
+
+
+STEP 3: Start the Application
+------------------------------
+npm start
+
+OR on Windows, double-click:
+START.bat
+
+
+STEP 4: Open Browser
+---------------------
+Frontend: http://localhost:5173
+Backend:  http://localhost:5001/api/health
+
+
+========================================
+TROUBLESHOOTING
+========================================
+
+Problem: "Cannot connect to backend"
+Solution: Make sure server is running on port 5001
+
+Problem: "No careers found"
+Solution: Run the SQL from seed-careers.sql in Supabase
+
+Problem: "AI generation failed"
+Solution: Check your API keys in .env file
+
+Problem: Port already in use
+Solution: 
+- Close other apps using port 5001 or 5173
+- Or change PORT in .env file
+
+
+========================================
+CONFIGURATION
+========================================
+
+All settings are in .env file:
+- AI Provider keys (OpenAI, Groq, DeepSeek)
+- Supabase connection
+- RAG strategy (ai_only for localhost)
+- Port numbers
+
+
+========================================
+FEATURES
+========================================
+
+✅ Two question modes:
+   - 🤖 AI Generated (uses OpenAI/Groq/DeepSeek)
+   - 📚 From Database (uses Supabase questions)
+
+✅ Three difficulty levels:
+   - BASIC
+   - INTERMEDIATE  
+   - ADVANCED
+
+✅ Progress tracking
+✅ Scorecard generation
+✅ Multiple AI provider fallback
+
+
+========================================
+SUPPORT
+========================================
+
+Check server logs in the terminal for errors
+Check browser console (F12) for frontend errors

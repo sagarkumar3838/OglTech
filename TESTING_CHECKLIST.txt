@@ -1,0 +1,166 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║        🧪 END-TO-END TESTING CHECKLIST 🧪                     ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+BEFORE YOU START:
+───────────────────────────────────────────────────────────────
+Run: TEST_BEFORE_DEPLOYMENT.bat
+
+This will start both frontend and backend servers automatically.
+
+TESTING CHECKLIST:
+───────────────────────────────────────────────────────────────
+
+✅ HOMEPAGE TESTS
+  [ ] Homepage loads without errors
+  [ ] Hero section displays
+  [ ] Navigation menu works
+  [ ] All buttons clickable
+  [ ] Animations smooth
+  [ ] Responsive on mobile
+
+✅ AUTHENTICATION TESTS
+  [ ] Sign up form appears
+  [ ] Can create new account
+  [ ] Email validation works
+  [ ] Login works
+  [ ] Logout works
+  [ ] Session persists
+
+✅ CAREERS PAGE TESTS
+  [ ] Careers page loads
+  [ ] All careers display
+  [ ] Career cards clickable
+  [ ] Skills list shows
+  [ ] "Start Evaluation" works
+
+✅ EVALUATION TESTS
+  [ ] Evaluation page loads
+  [ ] Instructions show
+  [ ] Timer starts
+  [ ] Questions load
+  [ ] Can select answers
+  [ ] Next/Previous works
+  [ ] Tab detection works
+  [ ] Can submit
+  [ ] Confirmation appears
+
+✅ SCORECARD TESTS
+  [ ] Scorecard loads
+  [ ] Score displays
+  [ ] Pass/Fail shows
+  [ ] Breakdown visible
+  [ ] Recommendations show
+  [ ] Can navigate back
+
+✅ DASHBOARD TESTS
+  [ ] Dashboard loads
+  [ ] Stats display
+  [ ] Charts show
+  [ ] Recent tests list
+  [ ] Progress visible
+  [ ] Navigation works
+
+✅ PROFILE TESTS
+  [ ] Profile page loads
+  [ ] User info shows
+  [ ] Can edit profile
+  [ ] Changes save
+
+✅ DATABASE TESTS
+  [ ] Data saves to Supabase
+  [ ] Questions load
+  [ ] Media loads
+  [ ] No 406 errors
+
+✅ CONSOLE CHECKS (F12)
+  [ ] No red errors
+  [ ] No critical warnings
+  [ ] API calls succeed (200)
+  [ ] No 404 errors
+  [ ] No CORS errors
+
+✅ PERFORMANCE TESTS
+  [ ] Page load < 3 seconds
+  [ ] Smooth animations
+  [ ] Images load fast
+  [ ] No lag
+
+✅ BROWSER TESTS
+  [ ] Works in Chrome
+  [ ] Works in Firefox
+  [ ] Works in Edge
+
+✅ RESPONSIVE TESTS
+  [ ] Desktop (1920x1080)
+  [ ] Laptop (1366x768)
+  [ ] Tablet (768x1024)
+  [ ] Mobile (375x667)
+
+BACKEND API TESTS:
+───────────────────────────────────────────────────────────────
+
+Test in browser or curl:
+
+[ ] http://localhost:5001/api/health
+    Should return: {"status":"ok"}
+
+[ ] http://localhost:5001/api/questions
+    Should return: questions array
+
+[ ] http://localhost:5001/api/careers
+    Should return: careers array
+
+COMMON ISSUES:
+───────────────────────────────────────────────────────────────
+
+❌ Port already in use:
+   netstat -ano | findstr :3001
+   taskkill /PID <PID> /F
+
+❌ Dependencies fail:
+   npm cache clean --force
+   npm install
+
+❌ Build fails:
+   Check Node.js version: node --version
+   Should be 18+
+
+❌ 406 errors:
+   Run: fix-406-simple.sql in Supabase
+
+TESTING REPORT:
+───────────────────────────────────────────────────────────────
+
+Date: _______________
+Tester: _______________
+System: _______________
+
+Tests Passed: _____ / _____
+Tests Failed: _____ / _____
+
+Issues Found:
+_____________________________________________________________
+_____________________________________________________________
+_____________________________________________________________
+
+Ready for Deployment? [ ] YES  [ ] NO
+
+AFTER TESTING:
+───────────────────────────────────────────────────────────────
+
+If all tests pass:
+  Run: DEPLOY_FULLSTACK_FIREBASE.bat
+
+If tests fail:
+  1. Fix issues
+  2. Re-test
+  3. Document changes
+
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║  Start Testing: TEST_BEFORE_DEPLOYMENT.bat                    ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝

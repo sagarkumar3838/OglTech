@@ -1,0 +1,117 @@
+════════════════════════════════════════════════════════════════
+🔥 FIREBASE DEPLOYMENT - QUICK START
+════════════════════════════════════════════════════════════════
+
+✅ CLIENT: Built and ready
+✅ SERVER: Built and ready
+✅ FIREBASE: Configured (mentorai1998)
+
+════════════════════════════════════════════════════════════════
+🚀 DEPLOY NOW (15 MINUTES)
+════════════════════════════════════════════════════════════════
+
+STEP 1: DEPLOY CLIENT (2 MIN)
+────────────────────────────────────────────────────────────────
+cd client
+firebase deploy --only hosting
+
+Result: https://mentorai1998.web.app
+
+
+STEP 2: DEPLOY SERVER (10 MIN)
+────────────────────────────────────────────────────────────────
+1. Go to: https://render.com
+2. New Web Service → Connect GitHub
+3. Build: cd server && npm install && npm run build
+4. Start: cd server && node dist/server.js
+5. Add environment variables (see below)
+6. Deploy
+
+Result: https://skilleval-api.onrender.com
+
+
+STEP 3: CONNECT THEM (2 MIN)
+────────────────────────────────────────────────────────────────
+1. Create client/.env.production:
+   VITE_API_URL=https://skilleval-api.onrender.com/api
+
+2. Rebuild and redeploy:
+   cd client
+   npm run build
+   firebase deploy --only hosting
+
+
+STEP 4: UPDATE SUPABASE (1 MIN)
+────────────────────────────────────────────────────────────────
+1. Supabase Dashboard → Settings → API
+2. Site URL: https://mentorai1998.web.app
+3. Add Redirect URLs
+
+
+════════════════════════════════════════════════════════════════
+🔐 ENVIRONMENT VARIABLES
+════════════════════════════════════════════════════════════════
+
+CLIENT (.env.production):
+VITE_SUPABASE_URL=https://ksjgsgebjnpwyycnptom.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtzamdzZ2Viam5wd3l5Y25wdG9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwMzM5NDEsImV4cCI6MjA4NDYwOTk0MX0.R4w_7BJ7AgzegkpCaJZji154NFlmzjjnOs3VkH4eYjU
+VITE_API_URL=https://skilleval-api.onrender.com/api
+
+SERVER (Render Dashboard):
+NODE_ENV=production
+PORT=10000
+SUPABASE_URL=https://ksjgsgebjnpwyycnptom.supabase.co
+SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtzamdzZ2Viam5wd3l5Y25wdG9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwMzM5NDEsImV4cCI6MjA4NDYwOTk0MX0.R4w_7BJ7AgzegkpCaJZji154NFlmzjjnOs3VkH4eYjU
+OPENAI_API_KEY=your_key
+GROQ_API_KEY=your_key
+DEEPSEEK_API_KEY=your_key
+CORS_ORIGIN=https://mentorai1998.web.app
+
+
+════════════════════════════════════════════════════════════════
+✅ TEST PRODUCTION
+════════════════════════════════════════════════════════════════
+
+Client: https://mentorai1998.web.app
+Server: https://skilleval-api.onrender.com/api/health
+
+Test Flow:
+1. Sign up
+2. Complete profile
+3. Take test
+4. Check scorecard
+5. Verify analytics
+
+
+════════════════════════════════════════════════════════════════
+💰 COST
+════════════════════════════════════════════════════════════════
+
+Firebase Hosting: FREE
+Render: FREE (sleeps after 15min)
+Supabase: FREE
+Total: $0/month
+
+
+════════════════════════════════════════════════════════════════
+📚 DOCUMENTATION
+════════════════════════════════════════════════════════════════
+
+Full Guide: FIREBASE_DEPLOYMENT_COMPLETE.md
+Quick Deploy: DEPLOY_CLIENT_FIREBASE.bat
+Commands: DEPLOY_FIREBASE_NOW.bat
+
+
+════════════════════════════════════════════════════════════════
+🎯 CURRENT STATUS
+════════════════════════════════════════════════════════════════
+
+✅ Client built
+✅ Server built
+✅ Firebase configured
+⏳ Pending deployment
+
+Next: Run DEPLOY_CLIENT_FIREBASE.bat
+
+
+════════════════════════════════════════════════════════════════

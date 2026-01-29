@@ -1,0 +1,153 @@
+============================================
+🚀 QUICK START: Generate Questions in 10 Minutes
+============================================
+
+FASTEST WAY TO GET STARTED:
+----------------------------
+
+STEP 1: Copy this prompt to ChatGPT (2 minutes)
+------------------------------------------------
+
+Generate 90 unique HTML questions (30 easy, 30 medium, 30 hard) in CSV format.
+
+CSV columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Requirements:
+- Easy (BASIC): Basic tags, structure, forms, lists
+- Medium (INTERMEDIATE): HTML5, attributes, semantic elements, accessibility
+- Hard (ADVANCED): Performance, web components, advanced forms, optimization
+
+Format each row as:
+HTML,BASIC,Multiple Choice,Question text?,Option A,Option B,Option C,Option D,Correct Answer,Explanation
+
+Generate 90 unique questions now.
+
+STEP 2: Save ChatGPT output (1 minute)
+---------------------------------------
+
+1. Copy all output from ChatGPT
+2. Open Notepad
+3. Paste
+4. Save as: html-questions.csv
+5. Make sure it's saved in your project root folder
+
+STEP 3: Upload to Supabase (1 minute)
+--------------------------------------
+
+Open terminal and run:
+
+npx tsx scripts/upload-csv-to-supabase.ts html-questions.csv
+
+Wait for "Upload Complete!"
+
+STEP 4: Verify (30 seconds)
+----------------------------
+
+In Supabase SQL Editor:
+
+SELECT skill, level, COUNT(*) 
+FROM questions 
+WHERE skill = 'html'
+GROUP BY skill, level;
+
+Should show:
+html | easy   | 30
+html | medium | 30
+html | hard   | 30
+
+STEP 5: Test in app (1 minute)
+-------------------------------
+
+1. Go to: http://localhost:3000
+2. Navigate to OGL Content Developer career
+3. Click "From Database" for HTML easy
+4. Should load 10 questions!
+5. Take the test!
+
+DONE! 🎉
+
+============================================
+REPEAT FOR OTHER SKILLS:
+============================================
+
+CSS (10 minutes):
+-----------------
+Same prompt, replace "HTML" with "CSS"
+Topics: selectors, properties, flexbox, grid, animations
+
+JavaScript (10 minutes):
+------------------------
+Same prompt, replace "HTML" with "JavaScript"
+Topics: variables, functions, arrays, DOM, async/await
+
+jQuery (10 minutes):
+--------------------
+Same prompt, replace "HTML" with "jQuery"
+Topics: selectors, events, AJAX, animations, plugins
+
+OGL Knowledge (10 minutes):
+---------------------------
+Same prompt, replace "HTML" with "OGL Knowledge"
+Topics: OGL-specific concepts, tools, best practices
+
+============================================
+TOTAL TIME:
+============================================
+
+HTML: 10 minutes
+CSS: 10 minutes
+JavaScript: 10 minutes
+jQuery: 10 minutes
+OGL Knowledge: 10 minutes
+
+Total: 50 minutes for all Content Developer skills!
+
+============================================
+BATCH UPLOAD:
+============================================
+
+If you generate multiple CSV files, upload them all:
+
+npx tsx scripts/upload-csv-to-supabase.ts html-questions.csv
+npx tsx scripts/upload-csv-to-supabase.ts css-questions.csv
+npx tsx scripts/upload-csv-to-supabase.ts javascript-questions.csv
+npx tsx scripts/upload-csv-to-supabase.ts jquery-questions.csv
+npx tsx scripts/upload-csv-to-supabase.ts ogl-questions.csv
+
+============================================
+FINAL VERIFICATION:
+============================================
+
+After uploading all, check total:
+
+SELECT COUNT(*) FROM questions;
+
+Should show: ~450 questions (90 per skill × 5 skills)
+
+Breakdown:
+
+SELECT skill, COUNT(*) as total
+FROM questions
+GROUP BY skill
+ORDER BY total DESC;
+
+Should show:
+html         | 90
+css          | 90
+javascript   | 90
+jquery       | 90
+oglknowledge | 90
+
+============================================
+YOU'RE READY!
+============================================
+
+With 450 questions across 5 skills, your Content Developer career is fully functional!
+
+Users can:
+✅ Take evaluations for all skills
+✅ Get 10 unique questions each time
+✅ Progress through easy → medium → hard levels
+✅ See their scores and progress
+
+Later, generate questions for other 10 skills (TypeScript, React, etc.) using the same process!

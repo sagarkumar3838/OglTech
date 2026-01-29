@@ -1,0 +1,5 @@
+skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+HTML,BASIC,mcq,What does HTML stand for?,Hyper Text Markup Language,High Tech Modern Language,Home Tool Markup Language,Hyperlinks and Text Markup Language,Hyper Text Markup Language,HTML stands for Hyper Text Markup Language which is the standard markup language for creating web pages.
+HTML,BASIC,mcq,Which HTML tag is used to define an internal style sheet?,<style>,<css>,<script>,<link>,<style>,The <style> tag is used to define internal CSS styles within an HTML document.
+CSS,BASIC,mcq,What does CSS stand for?,Cascading Style Sheets,Creative Style Sheets,Computer Style Sheets,Colorful Style Sheets,Cascading Style Sheets,CSS stands for Cascading Style Sheets used to style and layout web pages.
+JavaScript,BASIC,mcq,Which company developed JavaScript?,Netscape,Microsoft,Google,Apple,Netscape,JavaScript was developed by Brendan Eich at Netscape in 1995.

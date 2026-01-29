@@ -1,0 +1,231 @@
+============================================
+📝 GENERATE QUESTIONS WITH CHATGPT
+============================================
+
+OVERVIEW:
+---------
+Generate 100+ unique questions per skill using ChatGPT.
+Each skill needs 3 levels: easy, medium, hard
+Aim for 30-50 questions per level = 90-150 per skill
+
+SKILLS NEEDED:
+--------------
+Priority 1 (Content Developer):
+1. HTML
+2. CSS
+3. JavaScript
+4. jQuery
+5. OGL Knowledge
+
+Priority 2 (Other courses):
+6. TypeScript
+7. React
+8. Node.js
+9. Python
+10. Java
+11. Testing Tools
+12. Cloud Platforms
+13. Docker
+14. Kubernetes
+15. CI/CD
+
+============================================
+CHATGPT PROMPTS (COPY & PASTE)
+============================================
+
+PROMPT 1: HTML EASY (30 questions)
+-----------------------------------
+
+Generate 30 unique HTML questions at EASY/BEGINNER level in CSV format.
+
+Requirements:
+- Focus on basic HTML tags, structure, and syntax
+- Multiple choice questions with 4 options
+- Include correct answer and explanation
+- CSV format with these exact columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Example format:
+HTML,BASIC,Multiple Choice,What does HTML stand for?,HyperText Markup Language,High Tech Modern Language,Home Tool Markup Language,Hyperlinks and Text Markup Language,HyperText Markup Language,HTML stands for HyperText Markup Language
+
+Generate 30 questions covering:
+- Basic tags (div, p, h1-h6, span, a, img)
+- Document structure (html, head, body)
+- Forms (input, button, select, textarea)
+- Lists (ul, ol, li)
+- Semantic HTML (header, footer, nav, article)
+
+-----------------------------------
+
+PROMPT 2: HTML MEDIUM (30 questions)
+-----------------------------------
+
+Generate 30 unique HTML questions at INTERMEDIATE/MEDIUM level in CSV format.
+
+Requirements:
+- Focus on HTML5 features, attributes, and best practices
+- Multiple choice questions with 4 options
+- Include correct answer and explanation
+- CSV format with these exact columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Example format:
+HTML,INTERMEDIATE,Multiple Choice,Which HTML5 element is used for navigation links?,<nav>,<navigation>,<menu>,<links>,<nav>,The <nav> element represents a section of navigation links
+
+Generate 30 questions covering:
+- HTML5 semantic elements
+- Form validation attributes
+- Data attributes
+- Accessibility (ARIA, alt text)
+- Meta tags and SEO
+
+-----------------------------------
+
+PROMPT 3: HTML HARD (30 questions)
+-----------------------------------
+
+Generate 30 unique HTML questions at ADVANCED/HARD level in CSV format.
+
+Requirements:
+- Focus on advanced HTML concepts, optimization, and edge cases
+- Multiple choice questions with 4 options
+- Include correct answer and explanation
+- CSV format with these exact columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation
+
+Example format:
+HTML,ADVANCED,Multiple Choice,What is the purpose of the defer attribute in script tags?,Loads script after HTML parsing,Loads script immediately,Prevents script execution,Loads script before HTML,Loads script after HTML parsing,The defer attribute ensures scripts execute after HTML parsing is complete
+
+Generate 30 questions covering:
+- Performance optimization
+- Web components
+- Shadow DOM
+- Custom elements
+- Advanced forms and validation
+- Microdata and structured data
+
+-----------------------------------
+
+REPEAT FOR OTHER SKILLS:
+------------------------
+
+Use the same pattern for:
+- CSS (easy, medium, hard)
+- JavaScript (easy, medium, hard)
+- jQuery (easy, medium, hard)
+- OGL Knowledge (easy, medium, hard)
+- TypeScript (easy, medium, hard)
+- React (easy, medium, hard)
+- Node.js (easy, medium, hard)
+- Python (easy, medium, hard)
+- Java (easy, medium, hard)
+- Testing Tools (easy, medium, hard)
+- Cloud Platforms (easy, medium, hard)
+- Docker (easy, medium, hard)
+- Kubernetes (easy, medium, hard)
+- CI/CD (easy, medium, hard)
+
+Just replace:
+- Skill name (HTML → CSS, JavaScript, etc.)
+- Level (BASIC → INTERMEDIATE → ADVANCED)
+- Topics (adjust for each skill)
+
+============================================
+QUICK PROMPTS (COPY & PASTE)
+============================================
+
+CSS EASY:
+---------
+Generate 30 unique CSS questions at BASIC level in CSV format with columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation. Focus on selectors, properties, colors, fonts, and basic layout. Use skill=CSS, level=BASIC.
+
+CSS MEDIUM:
+-----------
+Generate 30 unique CSS questions at INTERMEDIATE level in CSV format with columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation. Focus on flexbox, grid, animations, transitions, and responsive design. Use skill=CSS, level=INTERMEDIATE.
+
+CSS HARD:
+---------
+Generate 30 unique CSS questions at ADVANCED level in CSV format with columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation. Focus on CSS architecture, performance, preprocessors, custom properties, and advanced selectors. Use skill=CSS, level=ADVANCED.
+
+JAVASCRIPT EASY:
+----------------
+Generate 30 unique JavaScript questions at BASIC level in CSV format with columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation. Focus on variables, data types, operators, conditionals, and loops. Use skill=JavaScript, level=BASIC.
+
+JAVASCRIPT MEDIUM:
+------------------
+Generate 30 unique JavaScript questions at INTERMEDIATE level in CSV format with columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation. Focus on functions, arrays, objects, DOM manipulation, and events. Use skill=JavaScript, level=INTERMEDIATE.
+
+JAVASCRIPT HARD:
+----------------
+Generate 30 unique JavaScript questions at ADVANCED level in CSV format with columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation. Focus on closures, promises, async/await, prototypes, and ES6+ features. Use skill=JavaScript, level=ADVANCED.
+
+============================================
+AFTER GENERATING:
+============================================
+
+1. Copy ChatGPT output to a text file
+2. Save as: html-questions.csv (or css-questions.csv, etc.)
+3. Verify CSV format is correct
+4. Upload using command:
+   npx tsx scripts/upload-csv-to-supabase.ts html-questions.csv
+
+5. Repeat for each skill and level
+
+============================================
+TIPS:
+============================================
+
+✅ Generate one skill at a time
+✅ Start with Content Developer skills (HTML, CSS, JS, jQuery)
+✅ Verify CSV format before uploading
+✅ Check for duplicates in ChatGPT output
+✅ Aim for 30+ questions per level minimum
+✅ Can generate more later if needed
+
+❌ Don't mix skills in one CSV
+❌ Don't use different column names
+❌ Don't forget the header row
+❌ Don't include quotes around entire rows
+
+============================================
+VERIFICATION:
+============================================
+
+After uploading each CSV, verify in Supabase:
+
+SELECT skill, level, COUNT(*) 
+FROM questions 
+WHERE skill = 'html'
+GROUP BY skill, level;
+
+Should show:
+html | easy   | 30+
+html | medium | 30+
+html | hard   | 30+
+
+============================================
+ESTIMATED TIME:
+============================================
+
+Per skill (3 levels):
+- Generate with ChatGPT: 5-10 minutes
+- Save as CSV: 2 minutes
+- Upload: 1 minute
+- Total: ~10-15 minutes per skill
+
+For 5 Content Developer skills: ~1 hour
+For all 15 skills: ~3 hours
+
+But you can start with just HTML, CSS, JavaScript for now!
+
+============================================
+ALTERNATIVE: BATCH GENERATION
+============================================
+
+You can ask ChatGPT to generate all levels at once:
+
+"Generate 90 unique HTML questions (30 easy, 30 medium, 30 hard) in CSV format with columns: skill,level,type,question,option_a,option_b,option_c,option_d,correct_answer,explanation. 
+
+Easy questions should cover basic tags and structure.
+Medium questions should cover HTML5 and attributes.
+Hard questions should cover advanced concepts and optimization.
+
+Use skill=HTML, level=BASIC/INTERMEDIATE/ADVANCED"
+
+This generates all 90 questions in one go!
