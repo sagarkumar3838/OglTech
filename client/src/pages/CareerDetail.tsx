@@ -243,28 +243,46 @@ const CareerDetail = () => {
       }
 
       // For AI generation, call the backend API
-      const response = await generateQuestions(normalizedSkill, level, 10, useAI);
-      navigate(`/evaluation/${skillSlug}/${level.toLowerCase()}/${sessionId}`, {
-        state: { 
-          careerId: career.id,
-          careerName: career.name,
-          skillName: normalizedSkill,
-          skillDisplayName: skill.name,
-          level, 
-          source: 'AI' 
+      try {
+        const response = await generateQuestions(normalizedSkill, level, 10, useAI);
+        navigate(`/evaluation/${skillSlug}/${level.toLowerCase()}/${sessionId}`, {
+          state: { 
+            careerId: career.id,
+            careerName: career.name,
+            skillName: normalizedSkill,
+            skillDisplayName: skill.name,
+            level, 
+            source: 'AI' 
+          }
+        });
+      } catch (aiError) {
+        // If AI generation fails, automatically fall back to database questions
+        console.log('AI generation failed, falling back to database questions:', aiError);
+        
+        // Show user-friendly message
+        const shouldContinue = window.confirm(
+          '⚠️ AI server is currently unavailable (it may be waking up).\n\n' +
+          'Would you like to use questions from the database instead?\n\n' +
+          'Click OK to continue with database questions, or Cancel to try again later.'
+        );
+        
+        if (shouldContinue) {
+          // Navigate to evaluation with database questions
+          navigate(`/evaluation/${skillSlug}/${level.toLowerCase()}/${sessionId}`, {
+            state: { 
+              careerId: career.id,
+              careerName: career.name,
+              skillName: normalizedSkill,
+              skillDisplayName: skill.name,
+              level: level.toLowerCase(), 
+              source: 'Database' 
+            }
+          });
         }
-      });
-    } catch (error) {
-      console.error('Error generating questions:', error);
-      
-      // Check if it's a timeout error
-      if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
-        alert('⏱️ Server is waking up (this takes 30-60 seconds on first request).\n\nPlease wait a moment and try again, or click "Start Test" to use existing questions from the database.');
-      } else if (error.response?.status === 503 || error.message?.includes('Network Error')) {
-        alert('🔄 Server is starting up...\n\nThe free tier server sleeps after inactivity. Please wait 30-60 seconds and try again.\n\nOr click "Start Test" to use existing questions from the database.');
-      } else {
-        alert('AI question generation requires the backend server.\n\nYou can still use existing questions from the database by clicking "Start Test".');
       }
+    } catch (error) {
+      console.error('Error in evaluation flow:', error);
+      alert('An error occurred. Please try again or use "Start Test" for database questions.');
     } finally {
       setGenerating(false);
     }
