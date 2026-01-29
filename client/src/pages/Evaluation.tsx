@@ -6,6 +6,7 @@ import { supabase } from '../config/supabase';
 import { AlertTriangle, Clock, CheckCircle, XCircle, Eye, EyeOff, Home, ChevronRight } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { VoiceInputButton } from '../components/VoiceInputButton';
 
 const Evaluation = () => {
   // Support both old and new URL formats
@@ -998,17 +999,27 @@ const Evaluation = () => {
           <div className="space-y-4">
             <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
               <p className="text-sm text-blue-800">
-                💡 Type your answer in the box below. Be precise with spelling and formatting.
+                💡 Type your answer in the box below or click the microphone to speak. Be precise with spelling and formatting.
               </p>
             </div>
-            <input
-              type="text"
-              value={answers[currentQuestionIndex] || ''}
-              onChange={(e) => handleAnswerSelect(e.target.value)}
-              placeholder="Type your answer here..."
-              className="w-full p-4 text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-              autoFocus
-            />
+            <div className="flex items-center space-x-3">
+              <input
+                type="text"
+                value={answers[currentQuestionIndex] || ''}
+                onChange={(e) => handleAnswerSelect(e.target.value)}
+                placeholder="Type your answer here..."
+                className="flex-1 p-4 text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+                autoFocus
+              />
+              <VoiceInputButton
+                onTranscript={(text) => {
+                  // Append to existing answer or replace
+                  const currentAnswer = answers[currentQuestionIndex] || '';
+                  const newAnswer = currentAnswer ? `${currentAnswer} ${text}` : text;
+                  handleAnswerSelect(newAnswer);
+                }}
+              />
+            </div>
             {answers[currentQuestionIndex] && (
               <div className="flex items-center space-x-2 text-green-600">
                 <CheckCircle className="w-5 h-5" />
