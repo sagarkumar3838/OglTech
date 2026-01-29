@@ -1,0 +1,28 @@
+name: Keep Render Server Awake
+
+on:
+  schedule:
+    # Runs every 10 minutes
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  ping-server:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Ping Render Server
+        run: |
+          echo "🔄 Pinging Render server to keep it awake..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://skilleval-api.onrender.com/api/health)
+          
+          if [ $response -eq 200 ]; then
+            echo "✅ Server is awake and responding (HTTP $response)"
+          else
+            echo "⚠️ Server returned HTTP $response (might be waking up)"
+          fi
+          
+          echo "⏰ Next ping in 10 minutes"
+      
+      - name: Log timestamp
+        run: echo "Last ping at $(date -u)"
