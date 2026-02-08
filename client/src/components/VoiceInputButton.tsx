@@ -9,7 +9,7 @@ interface VoiceInputButtonProps {
 export const VoiceInputButton = ({ onTranscript, disabled = false }: VoiceInputButtonProps) => {
   const { isListening, isSupported, error, startListening, stopListening } = useVoiceInput({
     onTranscript,
-    language: 'en-US'
+    language: 'en' // AssemblyAI uses 'en' instead of 'en-US'
   });
 
   if (!isSupported) {
@@ -35,7 +35,7 @@ export const VoiceInputButton = ({ onTranscript, disabled = false }: VoiceInputB
             ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse'
             : 'bg-blue-500 hover:bg-blue-600 text-white'
         } disabled:opacity-50 disabled:cursor-not-allowed`}
-        title={isListening ? 'Stop recording' : 'Click to speak your answer'}
+        title={isListening ? 'Click to stop recording' : 'Click to speak your answer'}
       >
         {isListening ? (
           <MicOff className="w-5 h-5" />
@@ -49,7 +49,7 @@ export const VoiceInputButton = ({ onTranscript, disabled = false }: VoiceInputB
       )}
       
       {error && (
-        <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-red-100 text-red-800 text-xs px-3 py-1 rounded whitespace-nowrap">
+        <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-red-100 text-red-800 text-xs px-3 py-1 rounded whitespace-nowrap z-10 max-w-xs">
           {error}
         </div>
       )}

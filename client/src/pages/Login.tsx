@@ -41,7 +41,7 @@ const Login = () => {
         if (error) throw error;
         
         if (user) {
-          navigate('/dashboard');
+          navigate('/practice');
         }
       }
     } catch (err: any) {

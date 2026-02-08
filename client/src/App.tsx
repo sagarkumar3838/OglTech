@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Careers from './pages/Careers';
 import CareerDetail from './pages/CareerDetail';
+import CareerPaths from './pages/CareerPaths';
 import Evaluation from './pages/Evaluation';
 import Scorecard from './pages/Scorecard';
 import AdminDashboard from './pages/AdminDashboard';
@@ -32,6 +33,7 @@ import Topics from './pages/Topics';
 import TopicReference from './pages/TopicReference';
 import WeakTopicsDashboard from './pages/WeakTopicsDashboard';
 import AdminTopicManager from './pages/AdminTopicManager';
+import Roadmaps from './pages/Roadmaps';
 
 function App() {
   return (
@@ -138,6 +140,9 @@ function App() {
               <Route path="terms" element={<Terms />} />
               <Route path="cookies" element={<Cookies />} />
               
+              {/* Roadmaps - Learning Paths */}
+              <Route path="roadmaps" element={<Roadmaps />} />
+              
               {/* Topic Reference System */}
               <Route path="topics" element={<Topics />} />
               <Route path="topics/:slug" element={<TopicReference />} />
@@ -145,6 +150,7 @@ function App() {
               {/* Career Routes - /careers */}
               <Route path="careers" element={<Careers />} />
               <Route path="careers/:careerSlug" element={<CareerDetail />} />
+              <Route path="/career-paths" element={<CareerPaths />} />
               
               {/* OGL Content Developer Nested Routes */}
               <Route path="careers/ogl-content-developer/journey" element={<OGLSection />} />

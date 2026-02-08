@@ -54,6 +54,7 @@ export const ResizableNavbar = () => {
     { name: 'Home', path: '/', icon: Home, show: true },
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, show: !!user },
     { name: 'Careers', path: '/careers', icon: Briefcase, show: true },
+    { name: 'Roadmaps', path: '/roadmaps', icon: Sparkles, show: true },
     { name: 'About', path: '/about', icon: Sparkles, show: true },
     { name: 'Contact', path: '/contact', icon: User, show: true },
   ];

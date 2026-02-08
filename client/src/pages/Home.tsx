@@ -53,7 +53,7 @@ const Home = () => {
 // Features Section
 const FeaturesSection = () => {
   const features = [
-    { icon: Brain, title: "AI-Generated Questions", desc: "5000+ unique questions. No memorization, pure skill assessment.", color: "from-indigo-500 to-purple-500" },
+    { icon: Brain, title: "AI-Powered Assessments and Goal Setting", desc: "5,000+ skill-specific questions and personalized tasks to help you improve.", color: "from-indigo-500 to-purple-500" },
     { icon: BarChart3, title: "Detailed Analytics", desc: "Comprehensive scorecards with strengths and gaps analysis.", color: "from-purple-500 to-pink-500" },
     { icon: TrendingUp, title: "Progressive Levels", desc: "Track skill maturity from Basic to Advanced with precision.", color: "from-green-500 to-emerald-500" },
     { icon: Zap, title: "Instant Results", desc: "Get immediate feedback and detailed reports in real-time.", color: "from-orange-500 to-amber-500" },
@@ -77,10 +77,10 @@ const FeaturesSection = () => {
               </div>
             </motion.div>
             <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
-              Everything you need to assess talent
+              Everything you need to shape a standout profile
             </h2>
             <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Powerful features designed to make technical hiring faster, fairer, and more effective.
+              Your seamless journey to building and growing your career.
             </p>
           </div>
         </FadeIn>

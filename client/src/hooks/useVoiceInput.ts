@@ -1,80 +1,116 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 interface UseVoiceInputProps {
   onTranscript: (text: string) => void;
   language?: string;
 }
 
-export const useVoiceInput = ({ onTranscript, language = 'en-US' }: UseVoiceInputProps) => {
+export const useVoiceInput = ({ onTranscript, language = 'en' }: UseVoiceInputProps) => {
   const [isListening, setIsListening] = useState(false);
-  const [isSupported, setIsSupported] = useState(false);
+  const [isSupported, setIsSupported] = useState(true); // AssemblyAI works everywhere
   const [error, setError] = useState<string | null>(null);
-  const recognitionRef = useRef<any>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
 
-  useEffect(() => {
-    // Check if browser supports Web Speech API
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    
-    if (SpeechRecognition) {
-      setIsSupported(true);
-      
-      // Initialize recognition
-      const recognition = new SpeechRecognition();
-      recognition.continuous = false; // Stop after one result
-      recognition.interimResults = false; // Only final results
-      recognition.lang = language;
-      recognition.maxAlternatives = 1;
-
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
-        onTranscript(transcript);
-        setIsListening(false);
-      };
-
-      recognition.onerror = (event: any) => {
-        console.error('Speech recognition error:', event.error);
-        setError(event.error);
-        setIsListening(false);
-      };
-
-      recognition.onend = () => {
-        setIsListening(false);
-      };
-
-      recognitionRef.current = recognition;
-    } else {
-      setIsSupported(false);
-      setError('Speech recognition not supported in this browser');
-    }
-
-    return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.abort();
-      }
-    };
-  }, [language, onTranscript]);
-
-  const startListening = () => {
-    if (!isSupported || !recognitionRef.current) {
-      setError('Speech recognition not available');
-      return;
-    }
-
+  const startListening = async () => {
     try {
       setError(null);
+      audioChunksRef.current = [];
+
+      // Request microphone access
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      
+      // Create MediaRecorder
+      const mediaRecorder = new MediaRecorder(stream, {
+        mimeType: 'audio/webm;codecs=opus'
+      });
+      
+      mediaRecorderRef.current = mediaRecorder;
+
+      // Collect audio data
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      // Handle recording stop
+      mediaRecorder.onstop = async () => {
+        try {
+          // Stop all tracks
+          stream.getTracks().forEach(track => track.stop());
+
+          // Create audio blob
+          const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+          
+          // Send to backend for transcription
+          await transcribeAudio(audioBlob);
+          
+        } catch (err) {
+          console.error('Error processing audio:', err);
+          setError('Failed to process audio');
+        } finally {
+          setIsListening(false);
+        }
+      };
+
+      // Start recording
+      mediaRecorder.start();
       setIsListening(true);
-      recognitionRef.current.start();
-    } catch (err) {
-      console.error('Error starting recognition:', err);
-      setError('Failed to start voice recognition');
+
+    } catch (err: any) {
+      console.error('Error starting recording:', err);
+      
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        setError('Microphone permission denied. Please allow microphone access.');
+      } else if (err.name === 'NotFoundError') {
+        setError('No microphone found. Please connect a microphone.');
+      } else {
+        setError('Failed to start recording. Please try again.');
+      }
+      
       setIsListening(false);
     }
   };
 
   const stopListening = () => {
-    if (recognitionRef.current && isListening) {
-      recognitionRef.current.stop();
-      setIsListening(false);
+    if (mediaRecorderRef.current && isListening) {
+      mediaRecorderRef.current.stop();
+    }
+  };
+
+  const transcribeAudio = async (audioBlob: Blob) => {
+    try {
+      // Get API URL from environment
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+      
+      // Create FormData
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'recording.webm');
+      formData.append('language', language);
+
+      // Send to backend
+      const response = await fetch(`${apiUrl}/transcription/transcribe`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Transcription failed');
+      }
+
+      const data = await response.json();
+      
+      if (data.success && data.text) {
+        onTranscript(data.text);
+        setError(null);
+      } else {
+        throw new Error(data.error || 'No transcription received');
+      }
+
+    } catch (err: any) {
+      console.error('Transcription error:', err);
+      setError('Failed to transcribe audio. Please try again.');
     }
   };
 

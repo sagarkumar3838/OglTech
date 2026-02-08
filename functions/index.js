@@ -2,6 +2,9 @@ const functions = require('firebase-functions');
 const express = require('express');
 const cors = require('cors');
 
+// Import routes
+const transcriptionRoutes = require('./routes/transcription');
+
 // Import your server app
 // Note: We'll need to copy the built server files here
 const app = express();
@@ -35,10 +38,14 @@ app.get('/', (req, res) => {
     version: '2.0.0',
     endpoints: {
       health: '/api/health',
+      transcription: '/api/transcription',
       note: 'Full API endpoints available after deployment'
     }
   });
 });
+
+// Mount routes
+app.use('/transcription', transcriptionRoutes);
 
 // Export the Express app as a Firebase Function
 exports.api = functions.https.onRequest(app);
