@@ -3,6 +3,7 @@ node_modules/
 .env.local
 .env.free
 .env.localhost
+functions/.env
 dist/
 build/
 .firebase/
@@ -16,3 +17,8 @@ firestore-debug.log
 **/config/firebase.ts
 FREE_AI_MODELS.md
 SETUP_AI_CHAT.md
+
+# Ensure all .env files are ignored
+**/.env
+**/.env.local
+**/.env.*.local

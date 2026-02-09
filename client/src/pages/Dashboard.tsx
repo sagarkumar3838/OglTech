@@ -58,12 +58,25 @@ interface RecentTest {
   total_questions: number;
 }
 
+interface PracticeResult {
+  id: string;
+  skill: string;
+  level: string;
+  score: number;
+  total_questions: number;
+  percentage: number;
+  time_taken_seconds: number;
+  created_at: string;
+  recommended_roles: any[];
+}
+
 const Dashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [userProgress, setUserProgress] = useState<UserProgress | null>(null);
   const [career, setCareer] = useState<Career | null>(null);
   const [recentTests, setRecentTests] = useState<RecentTest[]>([]);
+  const [practiceResults, setPracticeResults] = useState<PracticeResult[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -105,6 +118,18 @@ const Dashboard = () => {
           total_questions: sc.total_questions
         }));
         setRecentTests(recentTestsData);
+      }
+      
+      // Load practice results
+      const { data: practiceData, error: practiceError } = await supabase
+        .from('practice_results')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(10);
+      
+      if (!practiceError && practiceData) {
+        setPracticeResults(practiceData);
       }
       
       if (scorecardsData && scorecardsData.length > 0) {
@@ -478,6 +503,146 @@ const Dashboard = () => {
             </div>
           )}
         </Card>
+
+        {/* Practice Results History */}
+        {practiceResults.length > 0 && (
+          <Card className="bg-white shadow-sm border p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <Trophy className="w-5 h-5" />
+              Practice Test Results
+            </h2>
+            <div className="space-y-3">
+              {practiceResults.map((result, index) => {
+                const percentage = result.percentage;
+                const passed = percentage >= 60; // Pass threshold: 60%
+                const excellent = percentage >= 80;
+                const status = excellent ? 'Excellent' : passed ? 'Pass' : 'Fail';
+                const statusColor = excellent ? 'text-green-600' : passed ? 'text-blue-600' : 'text-red-600';
+                const bgColor = excellent ? 'bg-green-50' : passed ? 'bg-blue-50' : 'bg-red-50';
+                const borderColor = excellent ? 'border-green-200' : passed ? 'border-blue-200' : 'border-red-200';
+                
+                // Format date
+                const testDate = new Date(result.created_at);
+                const timeAgo = testDate.toLocaleDateString('en-US', { 
+                  month: 'short', 
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                });
+
+                // Map database level to display level
+                const displayLevel = result.level === 'easy' ? 'Beginner' :
+                                   result.level === 'medium' ? 'Intermediate' :
+                                   result.level === 'hard' ? 'Advanced' : result.level;
+
+                return (
+                  <div 
+                    key={result.id}
+                    className={`p-4 rounded-lg border-2 ${bgColor} ${borderColor} hover:shadow-md transition-shadow`}
+                  >
+                    <div className="flex items-center justify-between">
+                      {/* Left: Test Info */}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="font-semibold text-gray-900 capitalize">
+                            {result.skill}
+                          </h3>
+                          <span className="px-2 py-1 bg-white rounded text-xs font-semibold text-gray-700 border">
+                            {displayLevel}
+                          </span>
+                          <span className={`px-2 py-1 rounded text-xs font-bold ${statusColor}`}>
+                            {status}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-gray-600">
+                          <span className="font-semibold">
+                            Score: {result.score}/{result.total_questions}
+                          </span>
+                          <span>•</span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {timeAgo}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Right: Score Circle */}
+                      <div className="flex flex-col items-center">
+                        <div className={`w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg ${
+                          excellent ? 'bg-green-100 text-green-700' :
+                          passed ? 'bg-blue-100 text-blue-700' :
+                          'bg-red-100 text-red-700'
+                        }`}>
+                          {Math.round(percentage)}%
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Learning Roadmap based on score */}
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <p className="text-xs font-semibold text-gray-700 mb-2">📍 Next Steps:</p>
+                      {excellent ? (
+                        <p className="text-xs text-gray-600">
+                          ✅ Excellent! Try the next level or explore related skills.
+                        </p>
+                      ) : passed ? (
+                        <p className="text-xs text-gray-600">
+                          👍 Good job! Review weak areas and try again for a higher score.
+                        </p>
+                      ) : (
+                        <p className="text-xs text-gray-600">
+                          📚 Study the materials and retake the test. Focus on fundamentals.
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Job Recommendations */}
+                    {result.recommended_roles && result.recommended_roles.length > 0 && (
+                      <div className="mt-3 pt-3 border-t border-gray-200">
+                        <p className="text-xs font-semibold text-gray-700 mb-2">💼 Recommended Jobs:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {result.recommended_roles.slice(0, 3).map((role: any, idx: number) => (
+                            <span 
+                              key={idx}
+                              className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs"
+                            >
+                              {role.role_name}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Overall Practice Stats */}
+            <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
+              <h3 className="font-semibold text-gray-900 mb-3">📊 Your Practice Statistics</h3>
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="text-2xl font-bold text-purple-600">
+                    {practiceResults.length}
+                  </div>
+                  <div className="text-xs text-gray-600">Total Tests</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-green-600">
+                    {practiceResults.filter(r => r.percentage >= 60).length}
+                  </div>
+                  <div className="text-xs text-gray-600">Passed</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {Math.round(practiceResults.reduce((sum, r) => sum + r.percentage, 0) / practiceResults.length)}%
+                  </div>
+                  <div className="text-xs text-gray-600">Avg Score</div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        )}
 
         {/* Quick Actions */}
         <Card className="bg-white shadow-sm border p-6">

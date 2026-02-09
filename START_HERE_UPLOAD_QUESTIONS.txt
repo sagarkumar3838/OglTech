@@ -1,0 +1,75 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║   UPLOAD ALL PRACTICE QUESTIONS TO SUPABASE - QUICK START     ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+📦 WHAT YOU HAVE:
+   - 99 CSV files in questions/ folder
+   - 33 skills × 3 levels = 99 files
+   - Each question has multimedia links (MDN, YouTube in 5 languages)
+
+🚀 3 STEPS TO DEPLOY:
+
+┌────────────────────────────────────────────────────────────────┐
+│ STEP 1: Create Database Table                                 │
+└────────────────────────────────────────────────────────────────┘
+
+1. Open Supabase Dashboard: https://app.supabase.com
+2. Go to SQL Editor
+3. Open file: create-practice-questions-database-v2.sql
+4. Copy all content and paste in SQL Editor
+5. Click RUN
+6. Wait for success message ✅
+
+┌────────────────────────────────────────────────────────────────┐
+│ STEP 2: Check Your .env File                                  │
+└────────────────────────────────────────────────────────────────┘
+
+Make sure .env has:
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key
+
+┌────────────────────────────────────────────────────────────────┐
+│ STEP 3: Upload All Questions                                  │
+└────────────────────────────────────────────────────────────────┘
+
+Double-click: UPLOAD_ALL_PRACTICE_QUESTIONS.bat
+
+Wait 2-5 minutes for upload to complete.
+
+═══════════════════════════════════════════════════════════════
+
+✅ VERIFY UPLOAD:
+
+In Supabase SQL Editor, run:
+
+   SELECT COUNT(*) FROM practice_questions;
+
+Expected: 3000+ questions
+
+═══════════════════════════════════════════════════════════════
+
+📚 SKILLS INCLUDED:
+
+Frontend:     HTML, CSS, JavaScript, TypeScript, React, Vue, Angular
+Backend:      Node.js, Python, Java, Go, PHP, Ruby, C#, C++
+Databases:    MongoDB, PostgreSQL, Oracle, Redis, SQL
+DevOps:       Docker, Kubernetes, Ansible, Terraform, Git
+Cloud:        AWS, Azure, GCP
+Mobile:       Flutter, React Native, Swift, Kotlin
+Testing:      Jest, Cypress, Selenium
+Graphics:     OpenGL, GLSL, Unity, Unreal
+Tools:        VSCode, DevTools, Webpack
+
+═══════════════════════════════════════════════════════════════
+
+📖 DETAILED GUIDE:
+   Read: DEPLOY_ALL_QUESTIONS_TO_SUPABASE.md
+
+🔍 VERIFICATION QUERIES:
+   Run: verify-practice-questions.sql
+
+═══════════════════════════════════════════════════════════════
+
+That's it! Your questions will be live in Supabase! 🎉
