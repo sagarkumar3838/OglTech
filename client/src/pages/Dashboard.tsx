@@ -18,6 +18,7 @@ import {
   Trophy,
   XCircle
 } from 'lucide-react';
+import { TechIcon } from '../utils/techIcons';
 
 interface UserProgress {
   id: string;
@@ -355,6 +356,7 @@ const Dashboard = () => {
                       {/* Test Details */}
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
+                          <TechIcon name={test.skill.toLowerCase()} size={20} />
                           <h3 className="font-semibold text-gray-900 capitalize">
                             {test.skill} - {test.level_attempted}
                           </h3>
@@ -448,6 +450,7 @@ const Dashboard = () => {
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
+                          <TechIcon name={skill.skill_name.toLowerCase()} size={24} />
                           <h3 className="font-semibold text-gray-900">{skill.skill_name}</h3>
                           {completedCount > 0 ? (
                             <CheckCircle className="w-5 h-5 text-green-600" />

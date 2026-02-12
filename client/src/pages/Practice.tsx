@@ -8,6 +8,7 @@ import { supabase } from '../config/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { Trophy, Target, Briefcase } from 'lucide-react';
 import { VoiceInputButton } from '../components/VoiceInputButton';
+import { TechIcon } from '../utils/techIcons';
 
 // EXPANDED: 45+ Languages across 10 categories
 const LANGUAGES = [
@@ -199,13 +200,16 @@ export default function Practice() {
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-              Practice Test
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
-              Test your skills and get job recommendations
-            </p>
+          <div className="flex items-center gap-3">
+            <TechIcon name={skill} size={40} className="rounded-lg" />
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                Practice Test
+              </h1>
+              <p className="text-gray-600 dark:text-gray-400 mt-1">
+                Test your skills and get job recommendations
+              </p>
+            </div>
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
             <Target className="w-4 h-4" />
@@ -223,7 +227,10 @@ export default function Practice() {
                 </label>
                 <Select value={skill} onValueChange={setSkill}>
                   <SelectTrigger className="w-full">
-                    <SelectValue />
+                    <div className="flex items-center gap-2">
+                      <TechIcon name={skill} size={20} />
+                      <SelectValue />
+                    </div>
                   </SelectTrigger>
                   <SelectContent>
                     {Object.entries(languagesByCategory).map(([category, langs]) => (
@@ -233,7 +240,10 @@ export default function Practice() {
                         </div>
                         {langs.map(lang => (
                           <SelectItem key={lang.value} value={lang.value}>
-                            {lang.label}
+                            <div className="flex items-center gap-2">
+                              <TechIcon name={lang.value} size={16} />
+                              <span>{lang.label}</span>
+                            </div>
                           </SelectItem>
                         ))}
                       </div>
