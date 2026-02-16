@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Home, ChevronRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TechIcon } from '../utils/techIcons';
 
 const OGLSection = () => {
   const navigate = useNavigate();
@@ -246,8 +247,9 @@ const OGLSection = () => {
         <ChevronRight className="w-4 h-4" />
         <button 
           onClick={() => navigate('/careers/ogl-content-developer')}
-          className="hover:text-blue-600 transition"
+          className="hover:text-blue-600 transition flex items-center gap-2"
         >
+          <TechIcon name="opengl" size={16} />
           OGL Content Developer
         </button>
         <ChevronRight className="w-4 h-4" />

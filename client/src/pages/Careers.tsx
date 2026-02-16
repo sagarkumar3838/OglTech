@@ -16,6 +16,7 @@ import {
   Code2,
   Layers
 } from 'lucide-react';
+import { TechIcon } from '../utils/techIcons';
 
 const Careers = () => {
   const [careers, setCareers] = useState([]);
@@ -61,13 +62,18 @@ const Careers = () => {
   };
 
   const getCareerIcon = (careerName) => {
-    if (careerName.includes('Frontend')) return '🎨';
-    if (careerName.includes('Backend')) return '⚙️';
-    if (careerName.includes('DevOps')) return '🚀';
-    if (careerName.includes('Cloud')) return '☁️';
-    if (careerName.includes('QA') || careerName.includes('Tester')) return '🧪';
-    if (careerName.includes('Content')) return '📝';
-    return '💻';
+    const name = careerName.toLowerCase();
+    if (name.includes('frontend') || name.includes('react') || name.includes('angular') || name.includes('vue')) return 'react';
+    if (name.includes('backend') || name.includes('api')) return 'nodejs';
+    if (name.includes('devops')) return 'docker';
+    if (name.includes('cloud') || name.includes('aws') || name.includes('azure')) return 'aws';
+    if (name.includes('qa') || name.includes('test')) return 'selenium';
+    if (name.includes('content') || name.includes('ogl') || name.includes('opengl')) return 'opengl';
+    if (name.includes('full stack') || name.includes('fullstack')) return 'javascript';
+    if (name.includes('mobile') || name.includes('android') || name.includes('ios')) return 'flutter';
+    if (name.includes('data') || name.includes('analyst')) return 'python';
+    if (name.includes('database') || name.includes('dba')) return 'postgresql';
+    return 'javascript'; // default
   };
 
   const getExperienceColor = (level) => {
@@ -217,7 +223,9 @@ const Careers = () => {
                   <div className="absolute inset-0 bg-grid-white/10" />
                   <div className="relative">
                     <div className="flex items-start justify-between mb-6">
-                      <div className="text-6xl drop-shadow-lg">{getCareerIcon(career.name)}</div>
+                      <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                        <TechIcon name={getCareerIcon(career.name)} size={40} colored={false} className="text-white" />
+                      </div>
                       <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                         <ArrowRight className="w-5 h-5" />
                       </div>

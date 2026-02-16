@@ -138,12 +138,14 @@ const Evaluation = () => {
       }
 
       // Transform questions to match the component's expected format
-      const formattedQuestions = loadedQuestions.map((q, index) => ({
+      const formattedQuestions = loadedQuestions.map((q: any, index) => ({
         id: q.id || index + 1,
         type: q.type || 'mcq',
-        question: q.question || q.text,
+        question: q.question,
         options: q.options || [],
-        correct_answer: q.correct_answer || q.correctAnswer
+        correct_answer: q.correct_answer,
+        topic: q.topic,
+        explanation: q.explanation
       }));
 
       setQuestions(formattedQuestions);
@@ -208,7 +210,7 @@ const Evaluation = () => {
 
       // Create a mock scorecard for now (you can enhance this later with API)
       const scorecardData = {
-        candidate_name: user?.displayName || user?.email || 'Anonymous',
+        candidate_name: user?.email?.split('@')[0] || user?.email || 'Anonymous',
         skill: actualSkillName,
         level_attempted: actualLevel,
         overall_score: score,

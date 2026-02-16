@@ -18,6 +18,7 @@ import {
   Bookmark
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { TechIcon } from '../utils/techIcons';
 
 export default function TopicsPage() {
   const { user } = useAuth();
@@ -33,10 +34,10 @@ export default function TopicsPage() {
   const [loading, setLoading] = useState(true);
 
   const skills = [
-    { name: 'HTML', icon: '📄', color: '#E34F26' },
-    { name: 'CSS', icon: '🎨', color: '#1572B6' },
-    { name: 'JavaScript', icon: '⚡', color: '#F7DF1E' },
-    { name: 'jQuery', icon: '💎', color: '#0769AD' },
+    { name: 'HTML', value: 'html', color: '#E34F26' },
+    { name: 'CSS', value: 'css', color: '#1572B6' },
+    { name: 'JavaScript', value: 'javascript', color: '#F7DF1E' },
+    { name: 'jQuery', value: 'jquery', color: '#0769AD' },
   ];
 
   useEffect(() => {
@@ -266,8 +267,9 @@ export default function TopicsPage() {
                   ? { backgroundColor: skill.color }
                   : {}
               }
+              className="flex items-center gap-2"
             >
-              <span className="mr-2">{skill.icon}</span>
+              <TechIcon name={skill.value} size={18} colored={selectedSkill !== skill.name} />
               {skill.name}
             </Button>
           ))}

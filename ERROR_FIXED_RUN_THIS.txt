@@ -1,0 +1,81 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    ERROR FIXED - RUN THIS SQL NOW                            ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ WHAT HAPPENED                                                                │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ Error: column "type" does not exist in practice_questions table             │
+│ Fix: Changed SQL to not reference type column from practice_questions       │
+│ Now: SQL just sets type='mcq' for all questions                             │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ RUN THIS CORRECTED SQL IN SUPABASE                                          │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ INSERT INTO questions (                                                      │
+│   skill, level, type, question, options,                                    │
+│   correct_answer, explanation, topic                                        │
+│ )                                                                            │
+│ SELECT                                                                       │
+│   LOWER(TRIM(REPLACE(skill, ' ', ''))) as skill,                            │
+│   CASE                                                                       │
+│     WHEN level ILIKE 'beginner' THEN 'easy'                                 │
+│     WHEN level ILIKE 'intermediate' THEN 'medium'                           │
+│     WHEN level ILIKE 'advanced' THEN 'hard'                                 │
+│     ELSE LOWER(TRIM(level))                                                 │
+│   END as level,                                                              │
+│   'mcq' as type,                                                             │
+│   question, options, correct_answer, explanation, topic                     │
+│ FROM practice_questions                                                      │
+│ WHERE NOT EXISTS (                                                           │
+│   SELECT 1 FROM questions q                                                  │
+│   WHERE q.question = practice_questions.question                            │
+│ );                                                                           │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ STEPS                                                                        │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ 1. Go to: https://ksjgsgebjnpwyycnptom.supabase.co                          │
+│ 2. Click "SQL Editor"                                                        │
+│ 3. Copy the SQL above                                                        │
+│ 4. Paste and click "Run"                                                     │
+│ 5. Test at: https://skillevaluate.web.app/practice                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ VERIFY IT WORKED                                                             │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ SELECT skill, level, COUNT(*) as count                                      │
+│ FROM questions                                                               │
+│ GROUP BY skill, level                                                        │
+│ ORDER BY skill, level;                                                       │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ UPDATED FILES                                                                │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ ✅ ERROR_FIXED_RUN_THIS.txt              - This file (quick fix)            │
+│ ✅ RUN_THIS_NOW_FIXED.md                 - Detailed corrected guide         │
+│ ✅ COPY_QUESTIONS_SIMPLE_FIX.sql         - Simple SQL with checks           │
+│ ✅ FIX_PRACTICE_QUESTIONS_WORKING.sql    - SQL with diagnostics             │
+│ ✅ COPY_PRACTICE_QUESTIONS_TO_MAIN.sql   - Updated (corrected)              │
+│ ✅ QUICK_FIX_SUMMARY.txt                 - Updated (corrected)              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ WHAT CHANGED                                                                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ Before: COALESCE(NULLIF(type, ''), 'mcq') as type                           │
+│ After:  'mcq' as type                                                        │
+│                                                                              │
+│ Reason: practice_questions table doesn't have a type column                 │
+│ Solution: Just set type='mcq' for all questions                             │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         READY? COPY SQL ABOVE!                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝

@@ -48,7 +48,7 @@ const Scorecard = () => {
       .map((q: any) => q.topic);
 
     // Get unique topics
-    const uniqueTopics = [...new Set(wrongTopics)];
+    const uniqueTopics = [...new Set(wrongTopics)] as string[];
     setTopicsToLearn(uniqueTopics);
 
     // Load learning resources from database for these topics

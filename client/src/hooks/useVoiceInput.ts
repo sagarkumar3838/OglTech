@@ -7,7 +7,9 @@ interface UseVoiceInputProps {
 
 export const useVoiceInput = ({ onTranscript, language = 'en' }: UseVoiceInputProps) => {
   const [isListening, setIsListening] = useState(false);
-  const [isSupported, setIsSupported] = useState(true); // AssemblyAI works everywhere
+  // Check if backend API is available
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const [isSupported, setIsSupported] = useState(!!apiUrl && apiUrl !== 'http://localhost:5001');
   const [error, setError] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
@@ -84,18 +86,36 @@ export const useVoiceInput = ({ onTranscript, language = 'en' }: UseVoiceInputPr
       // Get API URL from environment
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
       
+      // Check if API URL is available
+      if (!apiUrl || apiUrl === 'http://localhost:5001') {
+        console.warn('Voice transcription requires backend server. Feature disabled.');
+        setError('Voice input requires backend server (currently unavailable)');
+        return;
+      }
+      
       // Create FormData
       const formData = new FormData();
       formData.append('audio', audioBlob, 'recording.webm');
       formData.append('language', language);
 
-      // Send to backend
+      // Send to backend with timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
       const response = await fetch(`${apiUrl}/transcription/transcribe`, {
         method: 'POST',
-        body: formData
+        body: formData,
+        signal: controller.signal
       });
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('Voice transcription endpoint not found');
+        } else if (response.status === 429) {
+          throw new Error('Too many requests. Please wait a moment.');
+        }
         throw new Error('Transcription failed');
       }
 
@@ -110,7 +130,16 @@ export const useVoiceInput = ({ onTranscript, language = 'en' }: UseVoiceInputPr
 
     } catch (err: any) {
       console.error('Transcription error:', err);
-      setError('Failed to transcribe audio. Please try again.');
+      
+      if (err.name === 'AbortError') {
+        setError('Request timeout. Please try again.');
+      } else if (err.message.includes('404')) {
+        setError('Voice feature unavailable (backend not deployed)');
+      } else if (err.message.includes('429')) {
+        setError('Too many requests. Please wait.');
+      } else {
+        setError('Voice transcription unavailable. Please type your answer.');
+      }
     }
   };
 

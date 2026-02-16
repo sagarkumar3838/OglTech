@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { generateQuestions } from '../services/api';
 import { Briefcase, Code, Loader, Lock, CheckCircle, Trophy, Home, ChevronRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TechIcon } from '../utils/techIcons';
 
 const CareerDetail = () => {
   const { careerSlug } = useParams();
@@ -322,6 +323,22 @@ const CareerDetail = () => {
   // Check if this is OGL Content Developer career
   const isOGLCareer = careerSlug === 'ogl-content-developer' || career.name?.toLowerCase().includes('ogl content');
 
+  // Get tech icon for career
+  const getCareerTechIcon = (careerName) => {
+    const name = careerName.toLowerCase();
+    if (name.includes('frontend') || name.includes('react') || name.includes('angular') || name.includes('vue')) return 'react';
+    if (name.includes('backend') || name.includes('api')) return 'nodejs';
+    if (name.includes('devops')) return 'docker';
+    if (name.includes('cloud') || name.includes('aws') || name.includes('azure')) return 'aws';
+    if (name.includes('qa') || name.includes('test')) return 'selenium';
+    if (name.includes('content') || name.includes('ogl') || name.includes('opengl')) return 'opengl';
+    if (name.includes('full stack') || name.includes('fullstack')) return 'javascript';
+    if (name.includes('mobile') || name.includes('android') || name.includes('ios')) return 'flutter';
+    if (name.includes('data') || name.includes('analyst')) return 'python';
+    if (name.includes('database') || name.includes('dba')) return 'postgresql';
+    return 'javascript';
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
       {/* Breadcrumb Navigation */}
@@ -340,7 +357,10 @@ const CareerDetail = () => {
           Careers
         </button>
         <ChevronRight className="w-4 h-4" />
-        <span className="text-gray-900 font-semibold">{career.name}</span>
+        <span className="text-gray-900 font-semibold flex items-center gap-2">
+          <TechIcon name={getCareerTechIcon(career.name)} size={16} />
+          {career.name}
+        </span>
       </nav>
 
       {/* OGL Content Developer Navigation Bar */}
@@ -401,11 +421,13 @@ const CareerDetail = () => {
       {/* Career Header */}
       <div className="bg-white rounded-xl shadow-lg p-8 mt-6">
         <div className="flex items-center space-x-4 mb-6">
-          <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center">
-            <Briefcase className="w-8 h-8 text-primary" />
+          <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center">
+            <TechIcon name={getCareerTechIcon(career.name)} size={32} colored={false} className="text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">{career.name}</h1>
+            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+              {career.name}
+            </h1>
             <p className="text-gray-600">{career.description}</p>
             <span className="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full">
               {career.experienceLevel}

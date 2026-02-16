@@ -1,0 +1,125 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              COLUMN NAMES DON'T MATCH - HERE'S HOW TO FIX                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ PROBLEM                                                                      │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ Error: column "question" does not exist                                      │
+│ Cause: Your practice_questions table has different column names             │
+│ Fix: We need to find the correct column names first                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ STEP 1: Find Your Column Names (30 seconds)                                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ Run this in Supabase SQL Editor:                                            │
+│                                                                              │
+│    SELECT * FROM practice_questions LIMIT 1;                                │
+│                                                                              │
+│ Look at the column names in the result!                                     │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ STEP 2: Try SQL Versions (1 minute)                                         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ Open file: TRY_THESE_SQL_VERSIONS.sql                                       │
+│                                                                              │
+│ Try VERSION 1 first (most common)                                           │
+│ If it fails, try VERSION 2, then 3, etc.                                    │
+│ One of them will work!                                                       │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ COMMON COLUMN NAME VARIATIONS                                                │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ Your table might have:                                                       │
+│                                                                              │
+│ • "question_text" instead of "question"                                      │
+│ • "answer" instead of "correct_answer"                                       │
+│ • "text" instead of "question"                                               │
+│ • "choices" instead of "options"                                             │
+│ • "solution" instead of "correct_answer"                                     │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ QUICK DIAGNOSTIC                                                             │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ Run this to see ALL your columns:                                           │
+│                                                                              │
+│    SELECT column_name                                                        │
+│    FROM information_schema.columns                                           │
+│    WHERE table_name = 'practice_questions'                                   │
+│    ORDER BY ordinal_position;                                                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ FILES TO HELP YOU                                                            │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ 📄 START_HERE_COLUMN_FIX.txt         - This file (quick guide)              │
+│ 📄 TRY_THESE_SQL_VERSIONS.sql        - 6 different SQL versions to try      │
+│ 📄 FIND_COLUMN_NAMES.sql             - Simple diagnostic                    │
+│ 📄 AUTO_GENERATE_COPY_SQL.sql        - Complete diagnostic                  │
+│ 📄 FIX_COLUMN_NAMES_ISSUE.md         - Detailed guide                       │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ EASIEST PATH                                                                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ 1. Run: SELECT * FROM practice_questions LIMIT 1;                           │
+│                                                                              │
+│ 2. Look at column names (write them down)                                   │
+│                                                                              │
+│ 3. Open: TRY_THESE_SQL_VERSIONS.sql                                         │
+│                                                                              │
+│ 4. Try VERSION 1 (copy and run in Supabase)                                 │
+│                                                                              │
+│ 5. If error, try VERSION 2, then 3, etc.                                    │
+│                                                                              │
+│ 6. One will work! ✅                                                         │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ OR: TELL ME YOUR COLUMNS                                                     │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ After running: SELECT * FROM practice_questions LIMIT 1;                    │
+│                                                                              │
+│ Tell me what columns you see, and I'll create the exact SQL for you!        │
+│                                                                              │
+│ Example: "I see: id, skill, level, question_text, options, answer"          │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ VERIFY IT WORKED                                                             │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ After running the INSERT, check:                                            │
+│                                                                              │
+│    SELECT skill, level, COUNT(*) as count                                   │
+│    FROM questions                                                            │
+│    GROUP BY skill, level                                                     │
+│    ORDER BY skill, level;                                                    │
+│                                                                              │
+│ You should see all your skills!                                             │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    READY? RUN STEP 1 NOW!                                    ║
+║                                                                              ║
+║  SELECT * FROM practice_questions LIMIT 1;                                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝

@@ -10,6 +10,7 @@ import {
 } from '../services/userProgressService';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Trophy, Target, BookOpen, Award, TrendingUp, Clock, Home, ChevronRight } from 'lucide-react';
+import { TechIcon } from '../utils/techIcons';
 
 const OGLProgress = () => {
   const { user } = useAuth();
@@ -185,7 +186,8 @@ const OGLProgress = () => {
           Careers
         </button>
         <ChevronRight className="w-4 h-4" />
-        <button onClick={() => navigate('/careers/ogl-content-developer')} className="hover:text-blue-600 transition">
+        <button onClick={() => navigate('/careers/ogl-content-developer')} className="hover:text-blue-600 transition flex items-center gap-2">
+          <TechIcon name="opengl" size={16} />
           OGL Content Developer
         </button>
         <ChevronRight className="w-4 h-4" />
@@ -194,7 +196,10 @@ const OGLProgress = () => {
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-3xl">OGL Content Developer - Your Progress</CardTitle>
+          <CardTitle className="text-3xl flex items-center gap-3">
+            <TechIcon name="opengl" size={32} />
+            OGL Content Developer - Your Progress
+          </CardTitle>
           <p className="text-gray-600 mt-2">
             Track your test results and skill development in the OGL Content Developer career path.
           </p>

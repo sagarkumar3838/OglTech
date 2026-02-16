@@ -1,0 +1,76 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                  THIS WILL WORK - YOUR EXACT TABLE!                          ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ YOUR TABLE STRUCTURE (from screenshot)                                      │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ • question_text (not "question")                                             │
+│ • options_a, options_b, options_c, options_d (separate columns!)             │
+│ • correct_answer ✓                                                           │
+│ • explanation ✓                                                              │
+│ • topic ✓                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ COPY THIS SQL AND RUN IN SUPABASE                                           │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ INSERT INTO questions (                                                      │
+│   skill, level, type, question, options,                                    │
+│   correct_answer, explanation, topic                                        │
+│ )                                                                            │
+│ SELECT                                                                       │
+│   LOWER(TRIM(REPLACE(skill, ' ', ''))) as skill,                            │
+│   CASE                                                                       │
+│     WHEN level ILIKE 'beginner' THEN 'easy'                                 │
+│     WHEN level ILIKE 'intermediate' THEN 'medium'                           │
+│     WHEN level ILIKE 'advanced' THEN 'hard'                                 │
+│     ELSE LOWER(TRIM(level))                                                 │
+│   END as level,                                                              │
+│   'mcq' as type,                                                             │
+│   question_text as question,                                                │
+│   jsonb_build_array(options_a, options_b, options_c, options_d) as options, │
+│   correct_answer,                                                            │
+│   explanation,                                                               │
+│   topic                                                                      │
+│ FROM practice_questions                                                      │
+│ WHERE NOT EXISTS (                                                           │
+│   SELECT 1 FROM questions q                                                  │
+│   WHERE q.question = practice_questions.question_text                       │
+│ );                                                                           │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ WHAT THIS DOES                                                               │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ • Reads question_text (your column name)                                     │
+│ • Combines options_a, options_b, options_c, options_d into single array      │
+│ • Normalizes skill names (Java → java)                                       │
+│ • Normalizes levels (beginner → easy, intermediate → medium)                 │
+│ • Sets type to 'mcq'                                                         │
+│ • Copies to questions table                                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ VERIFY IT WORKED                                                             │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ SELECT skill, level, COUNT(*) as count                                      │
+│ FROM questions                                                               │
+│ GROUP BY skill, level                                                        │
+│ ORDER BY skill, level;                                                       │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ THEN TEST                                                                    │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ Go to: https://skillevaluate.web.app/practice                               │
+│ Select any skill → Select Beginner → Questions should load! ✅              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    COPY SQL ABOVE AND RUN NOW!                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝

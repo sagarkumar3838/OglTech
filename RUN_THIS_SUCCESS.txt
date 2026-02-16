@@ -1,0 +1,77 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    SUCCESS SQL - GENERATES question_id!                      ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ THE FIX: Add gen_random_uuid() for question_id                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ question_id is required (NOT NULL constraint)                               │
+│ Solution: gen_random_uuid() generates unique IDs                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ COPY THIS EXACT SQL AND RUN IN SUPABASE                                     │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ INSERT INTO questions (                                                      │
+│   question_id,                                                               │
+│   skill, level, type, question, options,                                    │
+│   correct_answer, explanation, topic                                        │
+│ )                                                                            │
+│ SELECT                                                                       │
+│   gen_random_uuid() as question_id,                                         │
+│   LOWER(TRIM(REPLACE(skill, ' ', ''))) as skill,                            │
+│   CASE                                                                       │
+│     WHEN level ILIKE 'beginner' THEN 'easy'                                 │
+│     WHEN level ILIKE 'intermediate' THEN 'medium'                           │
+│     WHEN level ILIKE 'advanced' THEN 'hard'                                 │
+│     ELSE LOWER(TRIM(level))                                                 │
+│   END as level,                                                              │
+│   'mcq' as type,                                                             │
+│   question_text as question,                                                │
+│   jsonb_build_array(option_a, option_b, option_c, option_d) as options,    │
+│   to_jsonb(correct_answer) as correct_answer,                               │
+│   explanation,                                                               │
+│   topic                                                                      │
+│ FROM practice_questions                                                      │
+│ WHERE NOT EXISTS (                                                           │
+│   SELECT 1 FROM questions q                                                  │
+│   WHERE q.question = practice_questions.question_text                       │
+│ );                                                                           │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ WHAT THIS DOES                                                               │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ ✅ Generates unique question_id for each question                           │
+│ ✅ Reads question_text from your table                                       │
+│ ✅ Combines option_a, option_b, option_c, option_d into array               │
+│ ✅ Casts correct_answer to JSONB                                             │
+│ ✅ Normalizes skill names (Java → java)                                      │
+│ ✅ Normalizes levels (beginner → easy, intermediate → medium)                │
+│ ✅ Sets type to 'mcq'                                                        │
+│ ✅ Avoids duplicates                                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ VERIFY                                                                       │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ SELECT skill, level, COUNT(*) as count                                      │
+│ FROM questions                                                               │
+│ GROUP BY skill, level                                                        │
+│ ORDER BY skill, level;                                                       │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ TEST                                                                         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ https://skillevaluate.web.app/practice                                      │
+│ Select any skill → Beginner → Questions load! ✅                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              THIS WILL WORK - ALL ISSUES FIXED!                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

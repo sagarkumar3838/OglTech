@@ -45,7 +45,7 @@ const ProfileComplete = () => {
   const totalSteps = 4;
 
   const [profileData, setProfileData] = useState<ProfileData>({
-    fullName: user?.displayName || '',
+    fullName: user?.email?.split('@')[0] || '',
     bio: '',
     currentRole: '',
     experienceLevel: '',

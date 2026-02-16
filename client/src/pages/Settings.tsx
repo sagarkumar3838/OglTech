@@ -24,7 +24,7 @@ export default function Settings() {
   const [showPassword, setShowPassword] = useState(false);
 
   const [settings, setSettings] = useState({
-    displayName: user?.displayName || '',
+    displayName: user?.email?.split('@')[0] || '',
     email: user?.email || '',
     emailNotifications: true,
     pushNotifications: true,

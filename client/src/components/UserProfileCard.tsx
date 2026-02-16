@@ -54,7 +54,7 @@ export function UserProfileCard() {
     try {
       const profileData = await userProfileService.getUserProfile(user.id);
       if (profileData) {
-        setProfile(profileData);
+        setProfile(profileData as UserProfile);
       }
     } catch (error) {
       console.error('Error loading profile:', error);

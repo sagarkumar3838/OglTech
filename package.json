@@ -37,10 +37,12 @@
     "tsx": "^4.21.0"
   },
   "dependencies": {
+    "@barba/core": "^2.10.3",
     "@heroicons/react": "^2.2.0",
     "@lineiconshq/free-icons": "^1.0.4",
     "@lineiconshq/react-lineicons": "^1.0.5",
     "@supabase/supabase-js": "^2.95.3",
+    "@types/three": "^0.182.0",
     "assemblyai": "^4.22.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -54,6 +56,7 @@
     "mongoose": "^9.1.5",
     "openai": "^6.16.0",
     "papaparse": "^5.5.3",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "three": "^0.182.0"
   }
 }

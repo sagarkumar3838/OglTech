@@ -13,6 +13,7 @@ import Footer from '../components/Footer';
 import ContactSection from '../components/ContactSection';
 import FaqSection from '../components/FaqSection';
 import PricingSection from '../components/PricingSection';
+import { TechIcon } from '../utils/techIcons';
 
 const Home = () => {
 
@@ -57,9 +58,17 @@ const FeaturesSection = () => {
     { icon: BarChart3, title: "Detailed Analytics", desc: "Comprehensive scorecards with strengths and gaps analysis.", color: "from-purple-500 to-pink-500" },
     { icon: TrendingUp, title: "Progressive Levels", desc: "Track skill maturity from Basic to Advanced with precision.", color: "from-green-500 to-emerald-500" },
     { icon: Zap, title: "Instant Results", desc: "Get immediate feedback and detailed reports in real-time.", color: "from-orange-500 to-amber-500" },
-    { icon: Code, title: "Multiple Skills", desc: "Assess HTML, CSS, JavaScript, jQuery, and OpenGL.", color: "from-cyan-500 to-blue-500" },
+    { 
+      icon: Code, 
+      title: "45+ Technologies", 
+      desc: "Assess skills across Web, Backend, Mobile, DevOps, Cloud, and more.", 
+      color: "from-cyan-500 to-blue-500",
+      showTechIcons: true 
+    },
     { icon: Shield, title: "Anti-Cheat System", desc: "Tab switching detection ensures assessment integrity.", color: "from-rose-500 to-red-500" },
   ];
+
+  const techShowcase = ['html', 'css', 'javascript', 'typescript', 'react', 'python', 'java', 'nodejs', 'docker', 'aws', 'kubernetes', 'mongodb'];
 
   return (
     <section className="relative py-24 bg-slate-50 dark:bg-[#0F172A]">
@@ -99,7 +108,17 @@ const FeaturesSection = () => {
                 <feature.icon className="w-7 h-7 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white">{feature.title}</h3>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{feature.desc}</p>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">{feature.desc}</p>
+              
+              {feature.showTechIcons && (
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {techShowcase.map((tech) => (
+                    <div key={tech} className="group/icon">
+                      <TechIcon name={tech} size={24} className="opacity-70 group-hover/icon:opacity-100 transition-opacity" />
+                    </div>
+                  ))}
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
