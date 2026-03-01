@@ -2,9 +2,23 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { 
-  LogOut, User, Briefcase, Moon, Sun, Menu, X, 
-  LayoutDashboard, Home, Sparkles, ChevronDown 
-} from 'lucide-react';
+  UserIcon as User,
+  BriefcaseIcon as Briefcase,
+  MoonIcon as Moon,
+  SunIcon as Sun,
+  Bars3Icon as Menu,
+  XMarkIcon as X,
+  Squares2X2Icon as LayoutDashboard,
+  HomeIcon as Home,
+  SparklesIcon as Sparkles,
+  ChevronDownIcon as ChevronDown,
+  MapIcon,
+  InformationCircleIcon
+} from '@heroicons/react/24/outline';
+import UilSignOutAlt from '@iconscout/react-unicons/icons/uil-sign-out-alt';
+
+// Create a wrapper component for LogOut to match the icon API
+const LogOut = (props: any) => <UilSignOutAlt {...props} />;
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { Logo } from './Logo';
@@ -51,11 +65,12 @@ export const ResizableNavbar = () => {
   };
 
   const navItems = [
-    { name: 'Home', path: '/', icon: Home, show: true },
-    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, show: !!user },
+  
+  
     { name: 'Careers', path: '/careers', icon: Briefcase, show: true },
-    { name: 'Roadmaps', path: '/roadmaps', icon: Sparkles, show: true },
-    { name: 'About', path: '/about', icon: Sparkles, show: true },
+    { name: 'Roadmaps', path: '/roadmaps', icon: MapIcon, show: true },
+    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, show: !!user },
+    { name: 'About', path: '/about', icon: InformationCircleIcon, show: true },
     { name: 'Contact', path: '/contact', icon: User, show: true },
   ];
 

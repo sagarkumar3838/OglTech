@@ -1,27 +1,30 @@
 @echo off
-echo ============================================
-echo UPLOAD ALL QUESTIONS TO DATABASE
-echo ============================================
+echo ========================================
+echo  UPLOAD ALL QUESTIONS TO SUPABASE
+echo ========================================
 echo.
 echo This will upload ALL CSV files from questions/ folder
-echo to the practice_questions table in Supabase
+echo to your Supabase practice_questions table.
 echo.
 echo Make sure your .env file has:
 echo   VITE_SUPABASE_URL=your-url
 echo   SUPABASE_SERVICE_ROLE_KEY=your-key
 echo.
 pause
+
 echo.
 echo Starting upload...
 echo.
-cd scripts
-call npm install
-call npx ts-node upload-all-questions.ts
+echo Current directory: %CD%
 echo.
-echo ============================================
-echo Upload complete!
+
+REM Make sure we're in the root directory
+cd /d "%~dp0"
+
+call npx tsx scripts/upload-all-questions.ts
+
 echo.
-echo Next step: Run CHECK_AND_FIX_QUESTIONS.sql
-echo to copy from practice_questions to questions table
-echo ============================================
+echo ========================================
+echo  UPLOAD COMPLETE!
+echo ========================================
 pause

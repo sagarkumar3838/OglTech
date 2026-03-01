@@ -14,6 +14,7 @@ import Scorecard from './pages/Scorecard';
 import AdminDashboard from './pages/AdminDashboard';
 import AIAssistant from './pages/AIAssistant';
 import Practice from './pages/Practice';
+import PracticeDebug from './pages/PracticeDebug';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
 import LearningPath from './pages/LearningPath';
@@ -34,6 +35,8 @@ import TopicReference from './pages/TopicReference';
 import WeakTopicsDashboard from './pages/WeakTopicsDashboard';
 import AdminTopicManager from './pages/AdminTopicManager';
 import Roadmaps from './pages/Roadmaps';
+import Features from './pages/Features';
+import Help from './pages/Help';
 
 function App() {
   return (
@@ -68,6 +71,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Practice />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/practice-debug" 
+              element={
+                <ProtectedRoute>
+                  <PracticeDebug />
                 </ProtectedRoute>
               } 
             />
@@ -134,6 +146,10 @@ function App() {
               {/* About & Contact Pages */}
               <Route path="about" element={<About />} />
               <Route path="contact" element={<Contact />} />
+              
+              {/* Features & Help */}
+              <Route path="features" element={<Features />} />
+              <Route path="help" element={<Help />} />
               
               {/* Legal Pages */}
               <Route path="privacy" element={<Privacy />} />

@@ -1,58 +1,33 @@
 @echo off
 echo ========================================
-echo FIX PRACTICE PAGE - QUESTIONS NOT SHOWING
+echo FIX: No Questions Showing in Practice
 echo ========================================
 echo.
-echo Problem: Questions in practice_questions table
-echo Solution: Copy to questions table
+echo This will help you fix the Practice page.
+echo.
+echo STEP 1: Open Supabase SQL Editor
+echo   Go to: https://supabase.com/dashboard/project/YOUR_PROJECT/sql
+echo.
+echo STEP 2: Run this SQL file:
+echo   File: FIX_PRACTICE_PAGE_NO_QUESTIONS.sql
+echo.
+echo STEP 3: Check browser console
+echo   1. Open Practice page
+echo   2. Press F12
+echo   3. Look for: "Questions loaded: X questions"
 echo.
 echo ========================================
-echo STEP 1: Open Supabase
+echo Quick Diagnosis
 echo ========================================
 echo.
-echo 1. Go to: https://ksjgsgebjnpwyycnptom.supabase.co
-echo 2. Click "SQL Editor" in left sidebar
-echo 3. Click "New Query"
-echo.
-pause
+echo If you want to diagnose first, run:
+echo   File: DIAGNOSE_NO_QUESTIONS_SHOWING.sql
 echo.
 echo ========================================
-echo STEP 2: Copy This SQL
+echo Files Created:
 echo ========================================
-echo.
-echo Opening SQL file in Notepad...
-echo Copy ALL the SQL code from the file that opens
-echo.
-pause
-notepad COPY_PRACTICE_QUESTIONS_TO_MAIN.sql
-echo.
-echo ========================================
-echo STEP 3: Run in Supabase
-echo ========================================
-echo.
-echo 1. Paste the SQL into Supabase SQL Editor
-echo 2. Click "Run" button (or press Ctrl+Enter)
-echo 3. Wait for it to complete
-echo.
-pause
-echo.
-echo ========================================
-echo STEP 4: Test in App
-echo ========================================
-echo.
-echo Opening Practice page...
-start https://skillevaluate.web.app/practice
-echo.
-echo 1. Select any skill (Java, Python, etc.)
-echo 2. Select "Beginner" level
-echo 3. Questions should load!
-echo.
-echo ========================================
-echo DONE!
-echo ========================================
-echo.
-echo If questions still don't show:
-echo 1. Check RUN_THIS_NOW_SIMPLE.md for troubleshooting
-echo 2. Or run FIX_ALL_SKILLS_COMPLETE.sql for advanced fix
+echo   1. FIX_PRACTICE_PAGE_NO_QUESTIONS.sql (Main fix)
+echo   2. DIAGNOSE_NO_QUESTIONS_SHOWING.sql (Diagnosis)
+echo   3. FIX_NO_QUESTIONS_GUIDE.md (Complete guide)
 echo.
 pause

@@ -9,6 +9,7 @@ import { ArrowRight, Shield, Clock, Star, Play, Rocket } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getHeroMedia, getParallaxMedia, Media } from "../services/mediaService";
+import DecryptedText from "./DecryptedText";
 
 interface SmoothScrollHeroProps {
   heroVideo?: Media | null;
@@ -82,8 +83,6 @@ const CenterImage = ({ heroMedia }: CenterImageProps) => {
   const clip1 = useTransform(scrollY, [0, 1500], [0, 0]);
   const clip2 = useTransform(scrollY, [0, 1500], [100, 100]);
 
-  const clipPath = useMotionTemplate`polygon(${clip1}% ${clip1}%, ${clip2}% ${clip1}%, ${clip2}% ${clip2}%, ${clip1}% ${clip2}%)`;
-
   const scale = useTransform(scrollY, [0, SECTION_HEIGHT + 500], [1.15, 1]);
 
   const opacity = useTransform(
@@ -92,15 +91,14 @@ const CenterImage = ({ heroMedia }: CenterImageProps) => {
     [1, 0]
   );
 
-  const mediaUrl = heroMedia?.media_url || '/assets/images/hero1.mp4';
-  const altText = heroMedia?.alt_text || 'Hero background video showcasing skill development';
+  const mediaUrl = heroMedia?.media_url || '/assets/images/3d-portrait-people.jpg';
+  const altText = heroMedia?.alt_text || '3D Portrait People - Modern professional illustration';
   const isVideo = heroMedia?.media_type === 'video' || mediaUrl.endsWith('.mp4') || mediaUrl.endsWith('.webm');
 
   return (
     <motion.div
       className="sticky top-0 h-screen w-full overflow-hidden"
       style={{
-        clipPath,
         opacity,
       }}
     >
@@ -158,7 +156,7 @@ const CenterImage = ({ heroMedia }: CenterImageProps) => {
           transition={{ duration: 0.6 }}
         >
             
-            {/* Compact Modern Headline */}
+            {/* Compact Modern Headline with Decryption Animation */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -166,22 +164,46 @@ const CenterImage = ({ heroMedia }: CenterImageProps) => {
               className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
             >
               <span className="text-white drop-shadow-lg">
-                Anyone can learn skills
+                <DecryptedText 
+                  text="Anyone can learn skills"
+                  animateOn="view"
+                  speed={100}
+                  maxIterations={20}
+                  sequential
+                  revealDirection="start"
+                  className="text-white drop-shadow-lg"
+                />
               </span>
               <br />
               <span className="bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent drop-shadow-lg">
-                Only a few build a brand
+                <DecryptedText 
+                  text="Only a few build a brand"
+                  animateOn="view"
+                  speed={100}
+                  maxIterations={20}
+                  sequential
+                  revealDirection="start"
+                  className="bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent drop-shadow-lg"
+                />
               </span>
             </motion.h1>
 
-            {/* Compact Subtitle */}
+            {/* Compact Subtitle with Decryption Animation */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-base sm:text-lg text-white/90 max-w-xl mx-auto drop-shadow-md"
             >
-              Build skills. Prove them. Brand yourself.
+              <DecryptedText 
+                text="Build skills. Prove them. Brand yourself."
+                animateOn="view"
+                speed={120}
+                maxIterations={15}
+                sequential
+                revealDirection="start"
+                className="text-white/90 drop-shadow-md"
+              />
             </motion.p>
 
             {/* Compact Buttons */}
@@ -246,86 +268,12 @@ const CenterImage = ({ heroMedia }: CenterImageProps) => {
           </motion.div>
       </motion.div>
 
-      {/* Animated Images on Right Side - Bottom to Top with Fade */}
-      <AnimatedRightImages />
+
     </motion.div>
   );
 };
 
-// Animated images component
-const AnimatedRightImages = () => {
-  const images = [
-    '/assets/images/boy-cartoon-character-surrounded-by-technology.jpg',
-    '/assets/images/img2.jpeg',
-    '/assets/images/img1.jpeg',
-    '/assets/images/view-3d-young-child-watching-movie.jpg',
-  ];
 
-  return (
-    <div className="absolute right-0 top-0 bottom-0 w-1/2 flex items-center justify-center pointer-events-none overflow-hidden z-10">
-      <div className="relative w-full h-full">
-        {images.map((src, index) => {
-          // Calculate starting position with proper spacing
-          // Each image starts 250% apart from bottom, moving upward
-          const startPosition = 150 + (index * 250);
-          
-          return (
-            <motion.div
-              key={index}
-              className="absolute right-8 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] rounded-3xl overflow-hidden shadow-2xl"
-              style={{
-                mixBlendMode: 'screen',
-                filter: 'brightness(0.9) contrast(1.1)'
-              }}
-              initial={{ top: `${startPosition}%` }}
-              animate={{ 
-                top: `-150%`,
-                opacity: [0, 0.7, 0.9, 0.7, 0],
-                scale: [0.8, 1, 1, 1, 0.8],
-                rotate: [-5, 0, 0, 0, 5]
-              }}
-              transition={{
-                duration: 20,
-                delay: index * 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-                times: [0, 0.15, 0.5, 0.85, 1]
-              }}
-            >
-              <img
-                src={src}
-                alt={`Animated decoration ${index + 1}`}
-                className="w-full h-full object-cover"
-                loading="eager"
-                style={{ mixBlendMode: 'lighten' }}
-              />
-              {/* Soft gradient overlay for blending */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20" 
-                   style={{ mixBlendMode: 'overlay' }} />
-              {/* Animated glow for depth */}
-              <motion.div 
-                className="absolute inset-0 rounded-3xl"
-                animate={{
-                  boxShadow: [
-                    '0 0 30px rgba(99, 102, 241, 0.3)',
-                    '0 0 50px rgba(168, 85, 247, 0.4)',
-                    '0 0 30px rgba(99, 102, 241, 0.3)',
-                  ]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                style={{ mixBlendMode: 'soft-light' }}
-              />
-            </motion.div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
 
 interface ParallaxImagesProps {
   parallaxMedia: Media[];
@@ -344,22 +292,26 @@ const ParallaxImages = ({ parallaxMedia }: ParallaxImagesProps) => {
     {
       title: "Transform your profile into a Professional Brand",
       subtitle: "Join 1,000+ professionals who have built a personal brand that opens doors.",
-      gradient: "from-indigo-600 to-purple-600"
+      gradient: "from-indigo-600 to-purple-600",
+      badge: "🎯 Build Brand"
     },
     {
       title: "Your Journey to be Becoming Job-Ready",
       subtitle: "Identify skill gaps and become job-ready in weeks",
-      gradient: "from-cyan-600 to-blue-600"
+      gradient: "from-cyan-600 to-blue-600",
+      badge: "🚀 Get Ready"
     },
     {
       title: "Prove Your Expertise",
       subtitle: "Stand out with verified technical assessments",
-      gradient: "from-purple-600 to-pink-600"
+      gradient: "from-purple-600 to-pink-600",
+      badge: "✅ Prove Skills"
     },
     {
       title: "Accelerate Growth",
       subtitle: "Set goals, follow the recommended tasks and track your progress toward becoming job-ready.",
-      gradient: "from-green-600 to-emerald-600"
+      gradient: "from-green-600 to-emerald-600",
+      badge: "📈 Track Progress"
     },
   ];
 
@@ -394,6 +346,7 @@ const ParallaxImages = ({ parallaxMedia }: ParallaxImagesProps) => {
             title={message.title}
             subtitle={message.subtitle}
             gradient={message.gradient}
+            badge={message.badge}
           />
         );
       })}
@@ -411,6 +364,7 @@ interface ParallaxMediaWithTextProps {
   title: string;
   subtitle: string;
   gradient: string;
+  badge: string;
 }
 
 const ParallaxMediaWithText = ({ 
@@ -421,7 +375,8 @@ const ParallaxMediaWithText = ({
   end,
   title,
   subtitle,
-  gradient
+  gradient,
+  badge
 }: ParallaxMediaWithTextProps) => {
   const ref = useRef(null);
 
@@ -485,7 +440,7 @@ const ParallaxMediaWithText = ({
         transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
         viewport={{ once: false, amount: 0.5 }}
       >
-        ✨ Career Boost
+        {badge}
       </motion.div>
     </motion.div>
   );

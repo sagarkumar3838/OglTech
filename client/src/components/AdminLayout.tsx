@@ -3,10 +3,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   User, 
-  FileText, 
   MessageSquare, 
-  Settings, 
-  LogOut,
+  Settings,
   Menu,
   X,
   Bell,
@@ -19,7 +17,14 @@ import {
   Home,
   BarChart
 } from 'lucide-react';
+import { 
+  DocumentTextIcon as FileText,
+} from '@heroicons/react/24/outline';
+import UilSignOutAlt from '@iconscout/react-unicons/icons/uil-sign-out-alt';
 import { useAuth } from '../contexts/AuthContext';
+
+// Create wrapper for LogOut icon
+const LogOut = (props: any) => <UilSignOutAlt {...props} />;
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -114,14 +119,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
               })}
             </div>
 
-            {/* Home Button */}
-            <Link
-              to="/"
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 border border-gray-300 dark:border-slate-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-700 dark:hover:text-blue-300 hover:border-blue-300 dark:hover:border-blue-600 flex-shrink-0 whitespace-nowrap text-gray-700 dark:text-gray-300"
-            >
-              <Home className="w-4 h-4" />
-              Home
-            </Link>
+           
           </div>
         </div>
       </nav>

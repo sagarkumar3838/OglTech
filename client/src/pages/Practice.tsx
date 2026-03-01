@@ -7,70 +7,70 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { supabase } from '../config/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { Trophy, Target, Briefcase } from 'lucide-react';
-import { VoiceInputButton } from '../components/VoiceInputButton';
 import { TechIcon } from '../utils/techIcons';
 
 // EXPANDED: 45+ Languages across 10 categories
+// Skill names MUST match database exactly (case-sensitive)
 const LANGUAGES = [
   // Web Development (7)
-  { value: 'html', label: 'HTML', category: 'Web Development' },
-  { value: 'css', label: 'CSS', category: 'Web Development' },
-  { value: 'javascript', label: 'JavaScript', category: 'Web Development' },
-  { value: 'typescript', label: 'TypeScript', category: 'Web Development' },
-  { value: 'react', label: 'React', category: 'Web Development' },
-  { value: 'angular', label: 'Angular', category: 'Web Development' },
-  { value: 'vue', label: 'Vue.js', category: 'Web Development' },
+  { value: 'HTML', label: 'HTML', category: 'Web Development' },
+  { value: 'CSS', label: 'CSS', category: 'Web Development' },
+  { value: 'JavaScript', label: 'JavaScript', category: 'Web Development' },
+  { value: 'TypeScript', label: 'TypeScript', category: 'Web Development' },
+  { value: 'React', label: 'React', category: 'Web Development' },
+  { value: 'Angular', label: 'Angular', category: 'Web Development' },
+  { value: 'Vue', label: 'Vue.js', category: 'Web Development' },
   
   // Backend (8)
-  { value: 'java', label: 'Java', category: 'Backend' },
-  { value: 'python', label: 'Python', category: 'Backend' },
-  { value: 'nodejs', label: 'Node.js', category: 'Backend' },
-  { value: 'csharp', label: 'C#', category: 'Backend' },
-  { value: 'php', label: 'PHP', category: 'Backend' },
-  { value: 'ruby', label: 'Ruby', category: 'Backend' },
-  { value: 'go', label: 'Go', category: 'Backend' },
-  { value: 'rust', label: 'Rust', category: 'Backend' },
+  { value: 'Java', label: 'Java', category: 'Backend' },
+  { value: 'Python', label: 'Python', category: 'Backend' },
+  { value: 'Node.js', label: 'Node.js', category: 'Backend' },
+  { value: 'C#', label: 'C#', category: 'Backend' },
+  { value: 'PHP', label: 'PHP', category: 'Backend' },
+  { value: 'Ruby', label: 'Ruby', category: 'Backend' },
+  { value: 'Go', label: 'Go', category: 'Backend' },
+  { value: 'Rust', label: 'Rust', category: 'Backend' },
   
   // Database (5)
-  { value: 'sql', label: 'SQL', category: 'Database' },
-  { value: 'oracle', label: 'Oracle Database', category: 'Database' },
-  { value: 'postgresql', label: 'PostgreSQL', category: 'Database' },
-  { value: 'mongodb', label: 'MongoDB', category: 'Database' },
-  { value: 'redis', label: 'Redis', category: 'Database' },
+  { value: 'SQL', label: 'SQL', category: 'Database' },
+  { value: 'Oracle', label: 'Oracle Database', category: 'Database' },
+  { value: 'PostgreSQL', label: 'PostgreSQL', category: 'Database' },
+  { value: 'MongoDB', label: 'MongoDB', category: 'Database' },
+  { value: 'Redis', label: 'Redis', category: 'Database' },
   
   // Mobile (4)
-  { value: 'kotlin', label: 'Kotlin', category: 'Mobile' },
-  { value: 'swift', label: 'Swift', category: 'Mobile' },
-  { value: 'flutter', label: 'Flutter', category: 'Mobile' },
-  { value: 'reactnative', label: 'React Native', category: 'Mobile' },
+  { value: 'Kotlin', label: 'Kotlin', category: 'Mobile' },
+  { value: 'Swift', label: 'Swift', category: 'Mobile' },
+  { value: 'Flutter', label: 'Flutter', category: 'Mobile' },
+  { value: 'React Native', label: 'React Native', category: 'Mobile' },
   
   // DevOps & Cloud (8)
-  { value: 'docker', label: 'Docker', category: 'DevOps' },
-  { value: 'kubernetes', label: 'Kubernetes', category: 'DevOps' },
-  { value: 'linux', label: 'Linux', category: 'DevOps' },
-  { value: 'aws', label: 'AWS', category: 'Cloud' },
-  { value: 'azure', label: 'Azure', category: 'Cloud' },
-  { value: 'gcp', label: 'Google Cloud', category: 'Cloud' },
-  { value: 'terraform', label: 'Terraform', category: 'DevOps' },
-  { value: 'ansible', label: 'Ansible', category: 'DevOps' },
+  { value: 'Docker', label: 'Docker', category: 'DevOps' },
+  { value: 'Kubernetes', label: 'Kubernetes', category: 'DevOps' },
+  { value: 'Linux', label: 'Linux', category: 'DevOps' },
+  { value: 'AWS', label: 'AWS', category: 'Cloud' },
+  { value: 'Azure', label: 'Azure', category: 'Cloud' },
+  { value: 'GCP', label: 'Google Cloud', category: 'Cloud' },
+  { value: 'Terraform', label: 'Terraform', category: 'DevOps' },
+  { value: 'Ansible', label: 'Ansible', category: 'DevOps' },
   
   // Graphics & Game Dev (5)
-  { value: 'opengl', label: 'OpenGL', category: 'Graphics' },
-  { value: 'glsl', label: 'GLSL', category: 'Graphics' },
-  { value: 'cpp', label: 'C++', category: 'Graphics' },
-  { value: 'unity', label: 'Unity', category: 'Game Dev' },
-  { value: 'unreal', label: 'Unreal Engine', category: 'Game Dev' },
+  { value: 'OpenGL', label: 'OpenGL', category: 'Graphics' },
+  { value: 'GLSL', label: 'GLSL', category: 'Graphics' },
+  { value: 'C++', label: 'C++', category: 'Graphics' },
+  { value: 'Unity', label: 'Unity', category: 'Game Dev' },
+  { value: 'Unreal', label: 'Unreal Engine', category: 'Game Dev' },
   
   // DevTools (4)
-  { value: 'devtools', label: 'Browser DevTools', category: 'DevTools' },
-  { value: 'webpack', label: 'Webpack', category: 'DevTools' },
-  { value: 'git', label: 'Git', category: 'DevTools' },
-  { value: 'vscode', label: 'VS Code Extensions', category: 'DevTools' },
+  { value: 'DevTools', label: 'Browser DevTools', category: 'DevTools' },
+  { value: 'Webpack', label: 'Webpack', category: 'DevTools' },
+  { value: 'Git', label: 'Git', category: 'DevTools' },
+  { value: 'VSCode', label: 'VS Code Extensions', category: 'DevTools' },
   
   // Testing (3)
-  { value: 'selenium', label: 'Selenium', category: 'Testing' },
-  { value: 'jest', label: 'Jest', category: 'Testing' },
-  { value: 'cypress', label: 'Cypress', category: 'Testing' },
+  { value: 'Selenium', label: 'Selenium', category: 'Testing' },
+  { value: 'Jest', label: 'Jest', category: 'Testing' },
+  { value: 'Cypress', label: 'Cypress', category: 'Testing' },
 ];
 
 const LEVELS = [
@@ -82,7 +82,7 @@ const LEVELS = [
 export default function Practice() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [skill, setSkill] = useState('javascript');
+  const [skill, setSkill] = useState('JavaScript');
   const [level, setLevel] = useState('beginner');
   const [questions, setQuestions] = useState<any[]>([]);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
@@ -104,24 +104,138 @@ export default function Practice() {
     
     try {
       // Map Practice page levels to database levels
-      const dbLevel = level === 'beginner' ? 'easy' : 
-                      level === 'intermediate' ? 'medium' : 
-                      level === 'advanced' ? 'hard' : level;
+      // Database has: Basic, Intermediate, Advanced (with capital letters)
+      const dbLevel = level === 'beginner' ? 'Basic' : 
+                      level === 'intermediate' ? 'Intermediate' : 
+                      level === 'advanced' ? 'Advanced' : level;
       
-      // ONLY use questions table (has proper MCQ format with options object/array)
-      const { data, error } = await supabase
-        .from('questions')
+      console.log('🔍 Loading questions with:', { skill, level, dbLevel });
+      
+      // Try practice_questions table first
+      let { data, error } = await supabase
+        .from('practice_questions')
         .select('*')
-        .eq('skill', skill)
+        .ilike('skill', skill) // Case-insensitive match
         .eq('level', dbLevel)
-        .eq('type', 'mcq')  // Only get MCQ questions
-        .limit(10); // 10 questions per test as requested
+        .limit(10);
       
-      if (error) throw error;
+      let transformedData: any[] = [];
       
-      setQuestions(data || []);
+      // If practice_questions has data, transform it
+      if (data && data.length > 0) {
+        console.log('✅ Found questions in practice_questions table');
+        // Transform: question_text → question, separate options → options array
+        transformedData = data.map(q => {
+          const options = q.options || [q.option_a, q.option_b, q.option_c, q.option_d].filter(Boolean);
+          
+          // Find which option matches the correct_answer text
+          let correctIndex = -1;
+          const correctAnswerText = String(q.correct_answer || '').trim();
+          
+          // Try to match by text content
+          correctIndex = options.findIndex((opt: string) => 
+            String(opt || '').trim() === correctAnswerText
+          );
+          
+          // If not found, try letter format (a, b, c, d)
+          if (correctIndex === -1 && correctAnswerText.length === 1) {
+            const letterToIndex: Record<string, number> = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+            correctIndex = letterToIndex[correctAnswerText.toLowerCase()] ?? -1;
+          }
+          
+          // If still not found, try as number
+          if (correctIndex === -1) {
+            const parsed = parseInt(correctAnswerText);
+            if (!isNaN(parsed) && parsed >= 0 && parsed < options.length) {
+              correctIndex = parsed;
+            }
+          }
+          
+          const transformed = {
+            ...q,
+            question: q.question_text || q.question,
+            options,
+            correct_answer_normalized: correctIndex
+          };
+          
+          console.log('📝 Question transformed:', {
+            id: transformed.id,
+            question: transformed.question?.substring(0, 50),
+            correct_answer_original: q.correct_answer,
+            correct_answer_normalized: correctIndex,
+            options: options.map((o: string) => o?.substring(0, 30))
+          });
+          
+          return transformed;
+        });
+      } else {
+        // Try questions table as fallback
+        console.log('⚠️ No data in practice_questions, trying questions table...');
+        const questionsResult = await supabase
+          .from('questions')
+          .select('*')
+          .ilike('skill', skill)
+          .eq('level', dbLevel)
+          .limit(10);
+        
+        if (questionsResult.data && questionsResult.data.length > 0) {
+          console.log('✅ Found questions in questions table');
+          transformedData = questionsResult.data.map(q => {
+            const options = Array.isArray(q.options) ? q.options : 
+                           (q.option_a ? [q.option_a, q.option_b, q.option_c, q.option_d].filter(Boolean) : []);
+            
+            // Find which option matches the correct_answer text
+            let correctIndex = -1;
+            const correctAnswerText = String(q.correct_answer || '').trim();
+            
+            // Try to match by text content
+            correctIndex = options.findIndex((opt: string) => 
+              String(opt || '').trim() === correctAnswerText
+            );
+            
+            // If not found, try letter format
+            if (correctIndex === -1 && correctAnswerText.length === 1) {
+              const letterToIndex: Record<string, number> = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+              correctIndex = letterToIndex[correctAnswerText.toLowerCase()] ?? -1;
+            }
+            
+            // If still not found, try as number
+            if (correctIndex === -1) {
+              const parsed = parseInt(correctAnswerText);
+              if (!isNaN(parsed) && parsed >= 0 && parsed < options.length) {
+                correctIndex = parsed;
+              }
+            }
+            
+            const transformed = {
+              ...q,
+              question: q.question || q.question_text,
+              options,
+              correct_answer_normalized: correctIndex
+            };
+            
+            console.log('📝 Question transformed:', {
+              id: transformed.id,
+              correct_answer_original: q.correct_answer,
+              correct_answer_normalized: correctIndex
+            });
+            
+            return transformed;
+          });
+        } else {
+          console.warn('⚠️ No questions found in either table for:', { skill, dbLevel });
+        }
+      }
+      
+      console.log('📊 Total questions loaded:', transformedData.length);
+      if (transformedData.length > 0) {
+        console.log('📝 Sample question:', transformedData[0]);
+      }
+      
+      setQuestions(transformedData);
     } catch (error) {
-      console.error('Error loading questions:', error);
+      console.error('💥 Exception loading questions:', error);
+      setQuestions([]);
     } finally {
       setLoading(false);
     }
@@ -131,20 +245,32 @@ export default function Practice() {
     // Calculate score
     let correctCount = 0;
     questions.forEach(q => {
-      if (selectedAnswers[q.id] === q.correct_answer) {
+      const userAnswer = selectedAnswers[q.id];
+      const correctAnswer = q.correct_answer_normalized ?? q.correct_answer;
+      
+      console.log('🔍 Checking answer:', {
+        questionId: q.id,
+        userAnswer,
+        correctAnswer,
+        match: String(userAnswer) === String(correctAnswer)
+      });
+      
+      if (String(userAnswer) === String(correctAnswer)) {
         correctCount++;
       }
     });
+    
+    console.log('✅ Final score:', correctCount, '/', questions.length);
     
     const percentage = (correctCount / questions.length) * 100;
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
     setScore(correctCount);
     setShowResults(true);
     
-    // Map level for database storage
-    const dbLevel = level === 'beginner' ? 'easy' : 
-                    level === 'intermediate' ? 'medium' : 
-                    level === 'advanced' ? 'hard' : level;
+    // Map level for database storage (practice_questions uses: Basic, Intermediate, Advanced)
+    const dbLevel = level === 'beginner' ? 'Basic' : 
+                    level === 'intermediate' ? 'Intermediate' : 
+                    level === 'advanced' ? 'Advanced' : level;
     
     // Get job recommendations based on skill and score
     const { data: roles } = await supabase
@@ -185,7 +311,8 @@ export default function Practice() {
   };
 
   // Check if all questions are answered
-  const allAnswered = questions.every(q => selectedAnswers[q.id]);
+  // Use hasOwnProperty to check if answer exists (handles 0 index correctly)
+  const allAnswered = questions.every(q => q.id in selectedAnswers);
   const percentage = showResults ? ((score / questions.length) * 100).toFixed(1) : 0;
 
   // Group languages by category
@@ -317,87 +444,8 @@ export default function Practice() {
                       )}
                     </div>
                     
-                    {/* MCQ Options with Voice Input */}
+                    {/* MCQ Options - Simple click-only interface */}
                     <div className="space-y-2">
-                      <div className="bg-blue-50 border-l-4 border-blue-500 p-3 mb-3">
-                        <p className="text-sm text-blue-800">
-                          💡 Click an option or use the microphone to speak your choice (e.g., "A", "Option A", "First option")
-                        </p>
-                      </div>
-                      
-                      {/* Voice Input Button */}
-                      <div className="flex justify-center mb-3">
-                        <VoiceInputButton
-                          onTranscript={(text) => {
-                            // Parse voice input to select option
-                            const lowerText = text.toLowerCase().trim();
-                            
-                            // Handle both array format (options: ["A", "B", "C"]) and object format (options: {a: "...", b: "..."})
-                            const isArrayFormat = Array.isArray(q.options);
-                            
-                            let selectedOption = null;
-                            
-                            if (isArrayFormat) {
-                              // Array format: match by index
-                              const numbers = ['first', 'second', 'third', 'fourth', 'fifth'];
-                              const letters = ['a', 'b', 'c', 'd', 'e'];
-                              
-                              q.options.forEach((option: string, idx: number) => {
-                                // Match by number (1, 2, 3, 4)
-                                if (lowerText === String(idx + 1) || lowerText === `option ${idx + 1}`) {
-                                  selectedOption = idx;
-                                }
-                                // Match by position (first, second, third, fourth)
-                                if (lowerText === numbers[idx] || lowerText === `${numbers[idx]} option`) {
-                                  selectedOption = idx;
-                                }
-                                // Match by letter (a, b, c, d)
-                                if (lowerText === letters[idx] || lowerText === `option ${letters[idx]}`) {
-                                  selectedOption = idx;
-                                }
-                                // Match by partial text
-                                if (option.toLowerCase().includes(lowerText) && lowerText.length > 3) {
-                                  selectedOption = idx;
-                                }
-                              });
-                            } else {
-                              // Object format: match by key
-                              const optionEntries = Object.entries(q.options || {});
-                              
-                              optionEntries.forEach(([key, value]: [string, any], idx: number) => {
-                                // Match by letter (a, b, c, d)
-                                if (lowerText === key.toLowerCase() || lowerText === `option ${key.toLowerCase()}`) {
-                                  selectedOption = key;
-                                }
-                                
-                                // Match by number (1, 2, 3, 4 or first, second, third, fourth)
-                                const numbers = ['first', 'second', 'third', 'fourth', 'fifth'];
-                                if (lowerText === String(idx + 1) || 
-                                    lowerText === `option ${idx + 1}` ||
-                                    lowerText === numbers[idx] ||
-                                    lowerText === `${numbers[idx]} option`) {
-                                  selectedOption = key;
-                                }
-                                
-                                // Match by partial text of the option itself
-                                if (value.toLowerCase().includes(lowerText) && lowerText.length > 3) {
-                                  selectedOption = key;
-                                }
-                              });
-                            }
-                            
-                            if (selectedOption !== null) {
-                              setSelectedAnswers(prev => ({
-                                ...prev,
-                                [q.id]: selectedOption
-                              }));
-                            } else {
-                              alert(`Could not understand "${text}". Try saying "A", "B", "C", "D" or "First", "Second", etc.`);
-                            }
-                          }}
-                        />
-                      </div>
-                      
                       {/* MCQ Options - Handle both array and object formats */}
                       {Array.isArray(q.options) ? (
                         // Array format: ["Option A", "Option B", "Option C", "Option D"]
@@ -405,7 +453,8 @@ export default function Practice() {
                           const letters = ['A', 'B', 'C', 'D', 'E'];
                           const selectedValue = String(selectedAnswers[q.id]);
                           const isSelected = selectedValue === String(idx);
-                          const correctValue = String(q.correct_answer);
+                          const correctAnswer = q.correct_answer_normalized ?? q.correct_answer;
+                          const correctValue = String(correctAnswer);
                           const isCorrect = showResults && correctValue === String(idx);
                           const isWrong = showResults && isSelected && !isCorrect;
                           

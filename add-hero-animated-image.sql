@@ -1,4 +1,4 @@
--- Replace hero video with animated 3D child image
+-- Replace hero video with 3D portrait people image
 -- Run this in Supabase SQL Editor
 
 -- First, remove any existing hero media
@@ -15,13 +15,13 @@ INSERT INTO public.media (
   alt_text,
   is_active
 ) VALUES (
-  '3D Young Child Watching Educational Content',
-  '3D rendered scene of young child engaged in learning and skill development',
-  '/assets/images/view-3d-young-child-watching-movie.jpg',
+  '3D Portrait People',
+  'Modern 3D portrait illustration for hero section',
+  '/assets/images/3d-portrait-people.jpg',
   'image',
   'hero',
   1,
-  '3D child watching educational content - learning platform',
+  '3D Portrait People - Modern professional illustration',
   true
 );
 

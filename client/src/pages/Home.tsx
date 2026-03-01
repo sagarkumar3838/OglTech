@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   TrendingUp, Brain, 
-  CheckCircle2, ArrowRight, Zap, BarChart3, 
+  CheckCircle2, Zap, BarChart3, 
   Code, Layers, Shield
 } from 'lucide-react';
 import { FadeIn } from '../components/animations/FadeIn';
@@ -14,6 +13,7 @@ import ContactSection from '../components/ContactSection';
 import FaqSection from '../components/FaqSection';
 import PricingSection from '../components/PricingSection';
 import { TechIcon } from '../utils/techIcons';
+import Team from '../components/Team';
 
 const Home = () => {
 
@@ -33,6 +33,9 @@ const Home = () => {
       
       {/* Testimonials */}
       <TestimonialsSection />
+      
+      {/* Team */}
+      <Team />
       
       {/* Pricing */}
       <PricingSection />
@@ -151,7 +154,7 @@ const HowItWorksSection = () => {
               <div className="text-center relative z-10">
                 <motion.div
                   className={`w-20 h-20 bg-gradient-to-br ${step.color} text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6 shadow-xl`}
-                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  whileHover={{ scale: 1.1, rotate: 0 }}
                   transition={{ duration: 0.6 }}
                 >
                   {step.num}

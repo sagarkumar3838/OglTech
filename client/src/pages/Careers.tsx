@@ -106,7 +106,7 @@ const Careers = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950">
       {/* Hero Section - Modern & Bold */}
       <section className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white">
         <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,transparent,rgba(255,255,255,0.5))]" />
@@ -163,15 +163,15 @@ const Careers = () => {
 
       {/* Filter Section - Modern Design */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10">
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-800 p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Explore Career Paths</h2>
-              <p className="text-gray-600 mt-1">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Explore Career Paths</h2>
+              <p className="text-gray-600 dark:text-slate-400 mt-1">
                 {filteredCareers.length} {filteredCareers.length === 1 ? 'career' : 'careers'} available
               </p>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-400">
               <Layers className="w-4 h-4" />
               <span>Filter by experience</span>
             </div>
@@ -184,7 +184,7 @@ const Careers = () => {
                 className={`px-6 py-3 rounded-xl font-semibold transition-all duration-200 ${
                   filter === level
                     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-105'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-105'
+                    : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-700 hover:scale-105'
                 }`}
               >
                 {level === 'all' ? 'All Careers' : level}
@@ -197,12 +197,12 @@ const Careers = () => {
       {/* Careers Grid - Modern Cards */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {filteredCareers.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-lg p-16 text-center">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Briefcase className="w-10 h-10 text-gray-400" />
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-16 text-center border border-gray-100 dark:border-slate-800">
+            <div className="w-20 h-20 bg-gray-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Briefcase className="w-10 h-10 text-gray-400 dark:text-slate-500" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">No Careers Found</h3>
-            <p className="text-gray-600 mb-6">Try selecting a different experience level to see more options.</p>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">No Careers Found</h3>
+            <p className="text-gray-600 dark:text-slate-400 mb-6">Try selecting a different experience level to see more options.</p>
             <button
               onClick={() => setFilter('all')}
               className="px-6 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition"
@@ -216,7 +216,7 @@ const Careers = () => {
               <Link
                 key={career.id}
                 to={`/careers/${career.slug}`}
-                className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-indigo-200 hover:-translate-y-1"
+                className="group bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-700 hover:-translate-y-1"
               >
                 {/* Card Header with Gradient */}
                 <div className="relative bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-8 text-white overflow-hidden">
@@ -239,44 +239,44 @@ const Careers = () => {
 
                 {/* Card Body */}
                 <div className="p-6">
-                  <p className="text-gray-600 mb-6 line-clamp-2 leading-relaxed">{career.description}</p>
+                  <p className="text-gray-600 dark:text-slate-400 mb-6 line-clamp-2 leading-relaxed">{career.description}</p>
 
                   {/* Skills Count */}
-                  <div className="flex items-center gap-6 mb-6 pb-6 border-b border-gray-100">
+                  <div className="flex items-center gap-6 mb-6 pb-6 border-b border-gray-100 dark:border-slate-800">
                     <div className="flex items-center gap-2 text-sm">
-                      <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
-                        <BookOpen className="w-4 h-4 text-indigo-600" />
+                      <div className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center">
+                        <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                       </div>
                       <div>
-                        <p className="font-bold text-gray-900">{career.skills?.length || 0}</p>
-                        <p className="text-xs text-gray-500">Skills</p>
+                        <p className="font-bold text-gray-900 dark:text-white">{career.skills?.length || 0}</p>
+                        <p className="text-xs text-gray-500 dark:text-slate-500">Skills</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                      <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <Target className="w-4 h-4 text-purple-600" />
+                      <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+                        <Target className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                       </div>
                       <div>
-                        <p className="font-bold text-gray-900">{(career.skills?.length || 0) * 3}</p>
-                        <p className="text-xs text-gray-500">Levels</p>
+                        <p className="font-bold text-gray-900 dark:text-white">{(career.skills?.length || 0) * 3}</p>
+                        <p className="text-xs text-gray-500 dark:text-slate-500">Levels</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Skills Preview */}
                   <div className="space-y-3">
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Key Skills</p>
+                    <p className="text-xs font-bold text-gray-500 dark:text-slate-500 uppercase tracking-wide">Key Skills</p>
                     <div className="flex flex-wrap gap-2">
                       {career.skills?.slice(0, 3).map((skill, idx) => (
                         <span
                           key={idx}
-                          className="px-3 py-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 text-xs font-semibold rounded-lg border border-indigo-100"
+                          className="px-3 py-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-semibold rounded-lg border border-indigo-100 dark:border-indigo-800"
                         >
                           {skill.name}
                         </span>
                       ))}
                       {career.skills?.length > 3 && (
-                        <span className="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-lg">
+                        <span className="px-3 py-1.5 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 text-xs font-semibold rounded-lg">
                           +{career.skills.length - 3} more
                         </span>
                       )}
@@ -284,8 +284,8 @@ const Careers = () => {
                   </div>
 
                   {/* CTA */}
-                  <div className="mt-6 pt-6 border-t border-gray-100">
-                    <div className="flex items-center justify-between text-indigo-600 font-bold group-hover:text-indigo-700">
+                  <div className="mt-6 pt-6 border-t border-gray-100 dark:border-slate-800">
+                    <div className="flex items-center justify-between text-indigo-600 dark:text-indigo-400 font-bold group-hover:text-indigo-700 dark:group-hover:text-indigo-300">
                       <span>Start Learning Path</span>
                       <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                     </div>
@@ -300,50 +300,50 @@ const Careers = () => {
       {/* Features Section - Modern 3-Column */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose Our Career Paths?</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Our Career Paths?</h2>
+          <p className="text-lg text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
             Structured learning designed to transform you into a job-ready professional
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-100 hover:border-indigo-200">
+          <div className="group bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-700">
             <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <TrendingUp className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-gray-900">Progressive Learning</h3>
-            <p className="text-gray-600 leading-relaxed">
+            <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Progressive Learning</h3>
+            <p className="text-gray-600 dark:text-slate-400 leading-relaxed">
               Master skills step-by-step with our 3-level system: Basic, Intermediate, and Advanced. Each level builds on the previous one.
             </p>
-            <div className="mt-6 flex items-center gap-2 text-indigo-600 font-semibold text-sm">
+            <div className="mt-6 flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
               <CheckCircle2 className="w-4 h-4" />
               <span>Structured curriculum</span>
             </div>
           </div>
 
-          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-100 hover:border-green-200">
+          <div className="group bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-100 dark:border-slate-800 hover:border-green-200 dark:hover:border-green-700">
             <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Award className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-gray-900">Earn Certifications</h3>
-            <p className="text-gray-600 leading-relaxed">
+            <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Earn Certifications</h3>
+            <p className="text-gray-600 dark:text-slate-400 leading-relaxed">
               Complete all levels in a career path to earn your certification and showcase your skills to potential employers.
             </p>
-            <div className="mt-6 flex items-center gap-2 text-green-600 font-semibold text-sm">
+            <div className="mt-6 flex items-center gap-2 text-green-600 dark:text-green-400 font-semibold text-sm">
               <CheckCircle2 className="w-4 h-4" />
               <span>Industry recognized</span>
             </div>
           </div>
 
-          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-100 hover:border-purple-200">
+          <div className="group bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-100 dark:border-slate-800 hover:border-purple-200 dark:hover:border-purple-700">
             <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Code2 className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-gray-900">Industry-Ready Skills</h3>
-            <p className="text-gray-600 leading-relaxed">
+            <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Industry-Ready Skills</h3>
+            <p className="text-gray-600 dark:text-slate-400 leading-relaxed">
               Learn the exact skills needed for real-world tech jobs. Our curriculum is designed with industry standards in mind.
             </p>
-            <div className="mt-6 flex items-center gap-2 text-purple-600 font-semibold text-sm">
+            <div className="mt-6 flex items-center gap-2 text-purple-600 dark:text-purple-400 font-semibold text-sm">
               <CheckCircle2 className="w-4 h-4" />
               <span>Job-ready training</span>
             </div>

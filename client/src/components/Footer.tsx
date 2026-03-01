@@ -7,14 +7,14 @@ import { Logo } from './Logo';
 const data = () => ({
   navigation: {
     product: [
-      { name: 'Features', href: '#features' },
+      { name: 'Features', href: '/features' },
       { name: 'Careers', href: '/careers' },
       { name: 'Assessments', href: '/practice' },
       { name: 'Dashboard', href: '/dashboard' },
     ],
     company: [
-      { name: 'About', href: '#about' },
-      { name: 'Contact', href: '#contact' },
+      { name: 'About', href: '/about' },
+      { name: 'Contact', href: '/contact' },
       { name: 'AI Assistant', href: '/ai-assistant' },
       { name: 'Analytics', href: '/analytics' },
     ],
@@ -22,24 +22,24 @@ const data = () => ({
       { name: 'Learning Path', href: '/learning-path' },
       { name: 'Profile', href: '/profile' },
       { name: 'Settings', href: '/settings' },
-      { name: 'Help', href: '#help' },
+      { name: 'Help', href: '/help' },
     ],
     legal: [
-      { name: 'Privacy', href: '#privacy' },
-      { name: 'Terms', href: '#terms' },
-      { name: 'Cookie Policy', href: '#cookies' },
+      { name: 'Privacy', href: '/privacy' },
+      { name: 'Terms', href: '/terms' },
+      { name: 'Cookie Policy', href: '/cookies' },
     ],
   },
   socialLinks: [
-    { icon: Twitter, label: 'Twitter', href: '#' },
-    { icon: Github, label: 'GitHub', href: '#' },
-    { icon: MessageCircle, label: 'Discord', href: '#' },
-    { icon: Linkedin, label: 'LinkedIn', href: '#' },
+    { icon: Twitter, label: 'Twitter', href: 'https://twitter.com/skilleval' },
+    { icon: Github, label: 'GitHub', href: 'https://github.com/skilleval' },
+    { icon: MessageCircle, label: 'Discord', href: 'https://discord.gg/skilleval' },
+    { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/skilleval' },
   ],
   bottomLinks: [
-    { href: '#privacy', label: 'Privacy Policy' },
-    { href: '#terms', label: 'Terms of Service' },
-    { href: '#cookies', label: 'Cookie Policy' },
+    { href: '/privacy', label: 'Privacy Policy' },
+    { href: '/terms', label: 'Terms of Service' },
+    { href: '/cookies', label: 'Cookie Policy' },
   ],
 });
 
