@@ -104,10 +104,10 @@ export default function Practice() {
     
     try {
       // Map Practice page levels to database levels
-      // Database has: Basic, Intermediate, Advanced (with capital letters)
-      const dbLevel = level === 'beginner' ? 'Basic' : 
-                      level === 'intermediate' ? 'Intermediate' : 
-                      level === 'advanced' ? 'Advanced' : level;
+      // Database has: beginner, intermediate, advanced (lowercase)
+      const dbLevel = level === 'beginner' ? 'beginner' : 
+                      level === 'intermediate' ? 'intermediate' : 
+                      level === 'advanced' ? 'advanced' : level;
       
       console.log('🔍 Loading questions with:', { skill, level, dbLevel });
       
@@ -267,10 +267,10 @@ export default function Practice() {
     setScore(correctCount);
     setShowResults(true);
     
-    // Map level for database storage (practice_questions uses: Basic, Intermediate, Advanced)
-    const dbLevel = level === 'beginner' ? 'Basic' : 
-                    level === 'intermediate' ? 'Intermediate' : 
-                    level === 'advanced' ? 'Advanced' : level;
+    // Map level for database storage (practice_questions uses: beginner, intermediate, advanced)
+    const dbLevel = level === 'beginner' ? 'beginner' : 
+                    level === 'intermediate' ? 'intermediate' : 
+                    level === 'advanced' ? 'advanced' : level;
     
     // Get job recommendations based on skill and score
     const { data: roles } = await supabase

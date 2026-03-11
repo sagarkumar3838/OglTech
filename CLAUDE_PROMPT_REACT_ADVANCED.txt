@@ -1,0 +1,42 @@
+Generate 50 React advanced level multiple-choice questions in CSV format.
+
+EXACT FORMAT (16 columns separated by commas):
+React,advanced,Question text here?,Option A,Option B,Option C,Option D,Correct answer text,Explanation text,topic_name,https://react.dev/link,https://youtube.com/results?search_query=react+topic,https://youtube.com/results?search_query=react+topic+hindi,https://youtube.com/results?search_query=react+topic+kannada,https://youtube.com/results?search_query=react+topic+tamil,https://youtube.com/results?search_query=react+topic+telugu
+
+RULES:
+1. Column 1: Always "React" (capital R)
+2. Column 2: Always "advanced" (lowercase)
+3. Column 3: The question
+4. Columns 4-7: Four answer options (A, B, C, D)
+5. Column 8: The EXACT text of the correct answer (must match one of the options)
+6. Column 9: Brief explanation why the answer is correct
+7. Column 10: Topic name (e.g., "Fiber", "Reconciliation", "SSR", "Performance")
+8. Column 11: MDN or React docs link (use https://react.dev/learn/... or leave empty)
+9. Column 12: YouTube English search link (format: https://youtube.com/results?search_query=react+your+topic)
+10. Column 13: YouTube Hindi search link (format: https://youtube.com/results?search_query=react+topic+hindi)
+11. Column 14: YouTube Kannada search link (format: https://youtube.com/results?search_query=react+topic+kannada)
+12. Column 15: YouTube Tamil search link (format: https://youtube.com/results?search_query=react+topic+tamil)
+13. Column 16: YouTube Telugu search link (format: https://youtube.com/results?search_query=react+topic+telugu)
+
+ADVANCED TOPICS TO COVER:
+- React Fiber architecture
+- Reconciliation algorithm
+- Virtual DOM internals
+- Server-side rendering (SSR) with Next.js
+- Static site generation (SSG)
+- React Suspense and Concurrent Mode
+- useTransition and useDeferredValue
+- Advanced performance optimization techniques
+- React portals
+- Higher-order components (HOCs)
+- Render props pattern
+- Compound components
+- React Testing Library advanced patterns
+- TypeScript with React
+- Micro-frontends
+- React internals and source code
+
+EXAMPLE:
+React,advanced,What is React Fiber?,A new reconciliation algorithm,A CSS framework,A state management library,A testing tool,A new reconciliation algorithm,React Fiber is the new reconciliation engine that enables incremental rendering and better performance,Fiber Architecture,https://react.dev/blog/2022/03/29/react-v18#what-is-concurrent-react,https://youtube.com/results?search_query=react+fiber+explained,https://youtube.com/results?search_query=react+fiber+hindi,https://youtube.com/results?search_query=react+fiber+kannada,https://youtube.com/results?search_query=react+fiber+tamil,https://youtube.com/results?search_query=react+fiber+telugu
+
+Now generate 50 questions following this exact format. Output only the CSV lines, no headers, no extra text.

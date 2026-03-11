@@ -1,0 +1,37 @@
+Generate 50 React intermediate level multiple-choice questions in CSV format.
+
+EXACT FORMAT (16 columns separated by commas):
+React,intermediate,Question text here?,Option A,Option B,Option C,Option D,Correct answer text,Explanation text,topic_name,https://react.dev/link,https://youtube.com/results?search_query=react+topic,https://youtube.com/results?search_query=react+topic+hindi,https://youtube.com/results?search_query=react+topic+kannada,https://youtube.com/results?search_query=react+topic+tamil,https://youtube.com/results?search_query=react+topic+telugu
+
+RULES:
+1. Column 1: Always "React" (capital R)
+2. Column 2: Always "intermediate" (lowercase)
+3. Column 3: The question
+4. Columns 4-7: Four answer options (A, B, C, D)
+5. Column 8: The EXACT text of the correct answer (must match one of the options)
+6. Column 9: Brief explanation why the answer is correct
+7. Column 10: Topic name (e.g., "Hooks", "State Management", "Performance")
+8. Column 11: MDN or React docs link (use https://react.dev/learn/... or leave empty)
+9. Column 12: YouTube English search link (format: https://youtube.com/results?search_query=react+your+topic)
+10. Column 13: YouTube Hindi search link (format: https://youtube.com/results?search_query=react+topic+hindi)
+11. Column 14: YouTube Kannada search link (format: https://youtube.com/results?search_query=react+topic+kannada)
+12. Column 15: YouTube Tamil search link (format: https://youtube.com/results?search_query=react+topic+tamil)
+13. Column 16: YouTube Telugu search link (format: https://youtube.com/results?search_query=react+topic+telugu)
+
+TOPICS TO COVER:
+- React Hooks (useState, useEffect, useContext, useReducer, useMemo, useCallback)
+- Component lifecycle
+- State management
+- Props and prop drilling
+- Context API
+- Performance optimization
+- React Router
+- Forms and controlled components
+- Error boundaries
+- Custom hooks
+- Code splitting and lazy loading
+
+EXAMPLE:
+React,intermediate,What is the purpose of useEffect hook?,To perform side effects,To manage state,To create components,To handle events,To perform side effects,useEffect allows you to perform side effects in function components like data fetching and subscriptions,Hooks,https://react.dev/reference/react/useEffect,https://youtube.com/results?search_query=react+useEffect+explained,https://youtube.com/results?search_query=react+useEffect+hindi,https://youtube.com/results?search_query=react+useEffect+kannada,https://youtube.com/results?search_query=react+useEffect+tamil,https://youtube.com/results?search_query=react+useEffect+telugu
+
+Now generate 50 questions following this exact format. Output only the CSV lines, no headers, no extra text.
