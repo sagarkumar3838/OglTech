@@ -1,0 +1,48 @@
+name: "CodeQL Configuration"
+
+# Exclude paths that cause parse errors or are not relevant for security analysis
+paths-ignore:
+  # SQL files - not JavaScript/TypeScript
+  - '**/*.sql'
+  
+  # Data files - not code
+  - '**/*.csv'
+  - '**/*.json'
+  
+  # Documentation - not code
+  - '**/*.md'
+  - '**/*.txt'
+  
+  # Batch files - not JavaScript/TypeScript
+  - '**/*.bat'
+  - '**/*.ps1'
+  
+  # Question data directory
+  - '**/questions/**'
+  - '**/questions-fixed/**'
+  
+  # Generated or problematic scripts
+  - '**/scripts/generate-*.ts'
+  - '**/scripts/transform-*.ts'
+  
+  # Dependencies and build outputs
+  - '**/node_modules/**'
+  - '**/dist/**'
+  - '**/build/**'
+  - '**/.next/**'
+  
+  # Environment files
+  - '**/.env*'
+  
+  # Git files
+  - '**/.git/**'
+
+# Only scan actual source code
+paths:
+  - 'client/src/**'
+  - 'server/src/**'
+  - 'functions/src/**'
+
+# Query filters
+queries:
+  - uses: security-and-quality
