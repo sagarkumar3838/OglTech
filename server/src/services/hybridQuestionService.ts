@@ -1,4 +1,5 @@
 import { supabase } from '../config/supabase';
+import { randomBytes } from 'crypto';
 import { AIProviderManager } from './aiProviders/AIProviderManager';
 import questionBank from '../data/question-bank.json';
 
@@ -190,7 +191,8 @@ export class HybridQuestionService {
     try {
       const questionIds: string[] = [];
       const questionsToInsert = questions.map((q) => {
-        const questionId = `${skill.toLowerCase().replace(/\s+/g, '-')}-${level.toLowerCase()}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const randomSuffix = randomBytes(8).toString('hex');
+        const questionId = `${skill.toLowerCase().replace(/\s+/g, '-')}-${level.toLowerCase()}-${Date.now()}-${randomSuffix}`;
         questionIds.push(questionId);
         
         return {

@@ -16,11 +16,26 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// CORS configuration
+// CORS configuration - Security: Only allow specific origins
+const allowedOrigins = process.env.CORS_ORIGIN 
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : ['http://localhost:5173', 'http://localhost:3000'];
+
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || '*',
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 // Middleware
@@ -94,9 +109,15 @@ app.use((req: Request, res: Response) => {
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: any) => {
   console.error('Error:', err);
+  
+  // Don't expose error details in production
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  
   res.status(500).json({ 
     error: 'Internal server error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+    message: isDevelopment ? err.message : 'Something went wrong',
+    // Never expose stack traces in production
+    ...(isDevelopment && { stack: err.stack })
   });
 });
 

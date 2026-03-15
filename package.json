@@ -20,7 +20,8 @@
     "seed:careers-client": "npx tsx scripts/seed-careers-client.ts",
     "upload-csv-options": "npx tsx scripts/upload-csv-with-options.ts",
     "upload:all-csv": "npx tsx scripts/upload-all-csv-no-duplicates.ts",
-    "upload:multiple-answers": "npx tsx scripts/upload-csv-with-multiple-answers.ts"
+    "upload:multiple-answers": "npx tsx scripts/upload-csv-with-multiple-answers.ts",
+    "upload:upsert": "npx tsx scripts/upload-csv-no-duplicates.ts"
   },
   "keywords": [
     "evaluation",

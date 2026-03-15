@@ -28,7 +28,7 @@ Use this template for each career/level combination:
 I need you to generate 100 technical evaluation questions for [CAREER] at [LEVEL] level.
 
 Career: [CAREER NAME]
-Level: [BASIC/INTERMEDIATE/ADVANCED]
+Level: [BASIC/INTERMEDIATE/ADVANCED
 Skills to cover: [LIST OF SKILLS]
 
 Level Guidelines:
