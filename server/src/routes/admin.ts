@@ -2,8 +2,20 @@ import { Router, Request, Response } from 'express';
 import { questionBank } from '../services/rag/QuestionBank';
 import { aiProviderManager } from '../services/aiProviders/AIProviderManager';
 import admin from '../config/firebase';
+import rateLimit from 'express-rate-limit';
 
 const router = Router();
+
+// Apply rate limiting to all admin routes
+const adminLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per window
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+router.use(adminLimiter);
+
 const db = admin.firestore();
 
 // Get question bank statistics
