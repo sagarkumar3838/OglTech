@@ -1,4 +1,5 @@
 import { supabase } from '../config/supabase';
+import * as crypto from 'crypto';
 
 interface EvaluationSession {
   session_id: string;
@@ -24,7 +25,8 @@ export class SessionService {
     level: string,
     questionIds: string[]
   ): Promise<string> {
-    const sessionId = `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const randomSuffix = crypto.randomBytes(16).toString('hex');
+    const sessionId = `session-${Date.now()}-${randomSuffix}`;
     
     const { error } = await supabase
       .from('evaluation_sessions')
