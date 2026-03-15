@@ -160,8 +160,25 @@ router.post('/ai-chat', async (req, res) => {
       timestamp: new Date().toISOString()
     });
 
-    if (!message) {
-      return res.status(400).json({ error: 'Message is required' });
+    // Input validation
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ error: 'Valid message is required' });
+    }
+
+    // Sanitize and validate message
+    const sanitizedMessage = message.trim();
+    
+    if (sanitizedMessage.length === 0) {
+      return res.status(400).json({ error: 'Message cannot be empty' });
+    }
+    
+    if (sanitizedMessage.length > 4000) {
+      return res.status(400).json({ error: 'Message too long (max 4000 characters)' });
+    }
+
+    // Optional: Validate userId if provided
+    if (userId && typeof userId !== 'string') {
+      return res.status(400).json({ error: 'Invalid userId format' });
     }
 
     // Check if any provider is configured
@@ -175,7 +192,7 @@ router.post('/ai-chat', async (req, res) => {
     }
 
     // Try to get response with automatic fallback
-    const { response: aiResponse, provider } = await getAIResponse(message);
+    const { response: aiResponse, provider } = await getAIResponse(sanitizedMessage);
 
     res.json({
       response: aiResponse,

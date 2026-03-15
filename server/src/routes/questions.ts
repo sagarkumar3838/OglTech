@@ -1,4 +1,5 @@
 import express from 'express';
+import { randomBytes } from 'crypto';
 import { HybridQuestionService } from '../services/hybridQuestionService';
 
 const router = express.Router();
@@ -20,6 +21,7 @@ router.post('/generate', async (req, res) => {
   try {
     const { skill, level, count = 10, useAI = true } = req.body;
 
+    // Input validation
     if (!skill || !level) {
       return res.status(400).json({
         success: false,
@@ -27,22 +29,37 @@ router.post('/generate', async (req, res) => {
       });
     }
 
+    // Sanitize and validate inputs
+    const sanitizedSkill = String(skill).trim().substring(0, 100);
+    const sanitizedLevel = String(level).trim().toUpperCase();
+    const validatedCount = Math.min(Math.max(parseInt(count) || 10, 1), 100); // Limit 1-100
+    
+    // Validate level
+    const validLevels = ['BASIC', 'BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'EASY', 'MEDIUM', 'HARD'];
+    if (!validLevels.includes(sanitizedLevel)) {
+      return res.status(400).json({
+        success: false,
+        error: `Invalid level. Must be one of: ${validLevels.join(', ')}`
+      });
+    }
+
     const questions = await questionService.generateQuestions(
-      skill,
-      level,
-      count,
-      useAI
+      sanitizedSkill,
+      sanitizedLevel,
+      validatedCount,
+      Boolean(useAI)
     );
 
-    // Generate evaluation ID
-    const evaluationId = `eval-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    // Generate evaluation ID using cryptographically secure random
+    const randomSuffix = randomBytes(16).toString('hex');
+    const evaluationId = `eval-${Date.now()}-${randomSuffix}`;
 
     res.json({
       success: true,
       data: {
         evaluation_id: evaluationId,
-        skill,
-        level,
+        skill: sanitizedSkill,
+        level: sanitizedLevel,
         count: questions.length,
         questions,
         source: useAI ? 'AI' : 'Database'

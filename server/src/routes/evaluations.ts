@@ -9,15 +9,33 @@ router.post('/submit', async (req: Request, res: Response): Promise<void> => {
   try {
     const { evaluationId, userId, candidateName, answers } = req.body;
 
+    // Input validation
     if (!evaluationId || !userId || !answers) {
-      res.status(400).json({ error: 'Missing required fields' });
+      res.status(400).json({ error: 'Missing required fields: evaluationId, userId, answers' });
+      return;
+    }
+
+    // Sanitize inputs
+    const sanitizedEvaluationId = String(evaluationId).trim().substring(0, 200);
+    const sanitizedUserId = String(userId).trim().substring(0, 200);
+    const sanitizedCandidateName = candidateName ? String(candidateName).trim().substring(0, 200) : '';
+    
+    // Validate answers is an array
+    if (!Array.isArray(answers)) {
+      res.status(400).json({ error: 'Answers must be an array' });
+      return;
+    }
+    
+    // Limit answers array size
+    if (answers.length > 200) {
+      res.status(400).json({ error: 'Too many answers (max 200)' });
       return;
     }
 
     // Get questions with correct answers
     const questionsSnapshot = await db
       .collection('questions')
-      .where('evaluation_id', '==', evaluationId)
+      .where('evaluation_id', '==', sanitizedEvaluationId)
       .get();
 
     const questions = questionsSnapshot.docs.map((doc) => doc.data());
@@ -35,9 +53,9 @@ router.post('/submit', async (req: Request, res: Response): Promise<void> => {
 
     // Store submission
     const submissionRef = await db.collection('submissions').add({
-      evaluation_id: evaluationId,
-      user_id: userId,
-      candidate_name: candidateName,
+      evaluation_id: sanitizedEvaluationId,
+      user_id: sanitizedUserId,
+      candidate_name: sanitizedCandidateName,
       answers,
       results,
       score,
